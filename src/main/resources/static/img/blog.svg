@@ -1,0 +1,8 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="263.5px" height="263.5px">
+  <path fill-rule="evenodd"  stroke="rgb(255, 255, 255)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" fill="rgb(111, 66, 193)"
+        d="M10.500,0.500 L252.500,0.500 C258.023,0.500 262.500,4.977 262.500,10.500 L262.500,252.500 C262.500,258.023 258.023,262.500 252.500,262.500 L10.500,262.500 C4.977,262.500 0.500,258.023 0.500,252.500 L0.500,10.500 C0.500,4.977 4.977,0.500 10.500,0.500 Z"/>
+  <text kerning="auto" font-family="Adobe Heiti Std" fill="rgb(0, 0, 0)" font-size="273px" x="0px" y="236.062px"><tspan font-size="273px" font-family="BoLeHuaiShuti" fill="#FFFFFF">&#25991;</tspan></text>
+</svg>

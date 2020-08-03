@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="css/index.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <p style="color: #ff0000">[[${msg}]]</p>
+        管理员：
+        <span th:text="${name}"></span>
+    </body>
+</html>
