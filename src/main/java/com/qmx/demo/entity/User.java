@@ -19,7 +19,6 @@ import lombok.experimental.Accessors;
  * @author 404name
  * @since 2020-08-03
  */
-@Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="User对象", description="")
@@ -59,4 +58,104 @@ public class User implements Serializable {
     private Integer deleted;
 
 
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Integer getUserclass() {
+        return userclass;
+    }
+
+    public void setUserclass(Integer userclass) {
+        this.userclass = userclass;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
+    public String getHeadsculpture() {
+        return headsculpture;
+    }
+
+    public void setHeadsculpture(String headsculpture) {
+        this.headsculpture = headsculpture;
+    }
+
+    public String getHeadpicture() {
+        return headpicture;
+    }
+
+    public void setHeadpicture(String headpicture) {
+        this.headpicture = headpicture;
+    }
+
+    public Date getRegisterdate() {
+        return registerdate;
+    }
+
+    public void setRegisterdate(Date registerdate) {
+        this.registerdate = registerdate;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
 }

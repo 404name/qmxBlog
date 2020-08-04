@@ -55,5 +55,95 @@ public class Comment implements Serializable {
     @ApiModelProperty(value = "逻辑删除")
     private Integer deleted;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public Integer getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(Integer commentid) {
+        this.commentid = commentid;
+    }
+
+    public Integer getTopostingid() {
+        return topostingid;
+    }
+
+    public void setTopostingid(Integer topostingid) {
+        this.topostingid = topostingid;
+    }
+
+    public Integer getTocommentid() {
+        return tocommentid;
+    }
+
+    public void setTocommentid(Integer tocommentid) {
+        this.tocommentid = tocommentid;
+    }
+
+    public Integer getCommentclass() {
+        return commentclass;
+    }
+
+    public void setCommentclass(Integer commentclass) {
+        this.commentclass = commentclass;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCommentcontent() {
+        return commentcontent;
+    }
+
+    public void setCommentcontent(String commentcontent) {
+        this.commentcontent = commentcontent;
+    }
+
+    public Date getCommentdate() {
+        return commentdate;
+    }
+
+    public void setCommentdate(Date commentdate) {
+        this.commentdate = commentdate;
+    }
+
+    public Date getUpdatadate() {
+        return updatadate;
+    }
+
+    public void setUpdatadate(Date updatadate) {
+        this.updatadate = updatadate;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
 }
