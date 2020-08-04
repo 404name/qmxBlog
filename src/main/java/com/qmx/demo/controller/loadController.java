@@ -34,16 +34,13 @@ public class loadController {
         if(queryWrapper == null || user == null){
             model.addAttribute("msg","错误的密码");
             System.out.println(22);
-            return "index";
-        }else if(user.getUserclass() == 4){
+            return "login";
+        }else{
             //管理员管理界面
             String name = user.getUsername();
             model.addAttribute("name",name);
-            return "test";
-        }
-        else{
-            //用户进入首页
-            return "main";
+            model.addAttribute("user",user);
+            return "index";
         }
     }
 }
