@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--请适当使用搜索功能，检索href="#",查找当前空缺接口-->
+<head>
+    <!--  防止乱码-->
+    <meta charset="utf-8">
+    <!--  提升网页兼容性-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+    <title>启明星工作室</title>
+
+    <!-- 自定义字体-->
+    <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- 自己的css-->
+    <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+
+    <style>
+        /*去除a标签的所有效果*/
+        /*包含以下四种的链接*/
+        a {
+            text-decoration: none;
+        }
+        /*正常的未被访问过的链接*/
+        a:link {
+            text-decoration: none;
+        }
+        /*已经访问过的链接*/
+        a:visited {
+            text-decoration: none;
+        }
+        /*鼠标划过(停留)的链接*/
+        a:hover {
+            text-decoration: none;
+        }
+        /* 正在点击的链接*/
+        a:active {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+<!-- 页面整体 -->
+<div id="wrapper">
+
+    <!-- 侧边栏 -->
+    <div th:replace="commonModule/module::sideBar(active='user')"></div>
+    <!-- 侧边栏到此为止啦 -->
+
+    <!-- 接下来是主内容区域 -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- 主内容 -->
+        <div id="content">
+            <!-- 顶部头条内容 -->
+            <div th:replace="commonModule/module::navBar"></div>
+            <!-- 顶栏到此为止 -->
+
+            <!-- 主页内容 -->
+            <div class="container-fluid">
+                <div id="maincontainer">
+                    <h2>鼠标悬停状态表格</h2>
+                    <p>.table-hover 类可以为表格的每一行添加鼠标悬停效果（灰色背景）：</p>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>学号</th>
+                            <th>邮箱</th>
+                            <th>密码</th>
+                            <th>性别</th>
+                            <th>类别</th>
+                            <th>逻辑删除</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="listcontent">
+                        </tbody>
+                        <tbody>
+                            <form action="/user/add" method="post">
+                                <th><input type="text" name="username"></th>
+                                <th><input type="text" name="schoolid"></th>
+                                <th><input type="text" name="email"></th>
+                                <th><input type="password" name="password"></th>
+                                <th><input type="text" name="gender"></th>
+                                <th><input type="text" name="class"></th>
+                                <th><input type="text" name="deleted"></th>
+                                <th><button type="submit">添加</button></th>
+                            </form>
+                        </tbody>
+                    </table>
+                    <button id="pre" onclick="pre()">上一页</button>
+                    <div class="form-group">
+                        <label for="sel1">下拉菜单:</label>
+                        <select class="form-control" id="sel1">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel2">显示条数:</label>
+                        <select class="form-control" id="sel2">
+                        </select>
+                    </div>
+                    <button id="next" onclick="next()">下一页</button>
+                </div>
+            </div>
+        </div>
+        <!-- 主体内容结束-->
+
+        <!-- 页脚 -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; 三峡大学启明星工作室 2020 - 鄂ICP备15002584号</span>
+                </div>
+            </div>
+        </footer>
+        <!--页脚也就这么点点-->
+
+    </div>
+    <!-- 总内容也就这么多了-->
+
+</div>
+<!--主体的区域结束了，接下来就是弹窗的div等部分-->
+
+<!-- 回到最上-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!--登出时弹出的窗口-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body m-0">保持登陆以防止错过重要信息</div>
+            <div class="modal-body m-0">您确定要这么做吗？</div>
+
+            <div class="modal-footer">
+                <!--                                                          这个命令可以开关这个div-->
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                <a class="btn btn-primary" th:href="@{login.html}">确定</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 使用Boostrap之前必须先引用这两个-->
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- 一些js插件-->
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- 自己的js文件-->
+<script th:src="@{/static/js/index.js}"></script>
+
+<!-- 关于表格的js插件 -->
+<script th:src="@{/static/vendor/chart.js/Chart.min.js}"></script>
+
+<!--引入表格 一个折线图另一个饼图-->
+<script th:src="@{/static/js/graph/chart-area-demo.js}"></script>
+<script th:src="@{/static/js/graph/chart-pie-demo.js}"></script>
+    <script type="text/javascript">
+        var page = 1;
+        var size = 5;
+        function get() {
+            $.post("/user/selectPage?page="+page+"&size="+size,function (data) {
+                var pages = data.records;
+                console.log(pages);
+                if(page > data.pages){
+                    page--;
+                    return;
+                }
+                // 填入数据
+                let temp = "";
+                for(let i = 0; i < data.size; i++){
+                    if(pages[i] == null){
+                        temp+= "<tr>"+
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无消息" + "</td>" +
+                        "</tr>";
+                    }else {
+                        temp += "<tr>" +
+                                    "<td>" + pages[i].username + "</td>" +
+                                    "<td>" + pages[i].schoolid+ "</td>" +
+                                    "<td>" + pages[i].email+ "</td>" +
+                                    "<td>" + pages[i].password + "</td>" +
+                                    "<td>" + pages[i].gender + "</td>" +
+                                    "<td>" + pages[i].userclass + "</td>" +
+                                    "<td>" + pages[i].deleted + "</td>" +
+                                    '<td><a href="/user/show?id='+pages[i].id +'">详细|</a>' +
+                                    '<a href="/user/updata?id='+pages[i].id +'">修改|</a>' +
+                                    '<a href="/user/delete?id='+pages[i].id +'">删除|</a>' +
+                                    '</td>' +
+                                "</tr>";
+                    }
+                }
+                $("#listcontent").html(temp);
+                //填入页面
+                temp = "";
+                for(let i = 1; i <= data.pages; i++){
+                    if(data.current == i){
+                        temp += '<option selected value="'+i+'">第'+i+'页</option>';
+                    }else {
+                        temp += '<option value="' + i + '">第' + i + '页</option>';
+                    }
+                }
+                $("#sel1").html(temp);
+                //填入size
+                temp = "";
+                var Max = 20;
+                if(data.total < Max){
+                    Max = data.total;
+                }
+                for(let i = 1; i <= Max; i++){
+                    if(size == i){
+                        temp += '<option selected value="'+i+'">'+i+'条</option>';
+                    }else {
+                        temp += '<option value="' + i + '">' + i + '条</option>';
+                    }
+                }
+                $("#sel2").html(temp);
+            })
+        }
+        window.onload = function () {
+            get();
+        }
+        function pre() {
+            if(page>0){
+                page--;
+                get();
+            }
+        }
+        function next() {
+            page++;
+            get();
+        }
+        function check(){
+            $.post({
+                url: "/user/ajaxCheck",
+                data: { "username": $("#username").val(),
+                    "password": $("#password").val()
+                },
+                success:function(data,state){
+                    var umsg = data["Umsg"];
+                    var pmsg = data["Pmsg"];
+                    console.log(umsg);
+                    console.log(pmsg);
+                    $("#Umsg").text(umsg);
+                    $("#Pmsg").text(pmsg);
+                }
+            })
+        }
+        $("#sel1").change(function(){
+            page = $("#sel1").val();
+            get();
+        });
+        $("#sel2").change(function(){
+            size = $("#sel2").val();
+            get();
+        });
+    </script>
+</body>
+
+</html>

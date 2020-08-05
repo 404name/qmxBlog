@@ -79,6 +79,9 @@ public class UserController {
 
     @RequestMapping("/selectAllUser")
     public List<User> getuser(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
+        if(loadController.loadclass != 5){
+            return null;
+        }
         if(logic == 1){
             QueryWrapper<User> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("deleted","0");
@@ -138,9 +141,12 @@ public class UserController {
                                   @RequestParam("userclass")String userclass,
                                   Model model) throws Exception{
         Integer intGender,intUserClass;
-        if (gender.equals("male"))
+        if (gender.equals("male")){
             intGender=1;
-        else    intGender=0;
+        }
+        else {
+            intGender = 0;
+        }
         switch (userclass){
             case "游客": intUserClass = 0;break;
             case "开发组": intUserClass =1;break;
