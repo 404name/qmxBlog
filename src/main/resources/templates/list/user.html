@@ -379,223 +379,49 @@
 
             <!-- 主页内容 -->
             <div class="container-fluid">
-
-                <!--轮播图部分-->
-                <!--首先是轮播图的头框-->
-                <!--                导航   内容横向排列  导航栏风格  背景色-->
-                <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow" style="border-radius: 3px;">
-                    <!--        navbar-brand设置导航条组件内的商标名一类性质的内容-->
-                    <a class="navbar-brand" href="#">欢迎来到启明星工作室网站</a>
-                    <!--        这是个按钮是在界面缩小时才显示的按钮，用于显示隐藏起来的导航内容-->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <!--            这是按钮的图标，三道杠二队长-->
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <!--        自动排版，指自动左右分散-->
-                        <ul class="navbar-nav mr-auto form-inline">
-                        </ul>
-
-                        <div class="navbar-nav form-inline">
-                            <a class="nav-link" href="#"><i class="fas fa-envelope fa-info"></i> 关于我们</a>
-                            <a class="nav-link" href="#"><i class="fas fa-envelope fa-paper-plane"></i> 联系我们</a>
-                            <a class="nav-link" href="#"><i class="fas fa-envelope fa-comments"></i> 问题反馈</a>
-                        </div>
+                <div id="maincontainer">
+                    <h2>鼠标悬停状态表格</h2>
+                    <p>.table-hover 类可以为表格的每一行添加鼠标悬停效果（灰色背景）：</p>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>学号</th>
+                            <th>邮箱</th>
+                            <th>密码</th>
+                            <th>性别</th>
+                            <th>类别</th>
+                            <th>逻辑删除</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="listcontent">
+                        </tbody>
+                        <tbody>
+                            <form action="/user/add" method="post">
+                                <th><input type="text" name="username"></th>
+                                <th><input type="text" name="schoolid"></th>
+                                <th><input type="text" name="email"></th>
+                                <th><input type="password" name="password"></th>
+                                <th><input type="text" name="gender"></th>
+                                <th><input type="text" name="class"></th>
+                                <th><input type="text" name="deleted"></th>
+                                <th><button type="submit">添加</button></th>
+                            </form>
+                        </tbody>
+                    </table>
+                    <button id="pre" onclick="pre()">上一页</button>
+                    <div class="form-group">
+                        <label for="sel1">下拉菜单:</label>
+                        <select class="form-control" id="sel1">
+                        </select>
                     </div>
-                </nav>
-                <div id="myCarousel" class="carousel slide shadow" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <!--       该属性保存一部分id         轮播图中第几张图的下标  第一张轮播图-->
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                    </ol>
-                    <div class="carousel-inner" style="border-radius: 5px;">
-                        <div class="carousel-item active">
-                            <!--                裁切图片大小-->
-                            <div class="m-0" style="width: 100%;height: 600px; overflow: hidden;">
-                                <img style="margin-top: -300px; width: 100%;"
-                                     th:src="@{/static/img/carousel/carousel-3.jpg}" alt="">
-                            </div>
-
-                            <div class="container">
-                                <div class="carousel-caption text-left">
-                                    <h1>xxxxxxxx</h1>
-                                    <p>xxxxxxxx</p>
-                                    <!--                                按钮  按钮样式-->
-                                    <p><a class="btn btn-lg btn-primary" href="#" role="button">xxxx</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-
-                            <div style="width: 100%;height: 600px; overflow: hidden;">
-                                <img style="margin-top: -300px; width: 100%;"
-                                     th:src="@{/static/img/carousel/carousel-1.jpg}" alt="">
-                            </div>
-
-                            <div class="container">
-                                <div class="carousel-caption">
-                                    <h1>xxxxxxx</h1>
-                                    <p>xxxxxxxxxxxx</p>
-                                    <p><a class="btn btn-lg btn-primary" href="#" role="button">xxxxxxxxx</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-
-                            <div class="m-0" style="width: 100%;height: 600px; overflow: hidden;">
-                                <img style="margin-top: -300px; width: 100%;"
-                                     th:src="@{/static/img/carousel/carousel-2.jpg}" alt="">
-                            </div>
-
-                            <div class="container">
-                                <div class="carousel-caption text-right">
-                                    <h1>xxxxxxxxxx</h1>
-                                    <p>xxxxxxxxxxxxxxxx</p>
-                                    <p><a class="btn btn-lg btn-primary" href="#" role="button">xxxxxxxxxx</a></p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="sel2">显示条数:</label>
+                        <select class="form-control" id="sel2">
+                        </select>
                     </div>
-                    <!--    用于响应本页面上的myCarousel来改变data-slide的下标，达到自主切换的轮播图-->
-                    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                        <!--              箭头-->
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span>上一页</span>
-                    </a>
-                    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                        <span>下一页</span>
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- 轮播图结束-->
-
-                <!--统计卡片-->
-                <div class="row mt-3">
-
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-primary text-uppercase mb-1">现有软件组用户</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{接口}}人</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-code fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--统计卡片-->
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-success text-uppercase mb-1">现有硬件组用户</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{接口}}人</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-microchip fa-2x text-success"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--统计卡片-->
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-warning text-uppercase mb-1">讨论帖数量</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-warning"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 统计卡片结束-->
-
-                <div class="row">
-                    <!--表格区域-->
-                    <div class="col-xl-8 col-lg-7">
-                        <div class="card shadow mb-4">
-                            <!-- 表格内容+表格功能+下拉菜单 -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">每周签到人数统计</h6>
-                                <!--                  下拉菜单-->
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink1">
-                                        <a class="dropdown-item" href="#">刷新</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 表格主体 -->
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <!--                    canvas绘图-->
-                                    <canvas id="myAreaChart"></canvas>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 饼图主体 -->
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <!-- 饼图头部 -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">本周两组签到比例</h6>
-                                <!--                  下拉菜单-->
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink2"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink2">
-                                        <a class="dropdown-item" href="#">刷新</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 主体 -->
-                            <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <!--                    签到比例饼图的canvas-->
-                                    <canvas id="myPieChart"></canvas>
-
-                                </div>
-                                <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> 硬件组
-                    </span>
-                                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> 软件组
-                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button id="next" onclick="next()">下一页</button>
                 </div>
             </div>
         </div>
@@ -665,7 +491,112 @@
 <!--引入表格 一个折线图另一个饼图-->
 <script th:src="@{/static/js/graph/chart-area-demo.js}"></script>
 <script th:src="@{/static/js/graph/chart-pie-demo.js}"></script>
-
+    <script type="text/javascript">
+        var page = 1;
+        var size = 5;
+        function get() {
+            $.post("/user/selectPage?page="+page+"&size="+size,function (data) {
+                var pages = data.records;
+                console.log(pages);
+                if(page > data.pages){
+                    page--;
+                    return;
+                }
+                // 填入数据
+                let temp = "";
+                for(let i = 0; i < data.size; i++){
+                    if(pages[i] == null){
+                        temp+= "<tr>"+
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无信息" + "</td>" +
+                        "<td>" + "暂无消息" + "</td>" +
+                        "</tr>";
+                    }else {
+                        temp += "<tr>" +
+                                    "<td>" + pages[i].username + "</td>" +
+                                    "<td>" + pages[i].schoolid+ "</td>" +
+                                    "<td>" + pages[i].email+ "</td>" +
+                                    "<td>" + pages[i].password + "</td>" +
+                                    "<td>" + pages[i].gender + "</td>" +
+                                    "<td>" + pages[i].userclass + "</td>" +
+                                    "<td>" + pages[i].deleted + "</td>" +
+                                    '<td><a href="/user/show?id='+pages[i].id +'">详细|</a>' +
+                                    '<a href="/user/updata?id='+pages[i].id +'">修改|</a>' +
+                                    '<a href="/user/delete?id='+pages[i].id +'">删除|</a>' +
+                                    '</td>' +
+                                "</tr>";
+                    }
+                }
+                $("#listcontent").html(temp);
+                //填入页面
+                temp = "";
+                for(let i = 1; i <= data.pages; i++){
+                    if(data.current == i){
+                        temp += '<option selected value="'+i+'">第'+i+'页</option>';
+                    }else {
+                        temp += '<option value="' + i + '">第' + i + '页</option>';
+                    }
+                }
+                $("#sel1").html(temp);
+                //填入size
+                temp = "";
+                var Max = 20;
+                if(data.total < Max){
+                    Max = data.total;
+                }
+                for(let i = 1; i <= Max; i++){
+                    if(size == i){
+                        temp += '<option selected value="'+i+'">'+i+'条</option>';
+                    }else {
+                        temp += '<option value="' + i + '">' + i + '条</option>';
+                    }
+                }
+                $("#sel2").html(temp);
+            })
+        }
+        window.onload = function () {
+            get();
+        }
+        function pre() {
+            if(page>0){
+                page--;
+                get();
+            }
+        }
+        function next() {
+            page++;
+            get();
+        }
+        function check(){
+            $.post({
+                url: "/user/ajaxCheck",
+                data: { "username": $("#username").val(),
+                    "password": $("#password").val()
+                },
+                success:function(data,state){
+                    var umsg = data["Umsg"];
+                    var pmsg = data["Pmsg"];
+                    console.log(umsg);
+                    console.log(pmsg);
+                    $("#Umsg").text(umsg);
+                    $("#Pmsg").text(pmsg);
+                }
+            })
+        }
+        $("#sel1").change(function(){
+            page = $("#sel1").val();
+            get();
+        });
+        $("#sel2").change(function(){
+            size = $("#sel2").val();
+            get();
+        });
+    </script>
 </body>
 
 </html>

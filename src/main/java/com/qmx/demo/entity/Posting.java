@@ -49,6 +49,16 @@ public class Posting implements Serializable {
 
     private Integer deleted;
 
+    private  String imgsrc;
+
+    public String getImgsrc() {
+        return imgsrc;
+    }
+
+    public void setImgsrc(String imgsrc) {
+        this.imgsrc = imgsrc;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
