@@ -37,7 +37,7 @@ public class User implements Serializable {
 
     private String password;
 
-    private Integer age;
+    private String schoolid;
 
     @ApiModelProperty(value = "0 男 1女")
     private Integer gender;
@@ -57,7 +57,14 @@ public class User implements Serializable {
     @ApiModelProperty(value = "0")
     private Integer deleted;
 
-
+    public User(String username, String email, String password, String schoolid, Integer gender, Integer userclass) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.schoolid = schoolid;
+        this.gender = gender;
+        this.userclass = userclass;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -95,12 +102,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getSchoolid() {
+        return schoolid;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setSchoolid(String schoolid) {
+        this.schoolid = schoolid;
     }
 
     public Integer getGender() {

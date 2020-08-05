@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.util.List;
 
@@ -84,5 +88,30 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/register")
+    public String registerNewUser(@RequestParam("username")String username,
+                                  @RequestParam("schoolid")String schoolid,
+                                  @RequestParam("email")String email,
+                                  @RequestParam("gender")String gender,
+                                  @RequestParam("password")String password,
+                                  @RequestParam("userclass")String userclass,
+                                  Model model) throws Exception{
+        Integer intGender,intUserClass;
+        if (gender.equals("male"))
+            intGender=1;
+        else    intGender=0;
+        switch (userclass){
+            case "游客": intUserClass = 0;break;
+            case "开发组": intUserClass =1;break;
+            case "硬件组": intUserClass =2;break;
+            case "教师": intUserClass = 3;break;
+            default:
+                intUserClass = 0;break;
+        }
+        User user = new User(username,email,password,schoolid,intGender,intUserClass);
+        //还没有完善mapper的接口，大致思路就是上面的了
+        //邮箱/姓名重名问题，我想在前端用jQuery写，这里就不验证了
+        return "";
+    }
 }
 
