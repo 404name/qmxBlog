@@ -59,6 +59,23 @@ public class UserController {
         }
         return map;
     }
+////    登陆验证，或许后期可以不要，未完成
+//    @RequestMapping("loginCheck")
+//    public Boolean loginCheck(String username,String password){
+//        QueryWrapper<User> wrapper = new QueryWrapper<>();
+////        无论用户输入姓名还是邮箱只要密码对了均可登录
+//        wrapper.eq("email",username);
+//        User getUserByEmail = userService.getOne(wrapper);
+//        if(getUserByEmail!=null && getUserByEmail.getPassword().equals(password))
+//            return true;
+//        else {
+//            wrapper.eq("email","");
+//            wrapper.eq("username",username);
+//            User getUserByName = userService.getOne(wrapper);
+//            return getUserByName != null && getUserByName.getPassword().equals(password);
+//        }
+//
+//    }
 
     @RequestMapping("/selectAllUser")
     public List<User> getuser(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){

@@ -10,13 +10,13 @@
     };
   });
 
-  // 当窗口尺寸小于768px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
+  // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
   $(window).resize(function() {
     if ($(window).width() < 768) {
       $('.sidebar .collapse').collapse('hide');
     }
 
-    // Toggle the side navigation when window is resized below 480px
+    // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
     if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
       $("body").addClass("sidebar-toggled");
       $(".sidebar").addClass("toggled");
