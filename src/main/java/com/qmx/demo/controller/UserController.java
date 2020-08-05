@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -35,6 +37,28 @@ import java.util.List;
 public class UserController {
     @Autowired
     public UserService userService;
+
+    @RequestMapping("ajaxCheck")
+    public Object ajaxCheck(String username,String password){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        HashMap<String,String> map = new HashMap<>();
+        wrapper.eq("email",username);
+        User user = userService.getOne(wrapper);
+        if(user == null) {
+            map.put("Umsg","不存在该账户");
+            map.put("Pmsg","");
+        }else if(user.getPassword().equals(password)){
+            map.put("Umsg","");
+            map.put("Pmsg","登陆成功");
+        }else{
+            map.put("Umsg","");
+            map.put("Pmsg","登陆失败");
+        }
+        if(password==""){
+            map.put("Pmsg","密码不能为空");
+        }
+        return map;
+    }
 
     @RequestMapping("/selectAllUser")
     public List<User> getuser(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script type="text/javascript" th:src="@{/static/js/jquery-3.5.1.js}"></script>
+    </head>
+    <style>
+        img{
+            height: 30px;
+        }
+    </style>
+    <body>
+        <script type="text/javascript">
+            var page = 1;
+            function get() {
+                $.post("/user/selectPage?page="+page+"&size=3",function (data) {
+                    var pages = data.records;
+                    console.log(pages);
+                    if(page > data.pages){
+                        page--;
+                        return;
+                    }
+                    let temp = "";
+                    for(let i = 0; i < data.size; i++){
+                        if(pages[i] == null){
+                            temp+= "<tr>" +
+                                "<td>" + "暂无信息" + "</td>" +
+                                "<td>" + "暂无信息" + "</td>" +
+                                "<td>" + "暂无信息" + "</td>" +
+                                "<td>" + "暂无信息" + "</td>" +
+                                "</tr>"
+                        }else {
+                            temp += "<tr>" +
+                                "<td>" + pages[i].username + "</td>" +
+                                "<td>" + pages[i].email + "</td>" +
+                                "<td>" + pages[i].headsculpture + "</td>" +
+                                "<td>" + pages[i].headpicture + "</td>" +
+                                "</tr>"
+                        }
+                    }
+                    $("#content").html(temp);
+                })
+            }
+            window.onload = function () {
+                get();
+            }
+            function pre() {
+                if(page>0){
+                    page--;
+                    get();
+                }
+            }
+            function next() {
+                    page++;
+                    get();
+            }
+            function check(){
+                $.post({
+                    url: "/user/ajaxCheck",
+                    data: { "username": $("#username").val(),
+                            "password": $("#password").val()
+                    },
+                    success:function(data,state){
+                        var umsg = data["Umsg"];
+                        var pmsg = data["Pmsg"];
+                        console.log(umsg);
+                        console.log(pmsg);
+                        $("#Umsg").text(umsg);
+                        $("#Pmsg").text(pmsg);
+                    }
+                })
+            }
+
+        </script>
+        用户名：<input type="text" id="username" onblur="check()"><p id="Umsg"></p><br>
+        密码  ：<input type="password" id="password" onblur="check()" value=""><p id="Pmsg"></p><br>
+        接口测试
+        <button id="btn" onclick="get()">刷新信息</button>
+        <table border="1px">
+            <tr>
+                <td>姓名</td>
+                <td>邮箱</td>
+                <td>图片</td>
+                <td>头图</td>
+            </tr>
+            <tbody id="content">
+            </tbody>
+        </table>
+        <button id="pre" onclick="pre()">上一页</button>
+        <button id="next" onclick="next()">下一页</button>
+    </body>
+</html>
