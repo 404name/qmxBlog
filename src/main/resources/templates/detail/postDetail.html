@@ -56,6 +56,44 @@
                 text-decoration: none;
             }
         </style>
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+            img{
+                display: inline-block;
+                height: auto;
+                max-width: 100%;
+            }
+            /*响应String中的回车符*/
+            #blogContent{
+                white-space: pre-line;
+            }
+            #blogContent iframe{
+                display: inline-block;
+                height: 720px;
+                max-width: 100%;
+                width: 1080px;
+            }
+            #comment{
+                white-space: pre-line;
+            }
+            #comment img{
+                display: inline-block;
+                height: auto;
+                max-width: 20%;
+            }
+        </style>
     </head>
 
     <body id="page-top">
@@ -96,7 +134,7 @@
 
                         <div class="my-3 p-3 bg-white rounded shadow-sm">
                             <div class="mb-3 border-gray pb-2" id="blogContent">
-                                <span th:text="${posting.getPostingcontent()}">
+                                <span th:utext="${posting.getPostingcontent()}">
                                     开发组所有成员请在此贴下面回复2020年春季学期的总结<br/>
 
                                 要求：<br/>
