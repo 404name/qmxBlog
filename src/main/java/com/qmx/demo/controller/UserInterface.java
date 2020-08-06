@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserInterface {
     @Autowired
     public UserService userService;
 
@@ -78,16 +78,21 @@ public class UserController {
 //    }
 
     @RequestMapping("/selectAllUser")
-    public List<User> getuser(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
-        if(loadController.loadclass != 5){
-            return null;
-        }
+    public Object getuser(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
+        //if(loadController.loadclass != 5){
+        //    return null;
+        //}
+        HashMap<String,Object> map = new HashMap<>();
         if(logic == 1){
             QueryWrapper<User> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("deleted","0");
-            return userService.list(queryWrapper);
+            List<User> users =  userService.list(queryWrapper);
+            map.put("data",users);
+            return map;
         }else{
-            return userService.list();
+            List<User> users =  userService.list();
+            map.put("data",users);
+            return map;
         }
     }
 
