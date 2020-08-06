@@ -7,7 +7,9 @@ package com.qmx.demo.controller;
  *------------------------*/
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.User;
+import com.qmx.demo.service.CommentService;
 import com.qmx.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Controller
 public class loadController {
     @Autowired
     public UserService userService;
+    public CommentService commentService;
     public static int loadclass;
     public static User user;
     static{
@@ -52,8 +57,9 @@ public class loadController {
             loadclass = user.getUserclass();
             loadController.user = user;
             String name = user.getUsername();
-            model.addAttribute("power",loadclass);
-            model.addAttribute("name",loadController.user.getUsername());
+//            暂且用不到的代码块
+//            model.addAttribute("power",loadclass);
+//            model.addAttribute("name",loadController.user.getUsername());
             model.addAttribute("user",loadController.user);
             return "index";
         }
@@ -62,8 +68,8 @@ public class loadController {
     public String logout(Model model){
         loadController.loadclass = 0;
         loadController.user = null;
-        model.addAttribute("power",loadclass);
-        model.addAttribute("name",loadController.user.getUsername());
+//        model.addAttribute("power",loadclass);
+//        model.addAttribute("name",loadController.user.getUsername());
         model.addAttribute("user",loadController.user);
         return "index";
     }
@@ -72,9 +78,13 @@ public class loadController {
         if(loadclass != 5){
             return "index";
         }
-        model.addAttribute("power",loadclass);
-        model.addAttribute("name",loadController.user.getUsername());
+//        model.addAttribute("power",loadclass);
+//        model.addAttribute("name",loadController.user.getUsername());
         model.addAttribute("user",loadController.user);
+//        测试插件而获取的所有数据，目前已知table插件和ajax获取后台代码再修改前端有冲突，所以搞了这里的代码
+//        QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("deleted","0");
+//        List<Comment> users = commentService.list(queryWrapper);
         return "list/user";
     }
     @RequestMapping("/list/posting")
@@ -82,8 +92,8 @@ public class loadController {
         if(loadclass != 5){
             return "index";
         }
-        model.addAttribute("power",loadclass);
-        model.addAttribute("name",loadController.user.getUsername());
+//        model.addAttribute("power",loadclass);
+//        model.addAttribute("name",loadController.user.getUsername());
         model.addAttribute("user",loadController.user);
         return "list/posting";
     }

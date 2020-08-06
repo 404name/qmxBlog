@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+
+    <title>帖子详情</title>
+
+    <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link th:href="@{/static/css/postDetail.css}" rel="stylesheet">
+    <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        img{
+            display: inline-block;
+            height: auto;
+            max-width: 100%;
+        }
+        /*响应String中的回车符*/
+        #blogContent{
+            white-space: pre-line;
+        }
+        #blogContent iframe{
+            display: inline-block;
+            height: 720px;
+            max-width: 100%;
+            width: 1080px;
+        }
+        #comment{
+            white-space: pre-line;
+        }
+        #comment img{
+            display: inline-block;
+            height: auto;
+            max-width: 20%;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+<!-- 顶部头条内容 -->
+<!--这里单独修改了内容与风格，就没用模块了-->
+<nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
+
+
+    <img src="../static/img/qmx_icon.png" width="42" height="42" alt="QMX">
+    <div class="navbar-brand ml-2">启明星工作室</div>
+    <!-- 搜索功能-->
+    <!--          搜索的表单在这里-->
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="搜索问题，话题或用户..."
+                   aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+
+                <button class="btn btn-primary ml-1" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+
+            </div>
+        </div>
+    </form>
+
+    <!-- 头条的其余内容（右侧） -->
+    <ul class="navbar-nav ml-auto">
+
+        <!-- 下拉搜索窗口 (当画面宽度过小时显示) -->
+        <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- 下拉菜单的搜索栏 -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                 aria-labelledby="searchDropdown">
+                <!--                这个表单与上面的表单是一样的，只不过页面缩小时，上面那个会被隐藏而弹出这个-->
+                <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small"
+                               placeholder="搜索问题，话题或用户..." aria-label="Search"
+                               aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </li>
+
+
+        <!-- 消息提示 -->
+        <li class="nav-item dropdown no-arrow mx-1" id="newMsgButton" th:if="${user!=null}">
+            <!--              消息铃的部分-->
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!--                消息数量的接口在这里-->
+                <span class="badge badge-danger badge-counter">2</span>
+            </a>
+
+            <!--             普通消息提示的弹出界面                                               弹出动画-->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    您收到的消息
+                </h6>
+
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">{{时间接口}}</div>
+                        <span class="font-weight-bold">您发布的文章{{名称接口}}有新回复了，快去查看吧</span>
+                    </div>
+                </a>
+
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">{{时间接口}}</div>
+                        <span class="font-weight-bold">您内容{{内容接口}}已被删除，请了解相关规则</span>
+                    </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">显示更多消息</a>
+            </div>
+        </li>
+
+        <!-- 新私信按钮 -->
+        <li class="nav-item dropdown no-arrow mx-1" id="newEmailButton"  th:if="${user!=null}">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- 私信数量 -->
+                <span class="badge badge-danger badge-counter">1</span>
+            </a>
+            <!-- 私信的下拉菜单 -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                    您收到的私信
+                </h6>
+
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="dropdown-list-image mr-3">
+                        <!--                      私信头像-->
+                        <img class="rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt="">
+                    </div>
+                    <div class="font-weight-bold">
+                        <div class="small text-gray-500">{{时间接口}}</div>
+                        <div class="text-truncate">周六下午一起去图书馆吗？</div>
+                    </div>
+                </a>
+
+                <a class="dropdown-item text-center small text-gray-500" href="#">显示更多私信</a>
+            </div>
+        </li>
+
+        <div class="topbar-divider d-none d-sm-block"></div>
+
+
+        <!--头条物件--登陆的用户信息 -->
+        <li class="nav-item dropdown no-arrow" id="user-area" th:if="${user!=null}">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!--                            用户名的接口在这里-->
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="userName"
+                      th:text="${user.getUsername()}"></span>
+                <!--                  用户头像-->
+                <img class="img-profile rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt=""/>
+            </a>
+            <!-- 用户账号信息的下拉菜单 -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    我的账号
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    账号设置
+                </a>
+                <!--                分割线-->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    退出登录
+                </a>
+            </div>
+        </li>
+        <li class="nav-item mx-1 text-nowrap" id="login-button" th:if="${user eq null}">
+            <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/login.html'">登陆</button>
+            <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/register.html'">注册</button>
+        </li>
+        <!--              签到的按钮，id在这里-->
+        <li class="nav-item mx-1 mt-3 text-nowrap" id="checkIn"  th:if="${user!=null && (user.getUserclass() eq 2 || user.getUserclass() eq 3 || user.getUserclass() eq 5)}">
+            <button class="btn btn-outline-success text-nowrap">签到</button>
+        </li>
+        <!--                    进入后台-->
+        <li class="nav-item mx-1 mt-3 text-nowrap" id="enterTheBackstage" th:if="${user!=null && user.getUserclass() eq 5}">
+            <button class="btn btn-outline-danger text-nowrap">进入后台</button>
+        </li>
+        <a href="/ajax"> ajax测试入口</a>
+    </ul>
+
+</nav>
+<!-- 顶栏到此为止 -->
+
+<main role="main" class="container">
+    <div class="d-flex align-items-center p-3 my-3 bg-gray-100 rounded shadow-sm border-left-primary">
+        <!--   <img class="mr-2" src="img/qmx_icon_w.png" width="52" height="52" alt="qmx">-->
+        <div class="lh-125 w-100">
+            <h4 class="lh-125 d-block"> 发帖标题 </h4>
+            <small class="mr-2"><img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32" width="32"><small class="text-success" style="font-size: 16px;">发布者姓名</small>
+                <small class="text-muted">发布于:时间</small></small>
+            <small class="d-block">最后更新时间 </small>
+            <small>本帖属于的类型标签 <i class="fas fa-tags"></i> </small>
+            <a class="text-muted" href="#">邀请 <i class="fas fa-envelope"></i> </a>
+            <a class="text-muted" href="#">举报 <i class="fas fa-exclamation-circle"></i> </a>
+        </div>
+        <a class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap" href="#">关注本帖 | <span class="badge align-text-bottom"  style="font-size: 14px;">21</span></a>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <div class="mb-3 border-gray pb-2" id="blogContent">
+            开发组所有成员请在此贴下面回复2020年春季学期的总结<br/>
+
+            要求：<br/>
+            1、总结一下过去的一整学期在工作室的学习和收获<br/>
+            2、谈一谈对工作室的管理和建设的一些看法和意见<br/>
+            3、简单计划一下暑期的时间安排<br/>
+            4、限本周日之前完成（2019.7.5）<br/>
+        </div>
+        <div class="md-4">
+            <small class="text-right mt-3 mr-2">
+                <a href="#">赞<span class="badge badge-pill bg-light align-text-bottom">16</span></a>
+            </small>
+            <small class="text-right mt-3 mr-2">
+                <a href="#">踩</a>
+            </small>
+        </div>
+        <div class="text-right mr-2 d-block mt-6" style="padding-top: 10px;">
+            <form action="/comment/add" method="post">
+                <textarea class="form-control" type="text" rows="1" name="commentcontent" placeholder="..."></textarea>
+                <button class="btn btn-outline-info mt-1 mb-5 float-right" type="submit">回复本帖</button>
+                <div class="mt-5 mb-0" style="width: auto;height: 1px; background: #e5e5e5;"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm" id="commentBlock">
+
+        <h6 class="border-bottom border-gray pb-2 mb-0"><span class="badge align-text-bottom bg-info text-light" style="font-size: 14px;">1</span> 个回复</h6>
+
+        <!--         一个评论区块-->
+        <div class="media text-muted pt-3" id="comment_div">
+            <!--            头像-->
+            <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
+            <!--            用media的话，会自动多一个分隔细线就是了-->
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div>
+                    <strong class="text-info">评论人</strong> ||
+                    <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>
+                </div>
+                <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
+                    <a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>
+                    <a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
+                    <a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
+                </div>
+                <span class="d-block text-dark mt-1 comment" id="comment">学期总结：巴拉巴拉巴拉巴拉巴拉</span>
+                <div>
+                    <!--          点踩就减少赞数就好-->
+                    <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> | <small>12</small></button>
+                    <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i></button>
+                    <button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏</button>
+                    <button class="btn btn-sm btn-outline-info" onclick="openComment()"><i class="fas fa-comment"></i> | <small>1</small></button>
+                </div>
+
+                <!--        楼中楼评论-->
+                <div id="comment_com" class="mt-3">
+
+                    <div class="my-3 p-3 bg-white rounded shadow-sm">
+                        <!--         一个评论区块-->
+                        <div class="media text-muted pt-3">
+                            <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
+                            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <div>
+                                    <strong class="text-info">评论人</strong> ||
+                                    <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>
+                                </div>
+                                <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
+                                    <a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>
+                                    <a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
+                                    <a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
+                                </div>
+                                <span class="d-block text-dark mt-1 comment">goooooood~</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">
+                            <button class="btn btn-sm btn-success mt-2">评论</button>
+                            <button class="btn btn-sm btn-dark mt-2">取消</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <!--          楼中楼评论-->
+            </div>
+        </div>
+
+    </div>
+</main>
+<script>
+    let pathTemp = "../static/img/avatar/icon";
+    let avatars = document.getElementsByClassName("avatar");
+    (function () {
+        for (let i = 1; i<=avatars.length ;i++){
+            avatars.item(i-1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
+        }
+    }())
+    function openComment (){
+        if($('#comment_com').is(":hidden")){
+            $('#comment_com').show();
+        }else{
+            $('#comment_com').hide();
+        }
+    }
+</script>
+
+
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<!-- 自己的js文件-->
+<script>
+    (function($) {
+        "use strict";
+
+        // 侧边栏导航的开合
+        $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+            $("body").toggleClass("sidebar-toggled");
+            $(".sidebar").toggleClass("toggled");
+            if ($(".sidebar").hasClass("toggled")) {
+                $('.sidebar .collapse').collapse('hide');
+            };
+        });
+
+        // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
+        $(window).resize(function() {
+            if ($(window).width() < 920) {
+                $('.sidebar .collapse').collapse('hide');
+            }
+
+            // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
+            if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
+                $("body").addClass("sidebar-toggled");
+                $(".sidebar").addClass("toggled");
+                $('.sidebar .collapse').collapse('hide');
+            }
+            if ($(window).width() < 1600 ) {
+                $(".sidebar").addClass("toggled");
+            }else{
+                $(".sidebar").removeClass("toggled");
+            }
+        });
+
+        // 当侧边导航栏被固定的时候，防止滑动页面时出排版bug
+        $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+            if ($(window).width() > 920) {
+                var e0 = e.originalEvent,
+                    delta = e0.wheelDelta || -e0.detail;
+                this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                e.preventDefault();
+            }
+        });
+
+        // 滚动到顶部按钮的浮现
+        $(document).on('scroll', function() {
+            var scrollDistance = $(this).scrollTop();
+            if (scrollDistance > 100) {
+                $('.scroll-to-top').fadeIn();
+            } else {
+                $('.scroll-to-top').fadeOut();
+            }
+        });
+
+        // 搭配jQuery实现返回顶部平滑的移动
+        $(document).on('click', 'a.scroll-to-top', function(e) {
+            var $anchor = $(this);
+            $('html, body').stop().animate({
+                scrollTop: ($($anchor.attr('href')).offset().top)
+            }, 1000, 'easeInOutExpo');
+            e.preventDefault();
+        });
+
+        // 当未读取用户名时隐藏整个用户信息
+        $(function() {
+            if (!$('#userName').html()) {
+                $('#user-area,#newEmailButton,#newMsgButton').hide();
+                $('#login-button').show();
+                $('#checkIn').hide();
+            }else{
+                $('#checkIn').show();
+                $('#login-button').hide();
+            }
+        });
+    })(jQuery);
+
+</script>
+
+</body>
+
+</html>
