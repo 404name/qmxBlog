@@ -91,14 +91,24 @@
                                 <tbody id="listcontent"></tbody>
 
                                 <tbody class="table table-bordered">
-                                    <form class="form-group text-center" action="/user/add" method="post">
+                                    <form class="form-group text-center" th:action="@{/addUser}" method="post">
                                         <th><input class="form-control form-control-user" type="text" name="username"></th>
                                         <th><input class="form-control form-control-user" type="text" name="schoolid"></th>
                                         <th><input class="form-control form-control-user" type="text" name="email"></th>
                                         <th><input class="form-control form-control-user" type="password" name="password"></th>
                                         <th><input class="form-control form-control-user" type="text" name="gender"></th>
-                                        <th><input class="form-control form-control-user" type="text" name="class"></th>
-                                        <th><input class="form-control form-control-user" type="text" name="deleted"></th>
+                                        <th><select class="form-control" name="userclass">
+                                            <option value="0">注销</option>
+                                            <option value="1">游客</option>
+                                            <option value="2">开发组员</option>
+                                            <option value="3">硬件组员</option>
+                                            <option value="4">老师</option>
+                                            <option value="5">管理员</option>
+                                        </select></th>
+                                        <th><select class="form-control" name="deleted">
+                                            <option value="0">可见</option>
+                                            <option value="1">不可见</option>
+                                        </select></th>
                                         <th>
                                             <button class="btn btn-primary" type="submit">添加</button>
                                         </th>
@@ -225,8 +235,8 @@
                 { "data": "id",
                     "render": function (data,type,full) {
                         var html = "";
-                        html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/user/show?id='+ data +'">详细</a>' +
-                        '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/user/updata?id='+ data +'">修改</a>' +
+                        html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showUser?id='+ data +'">详细</a>' +
+                        '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/updataUser?id='+ data +'">修改</a>' +
                         '<a class="btn btn-sm btn-danger text-nowrap" href="/user/delete?id='+ data +'">删除</a>'
                         return html;
                     }

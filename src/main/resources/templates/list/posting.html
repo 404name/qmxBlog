@@ -28,18 +28,22 @@
             a {
                 text-decoration: none;
             }
+
             /*正常的未被访问过的链接*/
             a:link {
                 text-decoration: none;
             }
+
             /*已经访问过的链接*/
             a:visited {
                 text-decoration: none;
             }
+
             /*鼠标划过(停留)的链接*/
             a:hover {
                 text-decoration: none;
             }
+
             /* 正在点击的链接*/
             a:active {
                 text-decoration: none;
@@ -77,27 +81,35 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                         <tr>
-                                            <th>作者</th>
                                             <th>文章标题</th>
-                                            <th>点赞数</th>
-                                            <th>头图</th>
+                                            <th>作者</th>
+                                            <th>文章内容</th>
                                             <th>文章类别</th>
-                                            <th>发布时间</th>
                                             <th>逻辑删除</th>
+                                            <th>发布时间</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody id="listcontent"></tbody>
 
                                         <tbody class="table table-bordered">
-                                        <form class="form-group text-center" action="/posting/add" method="post">
-                                            <th><input class="form-control form-control-user" type="text" name="#"></th>
-                                            <th><input class="form-control form-control-user" type="text" name="#"></th>
-                                            <th><input class="form-control form-control-user" type="text" name="#"></th>
-                                            <th><input class="form-control form-control-user" type="password" name="#"></th>
-                                            <th><input class="form-control form-control-user" type="text" name="#"></th>
-                                            <th><input class="form-control form-control-user" type="text" name="#"></th>
-                                            <th><input class="form-control form-control-user" type="text" name="#"></th>
+                                        <form class="form-group text-center" th:action="@{/addPosting}" method="post">
+                                            <th><input class="form-control form-control-user" type="text"
+                                                       name="postingtitle"></th>
+                                            <th><input class="form-control form-control-user" type="text"
+                                                       name="username"></th>
+                                            <th><input class="form-control form-control-user" type="text"
+                                                       name="postingcontent"></th>
+                                            <th><input class="form-control form-control-user" type="text"
+                                                       name="postingclass">
+                                            </th>
+                                            <th><select class="form-control" name="deleted">
+                                                <option value="0">可见</option>
+                                                <option value="1">不可见</option>
+                                            </select></th>
+                                            <th><input class="form-control form-control-user" type="text" name="#"
+                                                       disabled="disabled"></th>
+
                                             <th>
                                                 <button class="btn btn-primary" type="submit">添加</button>
                                             </th>
@@ -133,31 +145,31 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-<!--        &lt;!&ndash;登出时弹出的窗口&ndash;&gt;-->
-<!--        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
-<!--             aria-hidden="true">-->
-<!--            <div class="modal-dialog" role="document">-->
-<!--                <div class="modal-content">-->
+        <!--        &lt;!&ndash;登出时弹出的窗口&ndash;&gt;-->
+        <!--        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+        <!--             aria-hidden="true">-->
+        <!--            <div class="modal-dialog" role="document">-->
+        <!--                <div class="modal-content">-->
 
-<!--                    <div class="modal-header">-->
-<!--                        <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>-->
-<!--                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
-<!--                            <span aria-hidden="true">×</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
+        <!--                    <div class="modal-header">-->
+        <!--                        <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>-->
+        <!--                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
+        <!--                            <span aria-hidden="true">×</span>-->
+        <!--                        </button>-->
+        <!--                    </div>-->
 
-<!--                    <div class="modal-body m-0">保持登陆以防止错过重要信息</div>-->
-<!--                    <div class="modal-body m-0">您确定要这么做吗？</div>-->
+        <!--                    <div class="modal-body m-0">保持登陆以防止错过重要信息</div>-->
+        <!--                    <div class="modal-body m-0">您确定要这么做吗？</div>-->
 
-<!--                    <div class="modal-footer">-->
-<!--                        &lt;!&ndash;                                                          这个命令可以开关这个div&ndash;&gt;-->
-<!--                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>-->
-<!--                        <a class="btn btn-primary" th:href="@{login.html}">确定</a>-->
-<!--                    </div>-->
+        <!--                    <div class="modal-footer">-->
+        <!--                        &lt;!&ndash;                                                          这个命令可以开关这个div&ndash;&gt;-->
+        <!--                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>-->
+        <!--                        <a class="btn btn-primary" th:href="@{login.html}">确定</a>-->
+        <!--                    </div>-->
 
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
 
         <!-- 使用Boostrap之前必须先引用这两个-->
@@ -178,13 +190,11 @@
         <script th:src="@{/static/js/graph/chart-pie-demo.js}"></script>
 
 
-
-
         <script type="text/javascript">
-                // 时间格式化
-                function dateformat(str){
-                if(str == null || str == "" || typeof(str)=="undefined"){
-                    return "";
+            // 时间格式化
+            function dateformat(str){
+                if(str == null || str == ""){
+                    return "2020";
                 }
                 var now = new Date(str);
                 var year = now.getFullYear();
@@ -199,48 +209,57 @@
                 var dateTime = year +"-"+ month +"-"+  day;
                 return dateTime;
             }
-            $(document).ready(function() {
-                $('#dataTable').DataTable( {
+
+            $(document).ready(function () {
+                $('#dataTable').DataTable({
                     "ajax": "/posting/selectAllPosting?logic=0",
                     "columns": [
-                        { "data": "username" },
-                        { "data": "postingtitle" },
-                        { "data": "likes" },
-                        { "data": "imgsrc" },
-                        { "data": "postingclass",
-                            "render": function (data,type,full) {
-                                if(data == 0){
-                                    return "周总结"
-                                }else if(data == 1){
-                                    return "电脑带离申请";
-                                }else{
-                                    return "答辩";
+
+                        {"data": "postingtitle"},
+                        {"data": "username"},
+                        {"data": "postingcontent"},
+                        {
+                            "data": "postingclass",
+                            "render": function (data, type, full) {
+                                if (data == 0) {
+                                    return "常规贴"
+                                } else if (data == 1) {
+                                    return "周总结";
                                 }
-                            }},
-                        { "data": "postingdata",
-                            "render": function (data,type,full) {
-                                var date = dateformat(data);
-                                return date;
-                            }},
-                        { "data": "deleted",
-                            "render": function (data,type,full) {
-                                if(data == 0){
-                                    return "可显示"
+                                else if (data == 2) {
+                                    return "周任务发布";
+                                }else {
+                                    return "电脑带离";
                                 }
-                                return "已删除";
                             }
                         },
-                        { "data": "postingid",
-                            "render": function (data,type,full) {
+                        {
+                            "data": "deleted",
+                            "render": function (data, type, full) {
+                                if (data == 0) {
+                                    return "可显示"
+                                }
+                                return "不可见";
+                            }
+                        },
+                        {
+                            "data": "postingdate",
+                            "render": function (data, type, full) {
+                                return dateformat(data);
+                            }
+                        },
+                        {
+                            "data": "postingid",
+                            "render": function (data, type, full) {
                                 var html = "";
-                                html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?postingid='+ data +'">详细</a>' +
-                                    '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/posting/updata?postingid='+ data +'">修改</a>' +
-                                    '<a class="btn btn-sm btn-danger text-nowrap" href="/posting/delete?postingid='+ data +'">删除</a>'
+                                html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?postingid=' + data + '">详细</a>' +
+                                    '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/updataPosting?postingid=' + data + '">修改</a>' +
+                                    '<a class="btn btn-sm btn-danger text-nowrap" href="/posting/delete?postingid=' + data + '">删除</a>'
                                 return html;
                             }
                         }
                     ]
-                } );
+                });
             });
         </script>
 

@@ -113,16 +113,16 @@ public class PostingInterface {
 
     @RequestMapping("/delete")
     public Boolean deleteLogic(
-            @RequestParam(value = "id", required = true)int id,
+            @RequestParam(value = "postingid", required = true)int postingid,
             @RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
         HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("postingid",id);
+        hashMap.put("postingid",postingid);
         Posting posting = postingService.listByMap(hashMap).get(0);
         //逻辑删除
         if(logic == 1 && posting != null){
             if(posting.getDeleted() == 0){
                 UpdateWrapper<Posting> updateWrapper = new UpdateWrapper<>();
-                updateWrapper.eq("postingid",id);
+                updateWrapper.eq("postingid",postingid);
                 posting.setDeleted(1);
                 postingService.update(posting,updateWrapper);
                 return true;

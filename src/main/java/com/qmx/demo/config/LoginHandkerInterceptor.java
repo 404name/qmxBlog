@@ -19,7 +19,7 @@ public class LoginHandkerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         //获取用户是否登录
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("loadUser");
 
         if( user == null){
             request.setAttribute("msg","没有权限请先登录");

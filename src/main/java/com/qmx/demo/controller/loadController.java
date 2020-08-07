@@ -10,15 +10,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mysql.cj.Session;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.User;
+import com.qmx.demo.entity.Userclass;
 import com.qmx.demo.service.CommentService;
 import com.qmx.demo.service.UserService;
+import com.qmx.demo.service.UserclassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -26,11 +25,21 @@ import java.util.List;
 @Controller
 public class loadController {
     @Autowired
-    public UserService userService;
-    public CommentService commentService;
+    private UserService userService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserclassService userclassService;
+    //注册 跳转
+    @GetMapping("/register")
+    public String toRegister(Model model){
+        List<Userclass> userclasses = userclassService.list();
+        model.addAttribute("userclasses",userclasses);
+        return "/register";
+    }
 
     //登录 及跳转
-    @RequestMapping(value = "/load",method = {RequestMethod.POST})
+    @RequestMapping(value = "/load")
     public String checkLoad(
             @RequestParam(value = "inputAccount", required = false, defaultValue = " ")String inputAccount,
             @RequestParam(value = "inputPassword",required = false,defaultValue = " ")String inputPassword,
@@ -44,7 +53,7 @@ public class loadController {
             return "redirect:login";
         }else{
             //管理员管理界面
-            session.setAttribute("user",user);
+            session.setAttribute("loadUser",user);
             session.setAttribute("msg","");
             return "redirect:/index";
         }
@@ -53,13 +62,13 @@ public class loadController {
     public String logout(Model model,HttpSession session){
         System.out.println("????");
         User user = null;
-        session.setAttribute("user",user);
+        session.setAttribute("loadUser",user);
         session.setAttribute("msg","");
         return "redirect:/index";
     }
     @RequestMapping("/list/user")
     public String listuser(Model model,HttpSession session){
-        User user = (User)session.getAttribute("user");
+        User user = (User)session.getAttribute("loadUser");
         if(user == null || user.getUserclass() != 5){
             session.setAttribute("msg","你没有权限访问");
             return "redirect:/index";
@@ -75,7 +84,7 @@ public class loadController {
     }
     @RequestMapping("/list/posting")
     public String listposting(Model model,HttpSession session){
-        User user = (User)session.getAttribute("user");
+        User user = (User)session.getAttribute("loadUser");
         if(user == null || user.getUserclass() != 5){
             session.setAttribute("msg","你没有权限访问");
             return "redirect:/index";

@@ -102,7 +102,7 @@
         <div id="wrapper">
 
             <!-- 侧边栏 -->
-            <div th:replace="commonModule/module::sideBar(active='postDetail')"></div>
+            <div th:replace="commonModule/module::sideBar(active='posting')"></div>
             <!-- 侧边栏到此为止啦 -->
 
             <!-- 接下来是主内容区域 -->
@@ -153,7 +153,10 @@
                                 </small>
                             </div>
                             <div class="text-right mr-2 d-block mt-6" style="padding-top: 10px;">
-                                <form action="/comment/add" method="post">
+                                <form th:action="@{/addComment}" method="post">
+                                    <input class="form-control" th:value="${posting.getPostingid()}"  name="topostingid" style="display:none;">
+                                    <input class="form-control" th:value="${session.loadUser.id}" name="id" style="display:none;">
+                                    <input class="form-control" th:value="${session.loadUser.username}" name="username" style="display:none;">
                                     <textarea class="form-control" type="text" rows="1" name="commentcontent"
                                               placeholder="..."></textarea>
                                     <button class="btn btn-outline-info mt-1 mb-5 float-right" type="submit">回复本帖
@@ -170,14 +173,14 @@
                                 个回复</h6>
 
                             <!--         一个评论区块-->
-                            <div class="media text-muted pt-3" id="comment_div">
+                            <div class="media text-muted pt-3" id="comment_div" th:each="comment:${comments}">
                                 <!--            头像-->
                                 <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
                                 <!--            用media的话，会自动多一个分隔细线就是了-->
                                 <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                     <div>
-                                        <strong class="text-info">评论人</strong> ||
-                                        <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>
+                                        <strong class="text-info" th:text="${comment.getUsername()}"></strong> ||
+                                        <strong class="text-gray-dark text-muted" style="opacity: 50%;" th:text="${comment.getCommentdate()}"></strong>
                                     </div>
                                     <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
                                         <a class="btn btn-sm btn-success float-right align-self-center mx-auto"
@@ -187,7 +190,7 @@
                                         <a class="ml-1 btn-sm btn-danger delete float-right"
                                            href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
                                     </div>
-                                    <span class="d-block text-dark mt-1 comment" id="comment">学期总结：巴拉巴拉巴拉巴拉巴拉</span>
+                                    <span class="d-block text-dark mt-1 comment" id="comment" th:utext="${comment.getCommentcontent()}"></span>
                                     <div>
                                         <!--          点踩就减少赞数就好-->
                                         <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |
@@ -201,8 +204,7 @@
                                     </div>
 
                                     <!--        楼中楼评论-->
-                                    <div id="comment_com" class="mt-3">
-
+                                    <div id="comment_com" class="mt-3" style="display: none">
                                         <div class="my-3 p-3 bg-white rounded shadow-sm">
                                             <!--         一个评论区块-->
                                             <div class="media text-muted pt-3">
@@ -217,14 +219,13 @@
                                                         <a class="btn btn-sm btn-success float-right align-self-center mx-auto"
                                                            href="#">回复此人</a>
                                                         <a class="ml-1 btn-sm btn-info change float-right w-auto"
-                                                           href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
-                                                        <a class="ml-1 btn-sm btn-danger delete float-right"
-                                                           href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
+                                                           href='/updateComment?commentid="${comment.getCommentid()}"'>修改</a>
+                                                        <a class='ml-1 btn-sm btn-danger delete float-right'
+                                                           href='/deleteComment?commentid="${comment.getCommentid()}"'>删除</a>
                                                     </div>
                                                     <span class="d-block text-dark mt-1 comment">goooooood~</span>
                                                 </div>
                                             </div>
-
                                             <div class="mt-2">
                                                 <input class="form-control" type="text" name="commentcontent"
                                                        placeholder="评论一下...">
@@ -233,8 +234,6 @@
                                             </div>
 
                                         </div>
-
-
                                     </div>
                                     <!--          楼中楼评论-->
                                 </div>
@@ -266,33 +265,6 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-
-        <!--登出时弹出的窗口-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body m-0">保持登陆以防止错过重要信息</div>
-                    <div class="modal-body m-0">您确定要这么做吗？</div>
-
-                    <div class="modal-footer">
-                        <!--                                                          这个命令可以开关这个div-->
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                        <a class="btn btn-primary" th:href="@{login.html}">确定</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
 
         <script>
             let pathTemp = "../static/img/avatar/icon";

@@ -41,7 +41,7 @@ class DemoApplicationTests {
         Comment comment = new Comment();
         comment.setCommentid(2);
         comment.setId(13);
-        comment.setName("mybatis-plus");
+        comment.setUsername("mybatis-plus");
         comment.setCommentcontent("????");
         System.out.println(comment.toString());
         int res = commentMapper.insert(comment);
@@ -55,7 +55,7 @@ class DemoApplicationTests {
         comment.setId(14);
         comment.setCommentid(920);
         comment.setCommentid(124);
-        comment.setName("mybatis-aaeeea");
+        comment.setUsername("mybatis-aaeeea");
         commentMapper.updateById(comment);
     }
 

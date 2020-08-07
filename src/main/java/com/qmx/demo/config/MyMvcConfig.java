@@ -18,11 +18,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
         registry.addViewController("/login.html").setViewName("login");
-        registry.addViewController("/register.html").setViewName("register");
         registry.addViewController("/ajax").setViewName("ajaxLoad");
         registry.addViewController("/ajax.html").setViewName("ajaxLoad");
         registry.addViewController("/postDetail.html").setViewName("postDetail");
         registry.addViewController("/profile.html").setViewName("profile");
+        registry.addViewController("/detail/updataPosting").setViewName("detail/updataPosting");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -37,7 +37,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginHandkerInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/index.html","/","/index","/login.html",
-                        "/load","/logout",
+                        "/load","/logout","/addUser",
                         "/register.html","/static/**");
     }
 }

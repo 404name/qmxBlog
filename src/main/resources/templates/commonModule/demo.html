@@ -1,0 +1,245 @@
+<!--thymeleaf传入参数-->
+<!--1. user类-->
+<!--2. posting文章-->
+<!--3. comments评论(单回复文章，楼中楼之后实现)-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <!--请适当使用搜索功能，检索href="#",查找当前空缺接口-->
+    <head>
+        <!--  防止乱码-->
+        <meta charset="utf-8">
+        <!--  提升网页兼容性-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+        <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+        <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+        <title>启明星工作室</title>
+
+        <!-- 自定义字体-->
+        <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet">
+
+        <!-- 自己的css-->
+        <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+        <!--    bootstrap4.5的table渲染css-->
+        <link th:href="@{/static/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
+        <style>
+            /*去除a标签的所有效果*/
+            /*包含以下四种的链接*/
+            a {
+                text-decoration: none;
+            }
+
+            /*正常的未被访问过的链接*/
+            a:link {
+                text-decoration: none;
+            }
+
+            /*已经访问过的链接*/
+            a:visited {
+                text-decoration: none;
+            }
+
+            /*鼠标划过(停留)的链接*/
+            a:hover {
+                text-decoration: none;
+            }
+
+            /* 正在点击的链接*/
+            a:active {
+                text-decoration: none;
+            }
+        </style>
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+            img{
+                display: inline-block;
+                height: auto;
+                max-width: 100%;
+            }
+            /*响应String中的回车符*/
+            #blogContent{
+                white-space: pre-line;
+            }
+            #blogContent iframe{
+                display: inline-block;
+                height: 720px;
+                max-width: 100%;
+                width: 1080px;
+            }
+            #comment{
+                white-space: pre-line;
+            }
+            #comment img{
+                display: inline-block;
+                height: auto;
+                max-width: 20%;
+            }
+        </style>
+    </head>
+
+    <body id="page-top">
+
+        <!-- 页面整体 -->
+        <div id="wrapper">
+
+            <!-- 侧边栏 -->
+            <div th:replace="commonModule/module::sideBar(active='posting')"></div>
+            <!-- 侧边栏到此为止啦 -->
+
+            <!-- 接下来是主内容区域 -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- 主内容 -->
+                <div id="content">
+                    <!-- 顶部头条内容 -->
+                    <div th:replace="commonModule/module::navBar"></div>
+                    <!-- 顶栏到此为止 -->
+                    <!-- 主页内容 -->
+
+
+
+                </div>
+                <!-- 主体内容结束-->
+
+                <!-- 页脚 -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 三峡大学启明星工作室 2020 - 鄂ICP备15002584号</span>
+                        </div>
+                    </div>
+                </footer>
+                <!--页脚也就这么点点-->
+
+            </div>
+            <!-- 总内容也就这么多了-->
+
+        </div>
+        <!--主体的区域结束了，接下来就是弹窗的div等部分-->
+
+        <!-- 回到最上-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <script>
+            let pathTemp = "../static/img/avatar/icon";
+            let avatars = document.getElementsByClassName("avatar");
+            (function () {
+                for (let i = 1; i <= avatars.length; i++) {
+                    avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
+                }
+            }())
+
+            function openComment() {
+                if ($('#comment_com').is(":hidden")) {
+                    $('#comment_com').show();
+                } else {
+                    $('#comment_com').hide();
+                }
+            }
+        </script>
+
+
+        <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+        <!-- 自己的js文件-->
+        <script>
+            (function ($) {
+                "use strict";
+
+                // 侧边栏导航的开合
+                $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
+                    $("body").toggleClass("sidebar-toggled");
+                    $(".sidebar").toggleClass("toggled");
+                    if ($(".sidebar").hasClass("toggled")) {
+                        $('.sidebar .collapse').collapse('hide');
+                    }
+                    ;
+                });
+
+                // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
+                $(window).resize(function () {
+                    if ($(window).width() < 920) {
+                        $('.sidebar .collapse').collapse('hide');
+                    }
+
+                    // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
+                    if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
+                        $("body").addClass("sidebar-toggled");
+                        $(".sidebar").addClass("toggled");
+                        $('.sidebar .collapse').collapse('hide');
+                    }
+                    if ($(window).width() < 1600) {
+                        $(".sidebar").addClass("toggled");
+                    } else {
+                        $(".sidebar").removeClass("toggled");
+                    }
+                });
+
+                // 当侧边导航栏被固定的时候，防止滑动页面时出排版bug
+                $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
+                    if ($(window).width() > 920) {
+                        var e0 = e.originalEvent,
+                            delta = e0.wheelDelta || -e0.detail;
+                        this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                        e.preventDefault();
+                    }
+                });
+
+                // 滚动到顶部按钮的浮现
+                $(document).on('scroll', function () {
+                    var scrollDistance = $(this).scrollTop();
+                    if (scrollDistance > 100) {
+                        $('.scroll-to-top').fadeIn();
+                    } else {
+                        $('.scroll-to-top').fadeOut();
+                    }
+                });
+
+                // 搭配jQuery实现返回顶部平滑的移动
+                $(document).on('click', 'a.scroll-to-top', function (e) {
+                    var $anchor = $(this);
+                    $('html, body').stop().animate({
+                        scrollTop: ($($anchor.attr('href')).offset().top)
+                    }, 1000, 'easeInOutExpo');
+                    e.preventDefault();
+                });
+
+                // 当未读取用户名时隐藏整个用户信息
+                $(function () {
+                    if (!$('#userName').html()) {
+                        $('#user-area,#newEmailButton,#newMsgButton').hide();
+                        $('#login-button').show();
+                        $('#checkIn').hide();
+                    } else {
+                        $('#checkIn').show();
+                        $('#login-button').hide();
+                    }
+                });
+            })(jQuery);
+
+        </script>
+
+    </body>
+
+</html>
