@@ -21,7 +21,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- 导航栏 -->
-            <li class="nav-item active">
+            <li class="nav-item" th:class="${(active == 'mainPage')?'nav-item active':'nav-item'}">
                 <a class="nav-link" href="/index.html">
                     <!--          Font Awesome图标插件-->
                     <i class="fas fa-fw fa-coffee"></i>
@@ -38,17 +38,18 @@
 
             <!-- 导航栏按钮 - 页面折叠菜单 -->
             <!--      软件组-->
-            <li class="nav-item">
+            <li class="nav-item" th:class="${(active=='webGroupBtn1')||(active=='webGroupBtn2')||(active=='webGroupBtn3')||(active=='webGroupBtn4')?'nav-item active':'nav-item'}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#webGroupCollapse"
                    aria-expanded="true" aria-controls="webGroupCollapse">
                     <!--          这个图标插件还蛮好用的-->
                     <i class="fas fa-fw fa-code"></i>
                     <span>软件组</span>
                 </a>
-                <div id="webGroupCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="webGroupCollapse" class="collapse" th:class="${(active=='webGroupBtn1')||(active=='webGroupBtn2')||(active=='webGroupBtn3')||(active=='webGroupBtn4')?'collapse show':'collapse'}"
+                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--            这个就是别的小队写的网页-->
-                        <a class="collapse-item" href="#">组内论坛</a>
+                        <a th:class="${active=='webGroupBtn1'?'collapse-item active':'collapse-item'}" href="/webGroupPostsPage.html">组内论坛</a>
                         <a class="collapse-item" href="#">资源分享</a>
                         <a class="collapse-item" href="#">通知公告</a>
                         <a class="collapse-item" href="#">周任务发布</a>
@@ -83,13 +84,13 @@
                 更多
             </div>
             <!--   后台管理  -->
-            <li class="nav-item" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
+            <li class="nav-item" th:if="${session.user!=null && session.user.userclass eq 5}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminPages"
                    aria-expanded="true" aria-controls="adminPages">
-                    <i class="fas fa-fw fa-external-link-alt"></i>
+                    <i class="fas fa-fw fa-window-maximize"></i>
                     <span>后台管理</span>
                 </a>
-                <div id="adminPages" th:class="${(active=='user')||(active=='posting')?'collapse show':'collapse'}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="adminPages" th:class="${(active=='user')||(active=='posting')||(active=='postDetail')?'collapse show':'collapse'}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">管理功能</h6>
                         <a th:class="${active=='user'?'collapse-item active':'collapse-item'}" href="/list/user">用户管理</a>
@@ -98,8 +99,8 @@
                         <!--            分隔-->
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">信息功能</h6>
-                        <a class="collapse-item" href="#">#</a>
-                        <a class="collapse-item" href="#">#</a>
+                        <a class="collapse-item" href="#">用户详细（未开放）</a>
+                        <a th:class="${active=='postDetail'?'collapse-item active':'collapse-item'}" href="/detail/postDetail">帖子详细</a>
                         <a class="collapse-item" href="#/">消息管理</a>
                     </div>
                 </div>
@@ -201,7 +202,7 @@
 
 
                 <!-- 消息提示 -->
-                <li class="nav-item dropdown no-arrow mx-1" id="newMsgButton" th:if="${session.loadUser!=null}">
+                <li class="nav-item dropdown no-arrow mx-1" id="newMsgButton" th:if="${session.user!=null}">
                     <!--              消息铃的部分-->
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -245,7 +246,7 @@
                 </li>
 
                 <!-- 新私信按钮 -->
-                <li class="nav-item dropdown no-arrow mx-1" id="newEmailButton"  th:if="${session.loadUser!=null}">
+                <li class="nav-item dropdown no-arrow mx-1" id="newEmailButton"  th:if="${session.user!=null}">
                     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-envelope fa-fw"></i>
@@ -278,12 +279,12 @@
 
 
                 <!--头条物件--登陆的用户信息 -->
-                <li class="nav-item dropdown no-arrow" id="user-area" th:if="${session.loadUser!=null}">
+                <li class="nav-item dropdown no-arrow" id="user-area" th:if="${session.user!=null}">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <!--                            用户名的接口在这里-->
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="userName"
-                              th:text="${session.loadUser.username}"></span>
+                              th:text="${session.user.username}"></span>
                         <!--                  用户头像-->
                         <img class="img-profile rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt=""/>
                     </a>
@@ -306,17 +307,17 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item mx-1 text-nowrap" id="login-button" th:if="${session.loadUser eq null}">
+                <li class="nav-item mx-1 text-nowrap" id="login-button" th:if="${session.user eq null}">
                     <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/login.html'">登陆</button>
                     <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/register.html'">注册</button>
                 </li>
                 <!--              签到的按钮，id在这里-->
-                <li class="nav-item mx-1 mt-3 text-nowrap" id="checkIn"  th:if="${session.loadUser!=null && (session.loadUser.userclass eq 2 || session.loadUser.userclass eq 3 || session.loadUser.userclass eq 5)}">
+                <li class="nav-item mx-1 mt-3 text-nowrap" id="checkIn"  th:if="${session.user!=null && (session.user.userclass eq 2 || session.user.userclass eq 3 || session.user.userclass eq 5)}">
                     <button class="btn btn-outline-success text-nowrap">签到</button>
                 </li>
                 <!--                    进入后台-->
-                <li class="nav-item mx-1 mt-3 text-nowrap" id="enterTheBackstage" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
-                    <button class="btn btn-outline-danger text-nowrap"><a href="/list/user">进入后台</a></button>
+                <li class="nav-item mx-1 mt-3 text-nowrap" id="enterTheBackstage" th:if="${session.user!=null && session.user.userclass eq 5}">
+                    <button class="btn btn-outline-danger text-nowrap" onclick="window.location.href='/list/user'">进入后台</button>
                 </li>
                 <a href="/ajax"> ajax测试入口</a>
             </ul>
