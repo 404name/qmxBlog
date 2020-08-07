@@ -37,7 +37,25 @@ public class loadController {
         model.addAttribute("userclasses",userclasses);
         return "/register";
     }
-
+    //快速登录
+    @RequestMapping(value = "/1")
+    public String adminQuickLoad(HttpSession session){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email","111");
+        User user = userService.getOne(queryWrapper);
+        session.setAttribute("loadUser",user);
+        session.setAttribute("msg","");
+        return "redirect:/index";
+    }
+    @RequestMapping(value = "/2")
+    public String userQuickLoad(HttpSession session){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email","666");
+        User user = userService.getOne(queryWrapper);
+        session.setAttribute("loadUser",user);
+        session.setAttribute("msg","");
+        return "redirect:/index";
+    }
     //登录 及跳转
     @RequestMapping(value = "/load")
     public String checkLoad(

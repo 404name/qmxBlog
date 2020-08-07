@@ -20,6 +20,13 @@ public class CommentController {
     @RequestMapping("/addComment")
     public String addComment(Comment comment){
         commentService.save(comment);
+        String path = "redirect:/showPosting?postingid=" + comment.getTopostingid();
+        System.out.println(path);
+        return path;
+    }
+    @RequestMapping("/deleteComment")
+    public String deleteComment(Comment comment){
+        commentService.save(comment);
         return "/showPosting?postingid=" + comment.getTopostingid();
     }
 }

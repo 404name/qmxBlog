@@ -23,6 +23,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/postDetail.html").setViewName("postDetail");
         registry.addViewController("/profile.html").setViewName("profile");
         registry.addViewController("/detail/updataPosting").setViewName("detail/updataPosting");
+        registry.addViewController("/webGroupPostsPage.html").setViewName("/webGroupPostsPage");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -38,6 +39,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/index.html","/","/index","/login.html",
                         "/load","/logout","/addUser",
+                        "/1","/2",
                         "/register.html","/static/**");
     }
 }

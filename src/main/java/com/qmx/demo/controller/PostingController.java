@@ -63,7 +63,6 @@ public class PostingController {
         return "redirect:/list/posting";
     }
 
-    @GetMapping("/showPosting")
     @RequestMapping("/showPosting")
     public String showPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic,
                               @RequestParam(value = "postingid",required = true)int postingid,
