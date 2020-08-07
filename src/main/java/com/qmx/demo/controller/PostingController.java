@@ -44,8 +44,6 @@ public class PostingController {
             List<Comment> comments = commentService.list(queryWrapper0);
             model.addAttribute("posting",posting);
             model.addAttribute("comments",comments);
-            User user = loadController.user;
-            model.addAttribute("user",user);
         }else{
             QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("postingid",postingid);
@@ -57,8 +55,6 @@ public class PostingController {
             List<Comment> comments = commentService.list(queryWrapper0);
             model.addAttribute("posting",posting);
             model.addAttribute("comments",comments);
-            User user = loadController.user;
-            model.addAttribute("user",user);
         }
         return "/detail/postDetail";
     }

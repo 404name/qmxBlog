@@ -15,6 +15,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/index").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
         registry.addViewController("/login.html").setViewName("login");
         registry.addViewController("/register.html").setViewName("register");
@@ -28,5 +29,15 @@ public class MyMvcConfig implements WebMvcConfigurer {
         // classpath表示在resource目录下，/static/** 表示在URL路径中访问如
         // http://localhost:8080/static/ 即可访问到resource下的static目录
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+    }
+
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginHandkerInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/index.html","/","/index","/login.html",
+                        "/load","/logout",
+                        "/register.html","/static/**");
     }
 }
