@@ -21,7 +21,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- 导航栏 -->
-            <li class="nav-item active">
+            <li class="nav-item" th:class="${(active == 'mainPage')?'nav-item active':'nav-item'}">
                 <a class="nav-link" href="/index.html">
                     <!--          Font Awesome图标插件-->
                     <i class="fas fa-fw fa-coffee"></i>
@@ -38,17 +38,18 @@
 
             <!-- 导航栏按钮 - 页面折叠菜单 -->
             <!--      软件组-->
-            <li class="nav-item">
+            <li class="nav-item" th:class="${(active=='webGroupBtn1')||(active=='webGroupBtn2')||(active=='webGroupBtn3')||(active=='webGroupBtn4')?'nav-item active':'nav-item'}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#webGroupCollapse"
                    aria-expanded="true" aria-controls="webGroupCollapse">
                     <!--          这个图标插件还蛮好用的-->
                     <i class="fas fa-fw fa-code"></i>
                     <span>软件组</span>
                 </a>
-                <div id="webGroupCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="webGroupCollapse" class="collapse" th:class="${(active=='webGroupBtn1')||(active=='webGroupBtn2')||(active=='webGroupBtn3')||(active=='webGroupBtn4')?'collapse show':'collapse'}"
+                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--            这个就是别的小队写的网页-->
-                        <a class="collapse-item" href="#">组内论坛</a>
+                        <a th:class="${active=='webGroupBtn1'?'collapse-item active':'collapse-item'}" href="/webGroupPostsPage.html">组内论坛</a>
                         <a class="collapse-item" href="#">资源分享</a>
                         <a class="collapse-item" href="#">通知公告</a>
                         <a class="collapse-item" href="#">周任务发布</a>
@@ -86,7 +87,7 @@
             <li class="nav-item" th:if="${session.user!=null && session.user.userclass eq 5}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminPages"
                    aria-expanded="true" aria-controls="adminPages">
-                    <i class="fas fa-fw fa-external-link-alt"></i>
+                    <i class="fas fa-fw fa-window-maximize"></i>
                     <span>后台管理</span>
                 </a>
                 <div id="adminPages" th:class="${(active=='user')||(active=='posting')||(active=='postDetail')?'collapse show':'collapse'}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -316,7 +317,7 @@
                 </li>
                 <!--                    进入后台-->
                 <li class="nav-item mx-1 mt-3 text-nowrap" id="enterTheBackstage" th:if="${session.user!=null && session.user.userclass eq 5}">
-                    <button class="btn btn-outline-danger text-nowrap"><a href="/list/user">进入后台</a></button>
+                    <button class="btn btn-outline-danger text-nowrap" onclick="window.location.href='/list/user'">进入后台</button>
                 </li>
                 <a href="/ajax"> ajax测试入口</a>
             </ul>

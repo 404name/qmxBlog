@@ -69,4 +69,12 @@
       $('#login-button').hide();
     }
   });
+  // 顺滑移动我要发帖跳转
+  $(document).on('click', 'a.toPostDiv', function(e) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({
+      scrollTop: ($($anchor.attr('href')).offset().top)
+    }, 1000, 'easeInOutExpo');
+    e.preventDefault();
+  });
 })(jQuery);
