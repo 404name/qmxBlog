@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+  <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+  <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+  <title>登陆启明星工作室</title>
+
+  <!-- 导入模板css以及字体-->
+  <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- 导入自定义模板-->
+  <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top" class="bg-gray-100">
+
+
+<div id="wrapper">
+
+
+
+  <div id="content-wrapper" class="d-flex flex-column">
+
+
+    <div id="content">
+
+
+      <div class="container-fluid">
+
+
+        <div class="text-center">
+          <div class="error mx-auto" data-text="404">404</div>
+          <p class="lead text-gray-800 mb-5">十分抱歉，页面走丢了</p>
+          <img class="mb-5" src="img/qmx_icon.png" alt="" width="128" height="128" style="opacity: 60%;">
+          <p class="text-gray-500 mb-0">您可以向管理员反馈此问题...</p>
+          <a href="index.html">&larr; 回到首页</a>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- 页脚 -->
+<footer class="sticky-footer">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; 三峡大学启明星工作室 2020 - 鄂ICP备15002584号</span>
+    </div>
+  </div>
+</footer>
+
+
+
+<!-- 使用Bootstrap之前必须先引用这两个-->
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- 一些js插件-->
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- 自己的js文件-->
+<script th:src="@{/static/js/index-min.js}"></script>
+<script th:src="@{/static/js/loginCheck.js}"></script>
+
+</body>
+
+</html>

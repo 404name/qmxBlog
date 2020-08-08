@@ -24,6 +24,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/profile.html").setViewName("profile");
         registry.addViewController("/detail/updataPosting").setViewName("detail/updataPosting");
         registry.addViewController("/webGroupPostsPage.html").setViewName("/webGroupPostsPage");
+        registry.addViewController("/profileDetail.html").setViewName("profileDetail");
+        registry.addViewController("/404.html").setViewName("error");
+        registry.addViewController("/404.html").setViewName("404");
+        registry.addViewController("/privacy_setting.html").setViewName("privacy_setting");
+        registry.addViewController("/security_setting.html").setViewName("security_setting");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -60,7 +60,8 @@
                     </div>
                   </div>
 
-                  <button class="btn btn-primary btn-user btn-block" type="submit">登录</button>
+                  <button class="btn btn-primary btn-user btn-block" type="submit"
+                          data-toggle="modal" data-target="#loging">登录</button>
                   <!--                下划线-->
                   <hr>
 
@@ -91,6 +92,31 @@
   </div>
 
 </div>
+
+
+<!--登陆出错提示-->
+<div class="modal fade" id="loging" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center items-center">
+
+      <div class="modal-header text-center">
+        <h5 class="modal-title text-success" id="exampleModalLabel">请稍等</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body m-0">正在登陆</div>
+      <div class="mb-5">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw mb-3"></i>
+        <span class="sr-only">正在登陆...</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 
 <!-- 使用Bootstrap之前必须先引用这两个-->
 <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
