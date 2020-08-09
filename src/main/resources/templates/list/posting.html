@@ -1,278 +1,316 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <!--请适当使用搜索功能，检索href="#",查找当前空缺接口-->
-    <head>
-        <!--  防止乱码-->
-        <meta charset="utf-8">
-        <!--  提升网页兼容性-->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
-        <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
-        <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
-        <title>启明星工作室</title>
+<!--请适当使用搜索功能，检索href="#",查找当前空缺接口-->
+<head>
+    <!--  防止乱码-->
+    <meta charset="utf-8">
+    <!--  提升网页兼容性-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+    <title>启明星工作室</title>
 
-        <!-- 自定义字体-->
-        <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-              rel="stylesheet">
+    <!-- 自定义字体-->
+    <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
 
-        <!-- 自己的css-->
-        <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+    <!-- 自己的css-->
+    <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
 
-        <style>
-            /*去除a标签的所有效果*/
-            /*包含以下四种的链接*/
-            a {
-                text-decoration: none;
-            }
+    <style>
+        /*去除a标签的所有效果*/
+        /*包含以下四种的链接*/
+        a {
+            text-decoration: none;
+        }
 
-            /*正常的未被访问过的链接*/
-            a:link {
-                text-decoration: none;
-            }
+        /*正常的未被访问过的链接*/
+        a:link {
+            text-decoration: none;
+        }
 
-            /*已经访问过的链接*/
-            a:visited {
-                text-decoration: none;
-            }
+        /*已经访问过的链接*/
+        a:visited {
+            text-decoration: none;
+        }
 
-            /*鼠标划过(停留)的链接*/
-            a:hover {
-                text-decoration: none;
-            }
+        /*鼠标划过(停留)的链接*/
+        a:hover {
+            text-decoration: none;
+        }
 
-            /* 正在点击的链接*/
-            a:active {
-                text-decoration: none;
-            }
-            /*#listcontent td {*/
-            /*    max-width: 180px;*/
-            /*    overflow: hidden;*/
-            /*    white-space: nowrap;*/
-            /*    text-overflow: ellipsis;*/
-            /*}*/
-        </style>
-    </head>
+        /* 正在点击的链接*/
+        a:active {
+            text-decoration: none;
+        }
 
-    <body id="page-top">
+        /*#listcontent td {*/
+        /*    max-width: 180px;*/
+        /*    overflow: hidden;*/
+        /*    white-space: nowrap;*/
+        /*    text-overflow: ellipsis;*/
+        /*}*/
+    </style>
+    <style>
+        .dataTable td {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 240px;
+        }
+        .dataTable img{
+            height: 46px;
+        }
+        .dataTable iframe{
+            height: 46px;
+        }
+    </style>
+</head>
 
-        <!-- 页面整体 -->
-        <div id="wrapper">
+<body id="page-top">
 
-            <!-- 侧边栏 -->
-            <div th:replace="commonModule/module::sideBar(active='posting')"></div>
-            <!-- 侧边栏到此为止啦 -->
+<!-- 页面整体 -->
+<div id="wrapper">
 
-            <!-- 接下来是主内容区域 -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- 主内容 -->
-                <div id="content">
-                    <!-- 顶部头条内容 -->
-                    <div th:replace="commonModule/module::navBar"></div>
-                    <!-- 顶栏到此为止 -->
+    <!-- 侧边栏 -->
+    <div th:replace="commonModule/module::sideBar(active='posting')"></div>
+    <!-- 侧边栏到此为止啦 -->
 
-                    <!-- 主页内容 -->
-                    <div class="container-fluid">
-                        <h1 class="h3 mb-2 text-gray-800">用户管理界面</h1>
-                        <!--                把数据放在bootstrap的card里面了-->
-                        <div class="card shadow mb-4  border-left-primary">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">目前存在的用户</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th>文章标题</th>
-                                            <th>作者</th>
-                                            <th>文章内容</th>
-                                            <th>文章类别</th>
-                                            <th>逻辑删除</th>
-                                            <th>发布时间</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="listcontent"></tbody>
+    <!-- 接下来是主内容区域 -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- 主内容 -->
+        <div id="content">
+            <!-- 顶部头条内容 -->
+            <div th:replace="commonModule/module::navBar"></div>
+            <!-- 顶栏到此为止 -->
 
-                                        <tbody class="table table-bordered">
-                                        <form class="form-group text-center" th:action="@{/addPosting}" method="post">
-                                            <th><input class="form-control form-control-user" type="text"
-                                                       name="postingtitle"></th>
-                                            <th><input class="form-control form-control-user" type="text"
-                                                       name="username"></th>
-                                            <th><input class="form-control form-control-user" type="text"
-                                                       name="postingcontent"></th>
-                                            <th><input class="form-control form-control-user" type="text"
-                                                       name="postingclass">
-                                            </th>
-                                            <th><select class="form-control" name="deleted">
-                                                <option value="0">可见</option>
-                                                <option value="1">不可见</option>
-                                            </select></th>
-                                            <th><input class="form-control form-control-user" type="text" name="#"
-                                                       disabled="disabled"></th>
+            <!-- 主页内容 -->
+            <div class="container-fluid">
+                <h1 class="h3 mb-2 text-gray-800">用户管理界面</h1>
+                <!--                把数据放在bootstrap的card里面了-->
+                <div class="card shadow mb-4  border-left-primary">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">目前存在的用户</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap"
+                                   id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>文章标题</th>
+                                    <th>作者</th>
+                                    <th>文章内容</th>
+                                    <th>文章类别</th>
+                                    <th>逻辑删除</th>
+                                    <th>发布时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="listcontent"></tbody>
 
-                                            <th>
-                                                <button class="btn btn-primary" type="submit">添加</button>
-                                            </th>
-                                        </form>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                <tbody class="table table-bordered">
+                                <form class="form-group text-center" th:action="@{/addPosting}" method="post">
+                                    <th><input class="form-control form-control-user" type="text"
+                                               name="postingtitle"></th>
+                                    <th><input class="form-control form-control-user" type="text"
+                                               name="username"></th>
+                                    <th><input class="form-control form-control-user" type="text"
+                                               name="postingcontent"></th>
+                                    <th><input class="form-control form-control-user" type="text"
+                                               name="postingclass">
+                                    </th>
+                                    <th><select class="form-control" name="deleted">
+                                        <option value="0">可见</option>
+                                        <option value="1">不可见</option>
+                                    </select></th>
+                                    <th><input class="form-control form-control-user" type="text" name="#"
+                                               disabled="disabled"></th>
+
+                                    <th>
+                                        <button class="btn btn-primary" type="submit">添加</button>
+                                    </th>
+                                </form>
+                                </tbody>
+                            </table>
                         </div>
-
                     </div>
                 </div>
-                <!-- 主体内容结束-->
-
-                <!-- 页脚 -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; 三峡大学启明星工作室 2020 - 鄂ICP备15002584号</span>
-                        </div>
-                    </div>
-                </footer>
-                <!--页脚也就这么点点-->
 
             </div>
-            <!-- 总内容也就这么多了-->
-
         </div>
-        <!--主体的区域结束了，接下来就是弹窗的div等部分-->
+        <!-- 主体内容结束-->
 
-        <!-- 回到最上-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+        <!-- 页脚 -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; 三峡大学启明星工作室 2020 - 鄂ICP备15002584号</span>
+                </div>
+            </div>
+        </footer>
+        <!--页脚也就这么点点-->
 
-        <!--        &lt;!&ndash;登出时弹出的窗口&ndash;&gt;-->
-        <!--        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
-        <!--             aria-hidden="true">-->
-        <!--            <div class="modal-dialog" role="document">-->
-        <!--                <div class="modal-content">-->
+    </div>
+    <!-- 总内容也就这么多了-->
 
-        <!--                    <div class="modal-header">-->
-        <!--                        <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>-->
-        <!--                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
-        <!--                            <span aria-hidden="true">×</span>-->
-        <!--                        </button>-->
-        <!--                    </div>-->
+</div>
+<!--主体的区域结束了，接下来就是弹窗的div等部分-->
 
-        <!--                    <div class="modal-body m-0">保持登陆以防止错过重要信息</div>-->
-        <!--                    <div class="modal-body m-0">您确定要这么做吗？</div>-->
+<!-- 回到最上-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-        <!--                    <div class="modal-footer">-->
-        <!--                        &lt;!&ndash;                                                          这个命令可以开关这个div&ndash;&gt;-->
-        <!--                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>-->
-        <!--                        <a class="btn btn-primary" th:href="@{login.html}">确定</a>-->
-        <!--                    </div>-->
+<!--        &lt;!&ndash;登出时弹出的窗口&ndash;&gt;-->
+<!--        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+<!--             aria-hidden="true">-->
+<!--            <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
 
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>-->
+<!--                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">×</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
 
+<!--                    <div class="modal-body m-0">保持登陆以防止错过重要信息</div>-->
+<!--                    <div class="modal-body m-0">您确定要这么做吗？</div>-->
 
-        <!-- 使用Boostrap之前必须先引用这两个-->
-        <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
-        <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!--                    <div class="modal-footer">-->
+<!--                        &lt;!&ndash;                                                          这个命令可以开关这个div&ndash;&gt;-->
+<!--                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>-->
+<!--                        <a class="btn btn-primary" th:href="@{login.html}">确定</a>-->
+<!--                    </div>-->
 
-        <!-- 一些js插件-->
-        <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-        <!-- 自己的js文件-->
-        <script th:src="@{/static/js/index.js}"></script>
-
-        <!-- 关于表格的js插件 -->
-        <script th:src="@{/static/vendor/chart.js/Chart.min.js}"></script>
-
-        <!--引入表格 一个折线图另一个饼图-->
-        <script th:src="@{/static/js/graph/chart-area-demo.js}"></script>
-        <script th:src="@{/static/js/graph/chart-pie-demo.js}"></script>
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
 
-        <script type="text/javascript">
-            // 时间格式化
-            function dateformat(str){
-                if(str == null || str == ""){
-                    return "2020";
-                }
-                var now = new Date(str);
-                var year = now.getFullYear();
-                var month =(now.getMonth() + 1).toString();
-                var day = (now.getDate()).toString();
-                if (month.length == 1) {
-                    month = "0" + month;
-                }
-                if (day.length == 1) {
-                    day = "0" + day;
-                }
-                var dateTime = year +"-"+ month +"-"+  day;
-                return dateTime;
-            }
+<!-- 使用Boostrap之前必须先引用这两个-->
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
-            $(document).ready(function () {
-                $('#dataTable').DataTable({
-                    "ajax": "/posting/selectAllPosting?logic=0",
-                    "columns": [
-                        {"data": "postingtitle"},
-                        {"data": "username"},
-                        {"data": "postingcontent"},
-                        {
-                            "data": "postingclass",
-                            "render": function (data, type, full) {
-                                if (data == 0) {
-                                    return "常规贴"
-                                } else if (data == 1) {
-                                    return "周总结";
-                                }
-                                else if (data == 2) {
-                                    return "周任务发布";
-                                }else {
-                                    return "电脑带离";
-                                }
-                            }
-                        },
-                        {
-                            "data": "deleted",
-                            "render": function (data, type, full) {
-                                if (data == 0) {
-                                    return "可显示"
-                                }
-                                return "不可见";
-                            }
-                        },
-                        {
-                            "data": "postingdate",
-                            "render": function (data, type, full) {
-                                return dateformat(data);
-                            }
-                        },
-                        {
-                            "data": "postingid",
-                            "render": function (data, type, full) {
-                                var html = "";
-                                html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?postingid=' + data + '">详细</a>' +
-                                    '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/updataPosting?postingid=' + data + '">修改</a>' +
-                                    '<a class="btn btn-sm btn-danger text-nowrap" href="/posting/delete?postingid=' + data + '">删除</a>'
-                                return html;
-                            }
+<!-- 一些js插件-->
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- 自己的js文件-->
+<script th:src="@{/static/js/index.js}"></script>
+
+<!-- 关于表格的js插件 -->
+<script th:src="@{/static/vendor/chart.js/Chart.min.js}"></script>
+
+<!--引入表格 一个折线图另一个饼图-->
+<script th:src="@{/static/js/graph/chart-area-demo.js}"></script>
+<script th:src="@{/static/js/graph/chart-pie-demo.js}"></script>
+
+<script>
+    function hideIMG() {
+        $('#dataTable img').hide();
+    }
+</script>
+
+<script type="text/javascript">
+    // 时间格式化
+    function dateformat(str) {
+        if (str == null || str == "") {
+            return "2020";
+        }
+        var now = new Date(str);
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString();
+        var day = (now.getDate()).toString();
+        if (month.length == 1) {
+            month = "0" + month;
+        }
+        if (day.length == 1) {
+            day = "0" + day;
+        }
+        var dateTime = year + "-" + month + "-" + day;
+        return dateTime;
+    }
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "ajax": "/posting/selectAllPosting?logic=0",
+            "columns": [
+                {"data": "postingtitle"},
+                {"data": "username"},
+                {
+                    "data": "postingcontent",
+                    // "render": function (data) {
+                    //     let str = data.toString();
+                    //     while(str.indexOf("img")!==-1){
+                    //         alert("发现img标签");
+                    //         // str.replace("img","图片");
+                    //         str="发现图片标签";
+                    //     }
+                    //     while(str.indexOf("iframe")!==-1){
+                    //         alert("发现iframe标签");
+                    //         // str.replace("iframe ","视频");
+                    //         str="视频";
+                    //     }
+                    //     return str;
+                    // }
+                },
+                {
+                    "data": "postingclass",
+                    "render": function (data, type, full) {
+                        if (data == 0) {
+                            return "常规贴"
+                        } else if (data == 1) {
+                            return "周总结";
+                        } else if (data == 2) {
+                            return "周任务发布";
+                        } else {
+                            return "电脑带离";
                         }
-                    ]
-                });
-            });
-        </script>
+                    }
+                },
+                {
+                    "data": "deleted",
+                    "render": function (data, type, full) {
+                        if (data == 0) {
+                            return "可显示"
+                        }
+                        return "不可见";
+                    }
+                },
+                {
+                    "data": "postingdate",
+                    "render": function (data, type, full) {
+                        return dateformat(data);
+                    }
+                },
+                {
+                    "data": "postingid",
+                    "render": function (data, type, full) {
+                        var html = "";
+                        html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?postingid=' + data + '">详细</a>' +
+                            '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/updataPosting?postingid=' + data + '">修改</a>' +
+                            '<a class="btn btn-sm btn-danger text-nowrap" href="/posting/delete?postingid=' + data + '">删除</a>';
+                        return html;
+                    }
+                }
+            ]
+        });
+        hideIMG();
+    });
+</script>
 
-        <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
-        <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
-        <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
-    </body>
+<!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
+<script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+</body>
 
 </html>
 
