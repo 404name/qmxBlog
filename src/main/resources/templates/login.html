@@ -52,11 +52,15 @@
                     <input type="password" class="form-control form-control-user" id="inputPassword"
                            placeholder="请输入密码" name="inputPassword"/>
                   </div>
+
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
                       <input type="checkbox" class="custom-control-input" id="customCheck">
                       <label class="custom-control-label" for="customCheck">记住我</label>
-                      <span style="color: red">[[${session.msg}]]</span>
+
+<!--                      <span class="text-danger ml-3" th:if='${session.msg}!=null' id="loginMsg"><i class="fas fa-exclamation-circle mr-1"></i>[[${session.msg}]]</span>-->
+                      <span class="text-danger ml-3" id="loginMsg">[[${session.msg}]]</span>
+
                     </div>
                   </div>
 
@@ -116,7 +120,37 @@
   </div>
 </div>
 
+<!--&lt;!&ndash;登陆出错提示&ndash;&gt;-->
+<!--<div class="modal fade" id="loginErrorDiv" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content text-center items-center">-->
 
+<!--      <div class="modal-header text-center">-->
+<!--        <h5 class="modal-title text-danger" id="loginError">非常抱歉</h5>-->
+<!--        <button class="close" type="button" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">×</span>-->
+<!--        </button>-->
+<!--      </div>-->
+
+<!--      <div class="modal-body m-0">您输入的账号或密码有误！</div>-->
+<!--      <div class="modal-footer">-->
+
+<!--        <a class="btn btn-info" type="button" data-dismiss="modal">确定</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<script>
+  // window.onload=function () {
+  //   if(!$('#loginMsg').html()){
+  //     $('#loginMsg').hide();
+  //     $('#loginErrorDiv').show();
+  //   }
+  // }
+</script>
 
 <!-- 使用Bootstrap之前必须先引用这两个-->
 <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
