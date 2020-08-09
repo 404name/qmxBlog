@@ -171,18 +171,74 @@
                             <h6 class="border-bottom border-gray pb-2 mb-0"><span
                                     class="badge align-text-bottom bg-info text-light" style="font-size: 14px;">1</span>
                                 个回复</h6>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th>回复</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="listcontent"></tbody>
-                                    </table>
+
+                            <!--         一个评论区块-->
+                            <div class="media text-muted pt-3" id="comment_div" th:each="comment:${comments}">
+                                <!--            头像-->
+                                <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
+                                <!--            用media的话，会自动多一个分隔细线就是了-->
+                                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                    <div>
+                                        <strong class="text-info" th:text="${comment.getUsername()}"></strong> ||
+                                        <strong class="text-gray-dark text-muted" style="opacity: 50%;" th:text="${comment.getCommentdate()}"></strong>
+                                    </div>
+                                    <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
+                                        <a class="btn btn-sm btn-success float-right align-self-center mx-auto"
+                                           href="#">关注</a>
+                                        <a class="ml-1 btn-sm btn-info change float-right w-auto"
+                                           href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
+                                        <a class="ml-1 btn-sm btn-danger delete float-right"
+                                           href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
+                                    </div>
+                                    <span class="d-block text-dark mt-1 comment" id="comment" th:utext="${comment.getCommentcontent()}"></span>
+                                    <div>
+                                        <!--          点踩就减少赞数就好-->
+                                        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |
+                                            <small>12</small></button>
+                                        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-info" onclick="openComment()"><i
+                                                class="fas fa-comment"></i> | <small>1</small></button>
+                                    </div>
+
+                                    <!--        楼中楼评论-->
+                                    <div id="comment_com" class="mt-3" style="display: none">
+                                        <div class="my-3 p-3 bg-white rounded shadow-sm">
+                                            <!--         一个评论区块-->
+                                            <div class="media text-muted pt-3">
+                                                <img width="54" height="54" class="avatar mr-2"
+                                                     style="margin-bottom: 10px;"/>
+                                                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                                    <div>
+                                                        <strong class="text-info">评论人</strong> ||
+                                                        <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>
+                                                    </div>
+                                                    <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
+                                                        <a class="btn btn-sm btn-success float-right align-self-center mx-auto"
+                                                           href="#">回复此人</a>
+                                                        <a class="ml-1 btn-sm btn-info change float-right w-auto"
+                                                           href='/updateComment?commentid="${comment.getCommentid()}"'>修改</a>
+                                                        <a class='ml-1 btn-sm btn-danger delete float-right'
+                                                           href='/deleteComment?commentid="${comment.getCommentid()}"'>删除</a>
+                                                    </div>
+                                                    <span class="d-block text-dark mt-1 comment">goooooood~</span>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <input class="form-control" type="text" name="commentcontent"
+                                                       placeholder="评论一下...">
+                                                <button class="btn btn-sm btn-success mt-2">评论</button>
+                                                <button class="btn btn-sm btn-dark mt-2">取消</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--          楼中楼评论-->
                                 </div>
                             </div>
+
                         </div>
                     </main>
 
@@ -210,118 +266,29 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
+        <script>
+            let pathTemp = "../static/img/avatar/icon";
+            let avatars = document.getElementsByClassName("avatar");
+            (function () {
+                for (let i = 1; i <= avatars.length; i++) {
+                    avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
+                }
+            }())
+
+            function openComment() {
+                if ($('#comment_com').is(":hidden")) {
+                    $('#comment_com').show();
+                } else {
+                    $('#comment_com').hide();
+                }
+            }
+        </script>
 
 
         <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
         <!-- 自己的js文件-->
-
-        <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
-        <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
-        <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                function getavatar() {
-                    let pathTemp = "../static/img/avatar/icon";
-                    let avatars = document.getElementsByClassName("avatar");
-                    for (let i = 1; i <= avatars.length; i++) {
-                        avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
-                    }
-                }
-                function openComment() {
-                    if ($('#comment_com').is(":hidden")) {
-                        $('#comment_com').show();
-                    } else {
-                        $('#comment_com').hide();
-                    }
-                }
-                function dateformat(str) {
-                    if (str == null || str == "") {
-                        return "2020";
-                    }
-                    var now = new Date(str);
-                    var year = now.getFullYear();
-                    var month = (now.getMonth() + 1).toString();
-                    var day = (now.getDate()).toString();
-                    if (month.length == 1) {
-                        month = "0" + month;
-                    }
-                    if (day.length == 1) {
-                        day = "0" + day;
-                    }
-                    var dateTime = year + "-" + month + "-" + day;
-                    return dateTime;
-                }
-                var postingid = [[${posting.getPostingid()}]];
-                $('#dataTable').DataTable( {
-                    "ajax": "/posting/selectPosting?postingid="+postingid,
-                    "columns": [
-                        // { "data": "commentcontent" }
-                        { "data": "commentcontent",
-                            "render": function (data,type,full){
-                            var html =
-                            '<div class="media text-muted pt-3" id="comment_div">'+
-                                    '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>'+
-                                '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
-                                    '<div>'+
-                                    '<strong class="text-info" >'+full.username+'</strong> ||'+
-                                    '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>'+
-                                    '</div>'+
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">'+
-                                    '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">关注</a>'+
-                                    '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>'+
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>'+
-                                    '</div>'+
-                                    '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>'+
-                                    '<div>'+
-                                    '<!--          点踩就减少赞数就好-->'+
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |'+
-                                    '<small>12</small></button>'+
-                                '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i>'+
-                                    '</button>'+
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏'+
-                                    '</button>'+
-                                    '<button class="btn btn-sm btn-outline-info" onclick="openComment()"><i class="fas fa-comment"></i> | <small>1</small></button>'+
-                                '</div>'+
-                                '<!--        楼中楼评论-->'+
-                                '<div id="comment_com" class="mt-3" style="display: none">'+
-                                    '<div class="my-3 p-3 bg-white rounded shadow-sm">'+
-                                    '<!--         一个评论区块-->'+
-                                    '<div class="media text-muted pt-3">'+
-                                    '<img width="54" height="54" class="avatar mr-2"style="margin-bottom: 10px;"/>'+
-                                    '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
-                                    '<div>'+
-                                    '<strong class="text-info">评论人</strong> ||'+
-                                    '<strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>'+
-                                    '</div>'+
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">'+
-                                    '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">回复此人</a>'+
-                                    '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updateComment?commentid=${comment.getCommentid()}">修改</a>'+
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid=${comment.getCommentid()}">删除</a>'+
-                                    '</div>'+
-                                    '<span class="d-block text-dark mt-1 comment">goooooood~</span>'+
-                                '</div>'+
-                                '</div>'+
-                                '<div class="mt-2">'+
-                                    '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">'+
-                                    '<button class="btn btn-sm btn-success mt-2">评论</button>'+
-                                    '<button class="btn btn-sm btn-dark mt-2">取消</button>'+
-                                    '</div>'+
-                                    '</div>'+
-                                    '</div>'+
-                                    '<!--          楼中楼评论-->'+
-                                    '</div>'+
-                                    '</div>';
-                                getavatar();
-                                return html;
-                            }
-                        }
-                    ],
-                });
-            });
-        </script>
-
         <script>
             (function ($) {
                 "use strict";

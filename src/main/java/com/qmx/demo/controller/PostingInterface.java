@@ -74,10 +74,10 @@ public class PostingInterface {
             //获取评论
             QueryWrapper<Comment> queryWrapper0 = new QueryWrapper<>();
             queryWrapper0.eq("deleted","0");
-            queryWrapper0.eq("postingid",postingid);
+            queryWrapper0.eq("topostingid",postingid);
             List<Comment> comments = commentService.list(queryWrapper0);
             map.put("posting",posting);
-            map.put("comments",comments);
+            map.put("data",comments);
         }else{
             QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("deleted","1");
@@ -86,10 +86,10 @@ public class PostingInterface {
             //获取评论
             QueryWrapper<Comment> queryWrapper0 = new QueryWrapper<>();
             queryWrapper0.eq("deleted","1");
-            queryWrapper0.eq("postingid",postingid);
+            queryWrapper0.eq("topostingid",postingid);
             List<Comment> comments = commentService.list(queryWrapper0);
             map.put("posting",posting);
-            map.put("comments",comments);
+            map.put("data",comments);
         }
         return map;
     }
