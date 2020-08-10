@@ -16,18 +16,18 @@ public class MyMvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
-        registry.addViewController("/index.html").setViewName("index");
-        registry.addViewController("/login.html").setViewName("loginService/login");
+//        registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/login").setViewName("loginService/login");
         registry.addViewController("/ajax").setViewName("loginService/ajaxLoad");
-        registry.addViewController("/ajax.html").setViewName("loginService/ajaxLoad");
+//        registry.addViewController("/ajax.html").setViewName("loginService/ajaxLoad");
 //      管理员后台
         registry.addViewController("postDetail").setViewName("user/postDetail");
         registry.addViewController("/detail/updataPosting").setViewName("detail/updataPosting");
 //        开发组论坛
         registry.addViewController("webGroupPostsPage").setViewName("softwareGroup/webGroupPostsPage");
 //        额外界面
-        registry.addViewController("/404.html").setViewName("error");
-        registry.addViewController("/404.html").setViewName("404");
+        registry.addViewController("/404").setViewName("error");
+        registry.addViewController("/404").setViewName("404");
 //        用户界面的跳转部分
         registry.addViewController("profile").setViewName("user/profile");
         registry.addViewController("profileDetail").setViewName("user/profileDetail");
