@@ -15,11 +15,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @RequestMapping("/toAllUser")
+    public String listuser(Model model, HttpSession session){
+        User user = (User)session.getAttribute("loadUser");
+        if(user == null || user.getUserclass() != 5){
+            session.setAttribute("msg","你没有权限访问");
+            return "redirect:/index";
+        }
+        return "/admin/list/user";
+    }
     @RequestMapping("/updataUser")
     public String updatauser(@RequestParam(value = "userid",required = true)int id,
                                 Model model){
@@ -27,20 +37,27 @@ public class UserController {
         queryWrapper.eq("id",id);
         User user =  userService.getOne(queryWrapper);
         model.addAttribute("user",user);
-        return "redirect:/detail/userUpdata";
+        return "redirect:/admin/detail/userUpdata";
+    }
+    @RequestMapping(value = "/showUser")
+    public String showUser(@RequestParam(value = "id",required = true)int id,
+                           Model model){
+        User user = userService.getById(id);
+        model.addAttribute("user",user);
+        return "/user/profileDetail";
     }
     @PostMapping("/updataUser")
     public String updatauser1(User user,
                                  Model model){
         System.out.println(user);
         userService.updateById(user);
-        return "redirect:/list/user";
+        return "redirect:/admin/list/user";
     }
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public String adduser(User user,
                           Model model){
         System.out.println(user);
         userService.save(user);
-        return "redirect:/list/user";
+        return "redirect:/admin/list/user";
     }
 }

@@ -33,7 +33,7 @@ public class loadController {
     public String toRegister(Model model){
         List<Userclass> userclasses = userclassService.list();
         model.addAttribute("userclasses",userclasses);
-        return "/register";
+        return "/loginService/register";
     }
     //快速登录
     @RequestMapping(value = "/1")
@@ -66,7 +66,7 @@ public class loadController {
         User user = userService.getOne(queryWrapper);
         if(user == null){
             session.setAttribute("msg","密码错误,或查询不到该用户");
-            return "redirect:login";
+            return "redirect:/loginService/login";
         }else{
             //管理员管理界面
             session.setAttribute("loadUser",user);
@@ -81,32 +81,5 @@ public class loadController {
         session.setAttribute("loadUser",user);
         session.setAttribute("msg","");
         return "redirect:/index";
-    }
-    @RequestMapping("/list/user")
-    public String listuser(Model model,HttpSession session){
-        User user = (User)session.getAttribute("loadUser");
-        if(user == null || user.getUserclass() != 5){
-            session.setAttribute("msg","你没有权限访问");
-            return "redirect:/index";
-        }
-////        model.addAttribute("power",loadclass);
-////        model.addAttribute("name",loadController.user.getUsername());
-//        model.addAttribute("user",loadController.user);
-////        测试插件而获取的所有数据，目前已知table插件和ajax获取后台代码再修改前端有冲突，所以搞了这里的代码
-////        QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
-////        queryWrapper.eq("deleted","0");
-////        List<Comment> users = commentService.list(queryWrapper);
-        return "list/user";
-    }
-    @RequestMapping("/list/posting")
-    public String listposting(Model model,HttpSession session){
-        User user = (User)session.getAttribute("loadUser");
-        if(user == null || user.getUserclass() != 5){
-            session.setAttribute("msg","你没有权限访问");
-            return "redirect:/index";
-        }
-//        model.addAttribute("power",loadclass);
-//        model.addAttribute("name",loadController.user.getUsername());
-        return "list/posting";
     }
 }

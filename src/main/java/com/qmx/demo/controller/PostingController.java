@@ -35,6 +35,16 @@ public class PostingController {
     @Autowired
     public PostingclassService postingclassService;
 
+    //不返回数据仅仅跳转
+    @RequestMapping("/toAllPosting")
+    public String listposting(Model model,HttpSession session){
+        User user = (User)session.getAttribute("loadUser");
+        if(user == null || user.getUserclass() != 5){
+            session.setAttribute("msg","你没有权限访问");
+            return "redirect:/index";
+        }
+        return "/admin/list/posting";
+    }
     @GetMapping("/updataPosting")
     public String updataPosting(@RequestParam(value = "postingid",required = true)int postingid,
                                 HttpSession session,Model model){
@@ -45,14 +55,14 @@ public class PostingController {
         System.out.println(posting);
         List<Postingclass> postingclasses = postingclassService.list();
         model.addAttribute("postingclasses",postingclasses);
-        return "detail/updataPosting";
+        return "/admin/detail/updataPosting";
     }
     @PostMapping("/updataPosting")
     public String updataPosting1(Posting posting,
                                 Model model){
         System.out.println(posting);
         postingService.updateById(posting);
-        return "redirect:/list/posting";
+        return "redirect:/admin/list/posting";
     }
 
     @PostMapping("/addPosting")
@@ -60,12 +70,13 @@ public class PostingController {
                                  Model model){
         System.out.println(posting);
         postingService.save(posting);
-        return "redirect:/list/posting";
+        return "redirect:/admin/list/posting";
     }
 
     @RequestMapping("/showPosting")
     public String showPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic,
                               @RequestParam(value = "postingid",required = true)int postingid,
+                              @RequestParam(value = "type",required = false,defaultValue = "1")int type,
                               Model model){
         if(logic == 1){
             //获取文章
@@ -92,6 +103,10 @@ public class PostingController {
             model.addAttribute("posting",posting);
             model.addAttribute("comments",comments);
         }
-        return "/detail/postDetail";
+        if(type == 1){
+            return "/softwareGroup/postDetail";
+        }else{
+            return "/admin/detail/postDetail";
+        }
     }
 }

@@ -17,9 +17,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
-        registry.addViewController("/login.html").setViewName("login");
-        registry.addViewController("/ajax").setViewName("ajaxLoad");
-        registry.addViewController("/ajax.html").setViewName("ajaxLoad");
+        registry.addViewController("/login.html").setViewName("loginService/login");
+        registry.addViewController("/ajax").setViewName("loginService/ajaxLoad");
+        registry.addViewController("/ajax.html").setViewName("loginService/ajaxLoad");
 //      管理员后台
         registry.addViewController("postDetail").setViewName("user/postDetail");
         registry.addViewController("/detail/updataPosting").setViewName("detail/updataPosting");

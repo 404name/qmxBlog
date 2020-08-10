@@ -63,9 +63,6 @@
 
             <!-- 主页内容 -->
             <div class="container-fluid">
-
-
-
             </div>
 
             <!-- 统计卡片结束-->
@@ -74,7 +71,7 @@
                 <div class="col-xl-8 col-lg-8 ml-4  animated--grow-in">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-pencil-alt"></i> 基本信息</h6>
+                            <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-pencil-alt"></i>基本信息</h6>
                             <!--                  下拉菜单-->
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
@@ -95,17 +92,17 @@
                                     <th></th>
                                 </tr>
                                 <tr>
-                                    <td class="float-right">账号：</td>
+                                    <td class="float-right" >邮箱<input class="form-control form-control-user  w-75" placeholder="邮箱" th:value="${user.getEmail()}"></td>
                                     <td>www</td>
                                 </tr>
                                 <tr>
-                                    <td class="float-right">真实姓名：</td>
+                                    <td class="float-right">姓名<input class="form-control form-control-user  w-75" placeholder="姓名" th:value="${user.getUsername()}"></td>
                                     <td>tjy</td>
                                 </tr>
                                 <tr>
                                     <td class="float-right">性别：</td>
-                                    <td><input class="" type="radio" checked="checked" name="gender" value="male" /> <i class="fas fa-male text-primary mr-2"></i>
-                                        <input class="" type="radio" name="gender" value="female" /> <i class="fas fa-female text-danger mr-2"></i>
+                                    <td><input class="" type="radio" th:checked="${user.getGender() == 0?'check':' '}" name="gender" value="male" /> <i class="fas fa-male text-primary mr-2"></i>
+                                        <input class="" type="radio" th:checked="${user.getGender() == 1?'check':' '}" name="gender" value="female"/> <i class="fas fa-female text-danger mr-2"></i>
                                         <input class="" type="radio" name="gender" value="female" /> 保密</td>
                                 </tr>
                                 <tr>
@@ -173,20 +170,20 @@
                                     <th></th>
                                 </tr>
                                 <tr>
-                                    <td class="float-right">QQ：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" value="123456"></td>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">手机号码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" value=""></td>
+                                    <td class="float-right">学号：</td>
+                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" th:value="${user.getSchoolid()}"></td>
                                 </tr>
                                 <tr>
                                     <td class="float-right">邮箱：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" value="114514@mail.com"></td>
+                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" th:value="${user.getEmail()}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="float-right">手机号码：</td>
+                                    <td><input class="form-control form-control-user  w-75" placeholder="数据库未设置" value=""></td>
                                 </tr>
                                 <tr>
                                     <td class="float-right">Git主页：</td>
-                                    <td><input class="form-control form-group w-75" placeholder="未填写" value=""></td>
+                                    <td><input class="form-control form-group w-75" placeholder="数据库未设置" value=""></td>
                                 </tr>
                             </table>
 
@@ -223,11 +220,11 @@
                                 </tr>
                                 <tr>
                                     <td class="float-right">所在学校：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" value="三峡大学"></td>
+                                    <td><input class="form-control form-control-user  w-75" placeholder="数据库未设置" value=""></td>
                                 </tr>
                                 <tr>
                                     <td class="float-right">所在学院：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" value=""></td>
+                                    <td><input class="form-control form-control-user  w-75" placeholder="数据库未设置" value=""></td>
                                 </tr>
                                 <tr>
                                     <td class="float-right">入学年份：</td>
