@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户侧边栏</title>
+</head>
+<body>
+<!-- 侧边栏 -->
+<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar" th:fragment="profileSideBar">
+
+    <!-- 侧边栏最上方图标 -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="profile">
+        <!--        逆时针旋转15度-->
+        <div class="sidebar-brand-icon">
+            <img src="../../static/img/avatar/icon6.png" alt="avatar" height="52" width="52"/>
+        </div>
+        <div class="sidebar-brand-text mx-3 text-gray-800" th:class="${active=='profileMain'?'sidebar-brand-text mx-3':'sidebar-brand-text mx-3 text-gray-200'}">我的账户</div>
+    </a>
+
+    <!-- 侧边栏分割线 -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- 导航栏 -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#aboutMe"
+           aria-expanded="true" aria-controls="aboutMe">
+            <!--          这个图标插件还蛮好用的-->
+            <i class="fas fa-fw fa-coffee"></i>
+            <span>关于我</span>
+        </a>
+        <div id="aboutMe" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="#">关注详情</a>
+                <a class="collapse-item" href="#">我的发帖</a>
+                <a class="collapse-item" href="#">我的回复</a>
+            </div>
+        </div>
+    </li>
+
+
+
+    <!-- 导航栏按钮 - 页面折叠菜单 -->
+    <li class="nav-item" th:class="${active=='profileDetail'||active=='privacy_setting'||active=='security_setting'?'nav-item active':'nav-item'}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profileSetting"
+           aria-expanded="true" aria-controls="profileSetting">
+            <!--          这个图标插件还蛮好用的-->
+            <i class="fas fa-fw fa-cog"></i>
+            <span>用户设置</span>
+        </a>
+        <div id="profileSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="profileDetail" th:class="${active=='profileDetail'?'collapse-item active':'collapse-item'}">基本资料</a>
+                <a class="collapse-item" href="privacy_setting" th:class="${active=='privacy_setting'?'collapse-item active':'collapse-item'}">隐私/提醒</a>
+                <a class="collapse-item" href="security_setting" th:class="${active=='security_setting'?'collapse-item active':'collapse-item'}">安全设置</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myInformation"
+           aria-expanded="true" aria-controls="myInformation">
+            <!--          这个图标插件还蛮好用的-->
+            <i class="fas fa-fw fa-info"></i>
+            <span>消息通知</span>
+        </a>
+        <div id="myInformation" class="collapse" aria-labelledby="headingTwo"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="#">通知</a>
+                <a class="collapse-item" href="#">我的关注</a>
+                <a class="collapse-item" href="#">我的收藏</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- 缩小侧边栏 -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- 侧边栏到此为止啦 -->
+</body>
+</html>

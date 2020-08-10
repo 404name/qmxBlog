@@ -15,6 +15,7 @@
     <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/bootstrap/bootstrap-directional-buttons.css}" rel="stylesheet">
     <style>
         /*去除a标签的所有效果*/
         /*包含以下四种的链接*/
@@ -84,7 +85,7 @@
 <div id="wrapper">
 
     <!-- 侧边栏 -->
-    <div th:replace="commonModule/module::sideBar(active='webGroupBtn1')"></div>
+<!--    <div th:replace="commonModule/module::sideBar(active='webGroupBtn1')"></div>-->
     <!-- 侧边栏到此为止啦 -->
 
     <!-- 接下来是主内容区域 -->
@@ -106,19 +107,55 @@
                     <a class="btn btn-success ml-3 toPostDiv" id="addPost" href="#postDiv">我要发帖</a>
                 </div>
 
-                <!--一个统计区块-->
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>帖子内容</th>
-                            </tr>
-                            </thead>
-                            <tbody id="listcontent"></tbody>
-                        </table>
+                <div class="row">
+                    <div class="col-lg-8 ml-3">
+                        <!--统计卡片-->
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>帖子内容</th>
+                                </tr>
+                                </thead>
+                                <tbody id="listcontent"></tbody>
+                            </table>
+                        </div>
+                        <!--一个统计区块-->
+
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="col text-nowrap" style="margin-top: 85px;">
+                            <!-- 这是一个右侧导航的区块-->
+                            <div class="shadow">
+                                <div class="card-header border-bottom-info bg-white">
+                                    <i class="fas fa-list-ul"></i>
+                                    <small class="h5"> 帖子分类</small>
+                                    <a class="btn btn-sm btn-outline-info float-right" href="#"> 更多>> </a>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="shadow-sm table">
+                                            <thead>
+                                            <tr></tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr><td><a class="btn btn-outline-light d-block text-primary" href="#"><i class="fas fa-tag"></i> 常规帖<button style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">49</button></a></td></tr>
+                                            <tr><td><a class="btn btn-outline-light d-block text-primary" href="#"><i class="fas fa-tag"></i> 学习总结<button style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">10</button></a></td></tr>
+                                            <tr><td><a class="btn btn-outline-light d-block text-primary" href="#"><i class="fas fa-tag"></i> 答辩作品<button style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</button></a></td></tr>
+                                            <tr><td><a class="btn btn-outline-light d-block text-primary" href="#"><i class="fas fa-tag"></i> 聊天水贴<button style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">20</button></a></td></tr>
+                                            <tr><td><a class="btn btn-outline-light d-block text-primary" href="#"><i class="fas fa-tag"></i> 实习工作<button style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">11</button></a></td></tr>
+                                            <tr><td><a class="btn btn-outline-light d-block text-primary" href="#"><i class="fas fa-tag"></i> 算法总结<button style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">56</button></a></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  一个右侧导航区快结束-->
+                        </div>
                     </div>
                 </div>
+
+
 
                 <!--                这是一个发帖分块-->
                 <div class="shadow mt-3 col-xl-11 col-md-11 animated--grow-in mb-5 postDiv" id="postDiv">
@@ -137,21 +174,18 @@
                                     <div class="dropdown-menu animated--fade-in">
                                         <small class="text-muted ml-1">开发组:</small>
                                         <button type="button" class="dropdown-item" id="item1" onclick="i1()">常规</button>
-                                        <button type="button" class="dropdown-item" id="item2" onclick="i2()">总结</button>
-                                        <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩</button>
-                                        <button type="button" class="dropdown-item" id="item4" onclick="i4()">公告</button>
-                                        <div class="dropdown-divider"></div>
-                                        <small class="text-muted ml-1">硬件组:</small>
-                                        <button type="button" class="dropdown-item" id="item5" onclick="i5()">常规</button>
-                                        <button type="button" class="dropdown-item" id="item6" onclick="i6()">总结</button>
-                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">答辩</button>
-                                        <button type="button" class="dropdown-item" id="item8" onclick="i8()">公告</button>
+                                        <button type="button" class="dropdown-item" id="item2" onclick="i2()">学习总结</button>
+                                        <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩作品</button>
+                                        <button type="button" class="dropdown-item" id="item4" onclick="i4()">聊天水贴</button>
+                                        <button type="button" class="dropdown-item" id="item5" onclick="i5()">实习工作</button>
+                                        <button type="button" class="dropdown-item" id="item6" onclick="i6()">算法总结</button>
+<!--                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">周任务</button>-->
+<!--                                        <button type="button" class="dropdown-item" id="item8" onclick="i8()">公告</button>-->
                                     </div>
                                 </label>
                             </div>
                             <!--                        这里是富文本编辑器的插件入口-->
                             <div  class="col-sm-10" id="editDiv"></div>
-
                             <div class="col-sm-2">
                                 <button class="btn btn-success mb-0" id="submitBtn">确定发帖</button>
                             </div>
@@ -240,7 +274,7 @@
     function i4(){
         $("#postingClassBtn").html(strWG+$("#item4").text());
     }
-    let strHWG = "硬件组:";
+    let strHWG = "开发组:";
     function i5(){
         $("#postingClassBtn").html(strHWG+$("#item5").text());
     }
@@ -323,7 +357,7 @@
                             '</div>'+
                         '</div>'+
                         '<div class="col-auto">'+
-                            '<i class="fas fa-comments fa-2x text-primary"></i>'+
+                            '<i class="fas fa-comment-dots fa-2x text-primary"></i>'+
                             '</div>'+
                             '</div>'+
                             '</div>'+

@@ -20,15 +20,20 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login.html").setViewName("login");
         registry.addViewController("/ajax").setViewName("ajaxLoad");
         registry.addViewController("/ajax.html").setViewName("ajaxLoad");
-        registry.addViewController("/postDetail.html").setViewName("postDetail");
-        registry.addViewController("/profile.html").setViewName("profile");
+//      管理员后台
+        registry.addViewController("postDetail").setViewName("user/postDetail");
         registry.addViewController("/detail/updataPosting").setViewName("detail/updataPosting");
-        registry.addViewController("/webGroupPostsPage.html").setViewName("/webGroupPostsPage");
-        registry.addViewController("/profileDetail.html").setViewName("profileDetail");
+//        开发组论坛
+        registry.addViewController("webGroupPostsPage").setViewName("softwareGroup/webGroupPostsPage");
+//        额外界面
         registry.addViewController("/404.html").setViewName("error");
         registry.addViewController("/404.html").setViewName("404");
-        registry.addViewController("/privacy_setting.html").setViewName("privacy_setting");
-        registry.addViewController("/security_setting.html").setViewName("security_setting");
+//        用户界面的跳转部分
+        registry.addViewController("profile").setViewName("user/profile");
+        registry.addViewController("profileDetail").setViewName("user/profileDetail");
+        registry.addViewController("privacy_setting").setViewName("user/privacy_setting");
+        registry.addViewController("security_setting").setViewName("user/security_setting");
+//        用户界面的跳转部分
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
