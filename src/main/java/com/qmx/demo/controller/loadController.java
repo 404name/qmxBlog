@@ -7,8 +7,6 @@ package com.qmx.demo.controller;
  *------------------------*/
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mysql.cj.Session;
-import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.User;
 import com.qmx.demo.entity.Userclass;
 import com.qmx.demo.service.CommentService;

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+    <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+
+    <title>软件组帖子</title>
+
+    <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+    <style>
+        /*去除a标签的所有效果*/
+        /*包含以下四种的链接*/
+        a {
+            text-decoration: none;
+        }
+        /*正常的未被访问过的链接*/
+        a:link {
+            text-decoration: none;
+        }
+        /*已经访问过的链接*/
+        a:visited {
+            text-decoration: none;
+        }
+        /*鼠标划过(停留)的链接*/
+        a:hover {
+            text-decoration: none;
+        }
+        /* 正在点击的链接*/
+        a:active {
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        img{
+            display: inline-block;
+            height: auto;
+            max-width: 100%;
+        }
+        /*响应String中的回车符*/
+        #blogContent{
+            white-space: pre-line;
+        }
+        #blogContent iframe{
+            display: inline-block;
+            height: 720px;
+            max-width: 100%;
+            width: 1080px;
+        }
+        #comment{
+            white-space: pre-line;
+        }
+        #comment img{
+            display: inline-block;
+            height: auto;
+            max-width: 20%;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+<!-- 页面整体 -->
+<div id="wrapper">
+
+    <!-- 侧边栏 -->
+    <div th:replace="commonModule/module::sideBar(active='webGroupBtn1')"></div>
+    <!-- 侧边栏到此为止啦 -->
+
+    <!-- 接下来是主内容区域 -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- 主内容 -->
+        <div id="content">
+
+            <!-- 顶部头条内容 -->
+            <div th:replace="commonModule/module::navBar"></div>
+            <!-- 顶栏到此为止 -->
+
+            <!-- 主页内容 -->
+            <div class="container-fluid">
+                <div class="card-header text-nowrap ">
+                    <button class="btn btn-primary" id="showNewestPostBtn" onclick="showNewest()">最新的帖子</button>
+                    <button class="btn btn-secondary" id="showHottestPostBtn" onclick="showHottest()">最热门的帖子</button>
+                    <button class="btn btn-secondary" id="showMyFavoritePostBtn" onclick="showMyFavorite()">我关注的帖子</button>
+                    <a class="btn btn-success ml-3 toPostDiv" id="addPost" href="#postDiv">我要发帖</a>
+                </div>
+
+                <!--一个统计区块-->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>帖子内容</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listcontent"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--                这是一个发帖分块-->
+                <div class="shadow mt-3 col-xl-11 col-md-11 animated--grow-in mb-5 postDiv" id="postDiv">
+                    <div class="card-header">
+                        <p style="margin-bottom: -10px;"><i class="fas fa-pen"> </i> 发帖</p>
+                        <hr/>
+                        <div class="form-group row">
+
+                            <div class="col-sm-10">
+                                <input name="postingTitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label class="dropdown">
+                                    <button name="postingclass" id="postingClassBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">请选择帖子分类</button>
+                                    <div class="dropdown-menu animated--fade-in">
+                                        <small class="text-muted ml-1">开发组:</small>
+                                        <button type="button" class="dropdown-item" id="item1" onclick="i1()">常规</button>
+                                        <button type="button" class="dropdown-item" id="item2" onclick="i2()">总结</button>
+                                        <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩</button>
+                                        <button type="button" class="dropdown-item" id="item4" onclick="i4()">公告</button>
+                                        <div class="dropdown-divider"></div>
+                                        <small class="text-muted ml-1">硬件组:</small>
+                                        <button type="button" class="dropdown-item" id="item5" onclick="i5()">常规</button>
+                                        <button type="button" class="dropdown-item" id="item6" onclick="i6()">总结</button>
+                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">答辩</button>
+                                        <button type="button" class="dropdown-item" id="item8" onclick="i8()">公告</button>
+                                    </div>
+                                </label>
+                            </div>
+                            <!--                        这里是富文本编辑器的插件入口-->
+                            <div  class="col-sm-10" id="editDiv"></div>
+
+                            <div class="col-sm-2">
+                                <button class="btn btn-success mb-0" id="submitBtn">确定发帖</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                发帖分块结束-->
+
+
+            </div>
+        </div>
+        <!-- 主体内容结束-->
+
+        <!-- 页脚 -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; 三峡大学启明星工作室 2020 - 鄂ICP备15002584号</span>
+                </div>
+            </div>
+        </footer>
+        <!--页脚也就这么点点-->
+
+    </div>
+    <!-- 总内容也就这么多了-->
+
+</div>
+<!--主体的区域结束了，接下来就是弹窗的div等部分-->
+
+<!-- 回到最上-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!--登出时弹出的窗口-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">确定退出当前账号？</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body m-0">保持登陆以防止错过重要信息</div>
+            <div class="modal-body m-0">您确定要这么做吗？</div>
+
+            <div class="modal-footer">
+                <!--                                                          这个命令可以开关这个div-->
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                <a class="btn btn-primary" href="../loginService/login.html">确定</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    // 点击显示不同帖子的按钮接口
+    function showNewest (){
+        $("#showNewestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
+        $("#showHottestPostBtn,#showMyFavoritePostBtn").removeClass("btn-primary").addClass("btn-secondary");
+    }
+    function showHottest (){
+        $("#showHottestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
+        $("#showNewestPostBtn,#showMyFavoritePostBtn").removeClass("btn-primary").addClass("btn-secondary");
+    }
+    function showMyFavorite(){
+        $("#showMyFavoritePostBtn").removeClass("btn-secondary").addClass("btn-primary");
+        $("#showNewestPostBtn,#showNewestPostBtn").removeClass("btn-primary").addClass("btn-secondary");
+    }
+    let strWG = "开发组:";
+    function i1(){
+        $("#postingClassBtn").html(strWG+$("#item1").text());
+    }
+    function i2(){
+        $("#postingClassBtn").html(strWG+$("#item2").text());
+    }
+    function i3(){
+        $("#postingClassBtn").html(strWG+$("#item3").text());
+    }
+    function i4(){
+        $("#postingClassBtn").html(strWG+$("#item4").text());
+    }
+    let strHWG = "硬件组:";
+    function i5(){
+        $("#postingClassBtn").html(strHWG+$("#item5").text());
+    }
+    function i6(){
+        $("#postingClassBtn").html(strHWG+$("#item6").text());
+    }
+    function i7(){
+        $("#postingClassBtn").html(strHWG+$("#item7").text());
+    }
+    function i8(){
+        $("#postingClassBtn").html(strHWG+$("#item8").text());
+    }
+</script>
+
+
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<!-- 自己的js文件-->
+<script th:src="@{/static/js/index.js}"></script>
+<!-- 关于表格的js插件 -->
+<script th:src="@{/static/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{/static/js/wangEditor.min.js}"></script>
+
+<!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
+<script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // fun();
+        let Edit = window.wangEditor;
+        let editorDiv = new Edit('#editDiv');
+        // alert("已创建编辑框");
+        editorDiv.create();
+        function dateformat(str) {
+            if (str == null || str == "") {
+                return "2020";
+            }
+            var now = new Date(str);
+            var year = now.getFullYear();
+            var month = (now.getMonth() + 1).toString();
+            var day = (now.getDate()).toString();
+            if (month.length == 1) {
+                month = "0" + month;
+            }
+            if (day.length == 1) {
+                day = "0" + day;
+            }
+            var dateTime = year + "-" + month + "-" + day;
+            return dateTime;
+        }
+        $('#dataTable').DataTable( {
+            "ajax": "/posting/selectAllPosting",
+            "columns": [
+                // { "data": "commentcontent" }
+                { "data": "commentcontent",
+                    "render": function (data,type,full){
+                        var html =
+                    '<div class="row mt-0 card-body animated--grow-in">'+
+                            '<div class="col-xl-11 col-md-11 mb-1">'+
+                            '<div class="card border-left-primary shadow h-100 py-2">'+
+                            '<div class="card-body">'+
+                            '<div class="row no-gutters align-items-center">'+
+                            '<div class="mr-2">'+
+                            '<div class="list-inline">'+
+                            '<span class="badge badge-pill bg-light align-text-bottom">10 | 关注</span><br/>'+
+                            '<span class="badge badge-pill bg-info align-text-bottom text-light">15 | 回复</span><br/>'+
+                            '<span class="badge badge-pill bg-light align-text-bottom">66 | 阅读</span><br/>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="col mr-auto">'+
+                            '<a href="/showPosting?postingid='+full.postingid+'" class="font-weight-bold text-primary h5 mb-1">'+full.postingtitle+'</a>'+
+                        '<div class="mb-0 font-weight-bold text-gray-800 ml-2">'+
+                            '<a class="text-info" href="#">发帖人'+full.username+'</a>'+
+                            '<small>发帖时间：'+dateformat(full.postingdate)+'</small>'+
+                        '</div>'+
+                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">'+
+                            '<a class="text-info" href="#">最后回帖人ID</a>'+
+                            '<small>2020-08-28 11:39 回帖</small>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="col-auto">'+
+                            '<i class="fas fa-comments fa-2x text-primary"></i>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>';
+                        return html;
+                    }
+                }
+            ],
+        });
+    });
+</script>
+</body>
+
+</html>

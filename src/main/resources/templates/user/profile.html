@@ -48,10 +48,10 @@
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- 侧边栏最上方图标 -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="profile.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
             <!--        逆时针旋转15度-->
             <div class="sidebar-brand-icon">
-                <img src="../static/img/avatar/icon6.png" alt="avatar" height="52" width="52"/>
+                <img src="../../static/img/avatar/icon6.png" alt="avatar" height="52" width="52"/>
             </div>
             <div class="sidebar-brand-text mx-3">我的账户</div>
         </a>
@@ -79,18 +79,18 @@
 
 
         <!-- 导航栏按钮 - 页面折叠菜单 -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profileSetting"
                aria-expanded="true" aria-controls="profileSetting">
                 <!--          这个图标插件还蛮好用的-->
                 <i class="fas fa-fw fa-cog"></i>
                 <span>用户设置</span>
             </a>
-            <div id="profileSetting" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="profileSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="profileDetail.html">基本资料</a>
-                    <a class="collapse-item" href="privacy_setting.html">隐私/提醒</a>
-                    <a class="collapse-item active" href="#">安全设置</a>
+                    <a class="collapse-item" href="#">隐私/提醒</a>
+                    <a class="collapse-item" href="#">安全设置</a>
                 </div>
             </div>
         </li>
@@ -300,7 +300,95 @@
             <!-- 主页内容 -->
             <div class="container-fluid">
 
+                <!--统计卡片-->
+                <div class="row mt-4">
 
+                    <div class="col-xl-3 col-md-6 mb-4 animated--grow-in">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-info text-uppercase mb-1">我关注的人</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <img src="../../static/img/avatar/icon11.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon15.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon16.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon18.png" alt="" width="32" height="32">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <a class="btn btn-outline-light text-info">更多>> </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4 animated--grow-in">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1">关注我的人</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <img src="../../static/img/avatar/icon13.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon17.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon2.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon19.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon12.png" alt="" width="32" height="32">
+                                            <img src="../../static/img/avatar/icon8.png" alt="" width="32" height="32">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-outline-light text-primary">更多>> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--统计卡片-->
+                    <div class="col-xl-3 col-md-6 mb-4 animated--grow-in">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-success text-uppercase mb-1">我关注的话题</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <small class="d-block">暑假答辩总结...</small>
+                                            <small class="d-block">第一周周任务发布...</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-outline-light text-success">更多>> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--统计卡片-->
+                    <div class="col-xl-3 col-md-6 mb-4 animated--grow-in">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-warning text-uppercase mb-1">我的发帖</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <small class="d-block">关于小项目的个人答辩...</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-outline-light text-warning">更多>> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -310,7 +398,7 @@
                 <div class="col-xl-8 col-lg-8 ml-4  animated--grow-in">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-lock"></i> 安全设置</h6>
+                            <h6 class="m-0 font-weight-bold text-info">我的回复</h6>
                             <!--                  下拉菜单-->
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
@@ -320,41 +408,63 @@
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                      aria-labelledby="dropdownMenuLink1">
                                     <a class="dropdown-item" href="#">刷新</a>
+                                    <a class="dropdown-item" href="#">更多</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-body row" id="accountBasicInfo">
-                            <table class="col-lg-8">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">请输入旧密码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">请输入新密码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">请重复新密码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="" value=""></td>
-                                </tr>
+                        <!-- 表格主体 -->
+                        <div class="card-body" id="myReply">
+                            <!--                  一个区块-->
+                            <div class="card mb-2">
+                                <div class="card-header">
+                                    <a class="mb-2" href="#">【开发组】2020年春季学期总结 </a><br/>
+                                    <div class="btn btn-sm btn-outline-secondary ml-2" style="width: 50px;"><i class="fas fa-thumbs-up"></i> 0 </div>
+                                    <small class="text-muted">2020年春季学期总结： 1：因为疫情关系，一学期就这样结束了，感觉太快...</small>
+                                </div>
+                            </div>
+                            <!--                  一个区块-->
+                            <div class="card mb-2">
+                                <div class="card-header">
+                                    <a class="mb-2" href="#">【开发组】第十八周总结&&第十九周计划（2020.06.21） </a><br/>
+                                    <div class="btn btn-sm btn-outline-secondary ml-2" style="width: 50px;"><i class="fas fa-thumbs-up"></i> 0 </div>
+                                    <small class="text-muted">每周总结：阿巴阿巴阿巴阿巴阿巴...</small>
+                                </div>
+                            </div>
 
-                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--这个表格区域结束-->
+                <!--表格区域-->
+                <div class="col-xl-8 col-lg-8 ml-4  animated--grow-in">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-warning">我的发帖</h6>
+                            <!--                  下拉菜单-->
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink2"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                     aria-labelledby="dropdownMenuLink1">
+                                    <a class="dropdown-item" href="#">刷新</a>
+                                    <a class="dropdown-item" href="#">更多</a>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- 表格主体 -->
+                        <div class="card-body" id="myPost">
+                            <!--                  一个区块-->
+                            暂无数据
+                        </div>
                     </div>
                 </div>
                 <!--这个表格区域结束-->
 
 
-            </div>
-
-            <div class="col-lg-2 ml-4 mb-3">
-                <button class="btn btn-success">保存信息</button>
             </div>
 
         </div>
@@ -406,81 +516,7 @@
 <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
-<script>
-    (function($) {
-        "use strict";
-
-        // 侧边栏导航的开合
-        $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
-            $("body").toggleClass("sidebar-toggled");
-            $(".sidebar").toggleClass("toggled");
-            if ($(".sidebar").hasClass("toggled")) {
-                $('.sidebar .collapse').collapse('hide');
-            };
-        });
-
-        // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
-        $(window).resize(function() {
-            if ($(window).width() < 920) {
-                $('.sidebar .collapse').collapse('hide');
-            }
-
-            // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
-            if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
-                $("body").addClass("sidebar-toggled");
-                $(".sidebar").addClass("toggled");
-                $('.sidebar .collapse').collapse('hide');
-            }
-            if ($(window).width() < 1600 ) {
-                $(".sidebar").addClass("toggled");
-            }else{
-                $(".sidebar").removeClass("toggled");
-            }
-        });
-
-        // 当侧边导航栏被固定的时候，防止滑动页面时出排版bug
-        $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
-            if ($(window).width() > 920) {
-                var e0 = e.originalEvent,
-                    delta = e0.wheelDelta || -e0.detail;
-                this.scrollTop += (delta < 0 ? 1 : -1) * 30;
-                e.preventDefault();
-            }
-        });
-
-        // 滚动到顶部按钮的浮现
-        $(document).on('scroll', function() {
-            var scrollDistance = $(this).scrollTop();
-            if (scrollDistance > 100) {
-                $('.scroll-to-top').fadeIn();
-            } else {
-                $('.scroll-to-top').fadeOut();
-            }
-        });
-
-        // 搭配jQuery实现返回顶部平滑的移动
-        $(document).on('click', 'a.scroll-to-top', function(e) {
-            var $anchor = $(this);
-            $('html, body').stop().animate({
-                scrollTop: ($($anchor.attr('href')).offset().top)
-            }, 1000, 'easeInOutExpo');
-            e.preventDefault();
-        });
-
-        // 当未读取用户名时隐藏整个用户信息
-        $(function() {
-            if (!$('#userName').html()) {
-                $('#user-area,#newEmailButton,#newMsgButton').hide();
-                $('#login-button').show();
-                $('#checkIn').hide();
-            }else{
-                $('#checkIn').show();
-                $('#login-button').hide();
-            }
-        });
-    })(jQuery);
-
-</script>
+<script th:src="@{/static/js/index-min.js}"></script>
 
 </body>
 
