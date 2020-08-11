@@ -19,6 +19,8 @@ import java.util.List;
 class DemoApplicationTests {
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private PostingMapper postingMapper;
     @Test
     void contextLoads() {
     }
@@ -27,6 +29,17 @@ class DemoApplicationTests {
     void test1(){
         List<Comment> commentList= commentMapper.selectList(null);
         commentList.forEach(System.out::println);
+    }
+    @Test
+    void test2(){
+        Posting posting = postingMapper.selectByPositngId(12);
+        System.out.println(posting);
+    }
+    @Test
+    void test3(){
+        List<Posting> postings = postingMapper.selectAll();
+        System.out.println("------------------------------------------");
+        postings.forEach(System.out::println);
     }
     //  wrapper≤È—Ø
     @Test

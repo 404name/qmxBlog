@@ -4,9 +4,11 @@ package com.qmx.demo.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.User;
+import com.qmx.demo.mapper.PostingMapper;
 import com.qmx.demo.service.CommentService;
 import com.qmx.demo.service.PostingService;
 import com.qmx.demo.service.UserService;
@@ -42,25 +44,23 @@ public class PostingInterface {
     @Autowired
     public CommentService commentService;
 
-    @RequestMapping("/selectAllPosting")
-    public Object getAllPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
+    @RequestMapping("/selectAll")
+    @JsonIgnoreProperties(value = {"handler"})
+    public Object getAll(){
         HashMap<String,Object> map = new HashMap<>();
-        //逻辑查询，  展示给用户
-        if(logic == 1){
-            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("deleted","0");
-            List<Posting> postings = postingService.list(queryWrapper);
-            map.put("data",postings);
-            return map;
-        }
-        //非逻辑查询，  展示给管理员  所以包括被用户删除的数据
-        else{
-            List<Posting> postings = postingService.list();
-            map.put("data",postings);
-            return map;
-        }
+        List<Posting> postings = postingService.selectAll();
+        map.put("data",postings);
+        return map;
     }
 
+    @RequestMapping("/select")
+    @JsonIgnoreProperties(value = {"handler"})
+    public Object getone(@RequestParam(value = "postingid",required = true)int postingid){
+        HashMap<String,Object> map = new HashMap<>();
+        Posting posting = postingService.selectByPositngId(postingid);
+        map.put("data",posting);
+        return map;
+    }
     @RequestMapping("/selectPosting")
     public Object getPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic,
                              @RequestParam(value = "postingid",required = true)int postingid){
@@ -93,6 +93,27 @@ public class PostingInterface {
         }
         return map;
     }
+
+    @RequestMapping("/selectAllPosting")
+    public Object getAllPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
+        HashMap<String,Object> map = new HashMap<>();
+        //逻辑查询，  展示给用户
+        if(logic == 1){
+            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("deleted","0");
+            List<Posting> postings = postingService.list(queryWrapper);
+            map.put("data",postings);
+            return map;
+        }
+        //非逻辑查询，  展示给管理员  所以包括被用户删除的数据
+        else{
+            List<Posting> postings = postingService.list();
+            map.put("data",postings);
+            return map;
+        }
+    }
+
+
 
 
     @RequestMapping("/selectPage")

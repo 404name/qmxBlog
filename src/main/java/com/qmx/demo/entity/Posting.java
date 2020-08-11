@@ -2,9 +2,13 @@ package com.qmx.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Set;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -50,6 +54,26 @@ public class Posting implements Serializable {
     private Integer deleted;
 
     private  String imgsrc;
+    @TableField(exist = false)
+    private Set<Comment> commentset;
+    @TableField(exist = false)
+    private Integer commentnum;
+
+    public Set<Comment> getCommentset() {
+        return commentset;
+    }
+
+    public void setCommentset(Set<Comment> commentset) {
+        this.commentset = commentset;
+    }
+
+    public Integer getCommentnum() {
+        return commentnum;
+    }
+
+    public void setCommentnum(Integer commentnum) {
+        this.commentnum = commentnum;
+    }
 
     public String getImgsrc() {
         return imgsrc;

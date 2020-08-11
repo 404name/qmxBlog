@@ -2,6 +2,10 @@ package com.qmx.demo.service;
 
 import com.qmx.demo.entity.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qmx.demo.mapper.CommentMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-08-03
  */
 public interface CommentService extends IService<Comment> {
-
+    List<Comment> getCommentByPostingid(Integer postingid);
+    int getCommentnumByPostingid(Integer postingid);
 }

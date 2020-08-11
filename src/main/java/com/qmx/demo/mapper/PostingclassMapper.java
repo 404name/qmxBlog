@@ -3,6 +3,8 @@ package com.qmx.demo.mapper;
 import com.qmx.demo.entity.Postingclass;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.io.Serializable;
+
 /**
  * <p>
  *  Mapper 接口
@@ -12,5 +14,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-08-07
  */
 public interface PostingclassMapper extends BaseMapper<Postingclass> {
-
 }
