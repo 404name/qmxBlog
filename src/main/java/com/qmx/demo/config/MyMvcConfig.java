@@ -17,7 +17,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
 //        registry.addViewController("/index.html").setViewName("index");
-        registry.addViewController("/login").setViewName("loginService/login");
+        registry.addViewController("login").setViewName("loginService/login");
+        registry.addViewController("register").setViewName("loginService/register");
         registry.addViewController("/ajax").setViewName("loginService/ajaxLoad");
 //        registry.addViewController("/ajax.html").setViewName("loginService/ajaxLoad");
 //      管理员后台
@@ -33,7 +34,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("profileDetail").setViewName("user/profileDetail");
         registry.addViewController("privacy_setting").setViewName("user/privacy_setting");
         registry.addViewController("security_setting").setViewName("user/security_setting");
+
 //        用户界面的跳转部分
+        registry.addViewController("forgotPassword").setViewName("loginService/forgotPassword");
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
