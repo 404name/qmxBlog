@@ -138,13 +138,13 @@
                                             <tr></tr>
                                             </thead>
                                             <tbody>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i1();"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">49</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i2();"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">10</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i3();"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i4();"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i5();"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">20</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i6();"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">11</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="i7();"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">56</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">49</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">10</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">20</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">11</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">56</a></button></td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -159,43 +159,49 @@
 
                 <!--                这是一个发帖分块-->
                 <div class="shadow mt-3 col-xl-11 col-md-11 animated--grow-in mb-5 postDiv" id="postDiv">
-                    <div class="card-header">
-                        <p style="margin-bottom: -10px;"><i class="fas fa-pen"> </i> 发帖</p>
-                        <hr/>
-                        <div class="form-group row">
+<!--                    直接用表单跳转-->
+                    <form class="form-group" th:action="@{/addSoftwarePostingByUser}" method="post">
+                        <div class="card-header">
+                            <p style="margin-bottom: -10px;"><i class="fas fa-pen"> </i> 发帖</p>
+                            <hr/>
+                            <div class="form-group row">
 
-                            <div class="col-sm-10">
-                                <input name="postingTitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
-                            </div>
+                                <div class="col-sm-10">
+                                    <input name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
+                                </div>
+                                <div class="d-none hidden overflow-hidden">
+                                    <input class="hidden" name="username" type="text" th:value="${session.loadUser.username}">
+                                    <input class="hidden" name="postingclass" type="text" id="postingClass" value="0">
+                                    <textarea class="hidden" name="postingcontent" id="wangEditorContent" type="text"></textarea>
+                                </div>
 
-                            <div class="col-sm-2">
-                                <label class="dropdown">
-                                    <button name="postingclass" id="postingClassBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">请选择帖子分类</button>
-                                    <div class="dropdown-menu animated--fade-in">
-                                        <small class="text-muted ml-1">开发组:</small>
-                                        <button type="button" class="dropdown-item" id="item1" onclick="i1()">常规</button>
-                                        <button type="button" class="dropdown-item" id="item2" onclick="i2()">学习总结</button>
-                                        <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩作品</button>
-                                        <button type="button" class="dropdown-item" id="item4" onclick="i4()">电脑带离</button>
-                                        <button type="button" class="dropdown-item" id="item5" onclick="i5()">聊天水贴</button>
-                                        <button type="button" class="dropdown-item" id="item6" onclick="i6()">实习工作</button>
-                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">算法总结</button>
-<!--                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">周任务</button>-->
-<!--                                        <button type="button" class="dropdown-item" id="item8" onclick="i8()">公告</button>-->
-                                    </div>
-                                </label>
-                            </div>
-                            <!--                        这里是富文本编辑器的插件入口-->
-                            <div  class="col-sm-10" id="editDiv"></div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-success mb-0" id="submitBtn">确定发帖</button>
+                                <div class="col-sm-2">
+                                    <label class="dropdown">
+                                        <button id="postingClassBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" value="0">请选择帖子分类</button>
+                                        <div class="dropdown-menu animated--fade-in">
+                                            <small class="text-muted ml-1">开发组:</small>
+                                            <button type="button" class="dropdown-item" id="item1" onclick="i1()">常规</button>
+                                            <button type="button" class="dropdown-item" id="item2" onclick="i2()">学习总结</button>
+                                            <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩作品</button>
+                                            <button type="button" class="dropdown-item" id="item4" onclick="i4()">电脑带离</button>
+                                            <button type="button" class="dropdown-item" id="item5" onclick="i5()">聊天水贴</button>
+                                            <button type="button" class="dropdown-item" id="item6" onclick="i6()">实习工作</button>
+                                            <button type="button" class="dropdown-item" id="item7" onclick="i7()">算法总结</button>
+    <!--                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">周任务</button>-->
+    <!--                                        <button type="button" class="dropdown-item" id="item8" onclick="i8()">公告</button>-->
+                                        </div>
+                                    </label>
+                                </div>
+                                <!--                        这里是富文本编辑器的插件入口-->
+                                <div  class="col-sm-10" id="editDiv"></div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-success mb-0" id="submitBtn" onclick="getWangEditorContent()">确定发帖</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <!--                发帖分块结束-->
-
-
             </div>
         </div>
         <!-- 主体内容结束-->
@@ -249,6 +255,12 @@
 
 
 <script type="text/javascript">
+    function getWangEditorContent() {
+        // let wangEditorStr = $('#editDiv[class="w-e-text"]').html();
+        let wangEditorStr = $('.w-e-text').html();
+        //alert(wangEditorStr);
+        $('#wangEditorContent').val(wangEditorStr);
+    }
     // 点击显示不同帖子的按钮接口
     function showNewest (){
         $("#showNewestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
@@ -263,39 +275,52 @@
         $("#showNewestPostBtn,#showNewestPostBtn").removeClass("btn-primary").addClass("btn-secondary");
     }
     let strWG = "开发组:";
+    let enterKey = jQuery.Event("keydown");//模拟一个键盘事件
+    enterKey.keyCode = 13;//keyCode=13是回车
     function i1(){
-        // 暂且不好用，我之后再想想办法吧
         $("#postingClassBtn").html(strWG+$("#item1").text());
-        let e = jQuery.Event("keydown");//模拟一个键盘事件
-        e.keyCode = 13;//keyCode=13是回车
-        $("#dataTable_filter input").trigger("click").trigger("focus").val("常规帖").trigger(e);//模拟按下回车
-        $("#dataTable").trigger(e);
+        $("#postingClass").val(0);
     }
     function i2(){
         $("#postingClassBtn").html(strWG+$("#item2").text());
-        let e = jQuery.Event("keydown");//模拟一个键盘事件
-        e.keyCode = 13;//keyCode=13是回车
-        $("#dataTable_filter input").trigger("click").trigger("focus").val("学习总结").trigger(e);//模拟按下回车
-        $("#dataTable").trigger(e);
+        $("#postingClass").val(1);
     }
     function i3(){
         $("#postingClassBtn").html(strWG+$("#item3").text());
+        $("#postingClass").val(2);
     }
     function i4(){
         $("#postingClassBtn").html(strWG+$("#item4").text());
+        $("#postingClass").val(3);
     }
-    let strHWG = "开发组:";
     function i5(){
-        $("#postingClassBtn").html(strHWG+$("#item5").text());
+        $("#postingClassBtn").html(strWG+$("#item5").text());
+        $("#postingClass").val(4);
     }
     function i6(){
-        $("#postingClassBtn").html(strHWG+$("#item6").text());
+        $("#postingClassBtn").html(strWG+$("#item6").text());
+        $("#postingClass").val(5);
     }
     function i7(){
-        $("#postingClassBtn").html(strHWG+$("#item7").text());
+        $("#postingClassBtn").html(strWG+$("#item7").text());
+        $("#postingClass").val(6);
     }
     function i8(){
-        $("#postingClassBtn").html(strHWG+$("#item8").text());
+        $("#postingClassBtn").html(strWG+$("#item8").text());
+        $("#postingClass").val(7);
+    }
+    function searchByTag(tagClass) {
+        switch (tagClass) {
+            case 0:$("#dataTable_filter input").trigger("click").trigger("focus").val("常规帖").keyup();break;
+            case 1:$("#dataTable_filter input").trigger("click").trigger("focus").val("学习总结").keyup();break;
+            case 2:$("#dataTable_filter input").trigger("click").trigger("focus").val("答辩作品").keyup();break;
+            case 3:$("#dataTable_filter input").trigger("click").trigger("focus").val("电脑带离").keyup();break;
+            case 4:$("#dataTable_filter input").trigger("click").trigger("focus").val("聊天水贴").keyup();break;
+            case 5:$("#dataTable_filter input").trigger("click").trigger("focus").val("实习工作").keyup();break;
+            case 6:$("#dataTable_filter input").trigger("click").trigger("focus").val("算法总结").keyup();break;
+            default:
+                break;
+        }
     }
 </script>
 
@@ -340,7 +365,7 @@
             "ajax": "/posting/selectAllPosting",
             "columns": [
                 // { "data": "commentcontent" }
-                { "data": "commentcontent",
+                { "data": "updatadate",
                     "render": function (data,type,full){
                         let postingclassNum = full.postingclass;
                         let strPC = "";
@@ -375,7 +400,7 @@
                         '</div>'+
                             '<div class="mb-0 font-weight-bold text-gray-800 ml-2">'+
                             '<a class="text-info" href="#">最后回帖人ID</a>'+
-                            '<small class="ml-1">2020-08-28 11:39 回帖</small>'+
+                            '<small class="ml-1">'+dateformat(full.updatadate)+'</small>'+
                             '</div>'+
                         '</div>'+
                         '<div class="col-auto text-center">'+

@@ -72,6 +72,14 @@ public class PostingController {
         postingService.save(posting);
         return "redirect:/admin/list/posting";
     }
+    @PostMapping("/addSoftwarePostingByUser")
+    public String addPostingByUser(Posting posting,
+                             Model model){
+        posting.setDeleted(0);
+        System.out.println(posting);
+        postingService.save(posting);
+        return "redirect:/webGroupPostsPage";
+    }
 
     @RequestMapping("/showPosting")
     public String showPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic,
