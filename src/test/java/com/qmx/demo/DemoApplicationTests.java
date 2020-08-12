@@ -2,12 +2,14 @@ package com.qmx.demo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.qmx.demo.controller.EmailController;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.User;
 import com.qmx.demo.mapper.CommentMapper;
 import com.qmx.demo.mapper.PostingMapper;
 import com.qmx.demo.mapper.UserMapper;
+import com.qmx.demo.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +43,7 @@ class DemoApplicationTests {
         System.out.println("------------------------------------------");
         postings.forEach(System.out::println);
     }
-    //  wrapper²éÑ¯
+    //  wrapperï¿½ï¿½Ñ¯
     @Test
     void select1(){
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
@@ -72,11 +74,11 @@ class DemoApplicationTests {
         commentMapper.updateById(comment);
     }
 
-    //  map²éÑ¯
+    //  mapï¿½ï¿½Ñ¯
     @Test
     void select(){
         HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("name","²âÊÔ");
+        hashMap.put("name","ï¿½ï¿½ï¿½ï¿½");
         hashMap.put("commentcontent","1");
         List<Comment> commentList= commentMapper.selectByMap(hashMap);
         commentList.forEach(System.out::println);
@@ -92,7 +94,7 @@ class DemoApplicationTests {
     void delete1(){
         int res = commentMapper.deleteById(123);
     }
-    //·ÖÒ³
+    //ï¿½ï¿½Ò³
     @Test
     void page(){
         long now = 1;
@@ -101,9 +103,25 @@ class DemoApplicationTests {
         while(page.hasNext()){
             page.setCurrent(now);
             commentMapper.selectPage(page,null);
-            System.out.println("µÚ"+now+"Ò³£º-------------------------------");
+            System.out.println("ï¿½ï¿½"+now+"Ò³ï¿½ï¿½-------------------------------");
             page.getOrders().forEach(System.out::println);
             now++;
+        }
+    }
+    @Autowired
+    EmailController emailControllerl;
+    @Test
+    void emailTest(){
+        int code = emailControllerl.makeAuthCode();
+        String to = "1308964967@qq.com";
+        String title = "å¯æ˜æ˜ŸéªŒè¯ç ";
+        String content = "éªŒè¯ç å¦‚ä¸‹:"+code+"</span>";
+        boolean flag = emailControllerl.sendEmail(to,title,content);
+        System.out.println(content);
+        if(flag){
+            System.out.println("æˆåŠŸ");
+        }else{
+            System.out.println("å¤±è´¥");
         }
     }
 }

@@ -318,7 +318,7 @@
                 </li>
                 <!--                    进入后台-->
                 <li class="nav-item mx-1 mt-3 text-nowrap" id="enterTheBackstage" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
-                    <button class="btn btn-outline-danger text-nowrap" onclick="window.location.href='/list/user'">进入后台</button>
+                    <button class="btn btn-outline-danger text-nowrap" onclick="window.location.href='/toAllUser'">进入后台</button>
                 </li>
                 <a href="/ajax"> ajax测试入口</a>
             </ul>
@@ -343,7 +343,6 @@
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
                             <a class="btn btn-primary" href="/logout">确定</a>
                         </div>
-
                     </div>
                 </div>
             </div>

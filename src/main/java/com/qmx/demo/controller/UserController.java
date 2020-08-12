@@ -21,6 +21,19 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    //通过邮箱检测用户
+    public boolean checkUser(String email){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("email",email);
+        User user = userService.getOne(wrapper);
+        if(user == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     @RequestMapping("/toAllUser")
     public String listuser(Model model, HttpSession session){
         User user = (User)session.getAttribute("loadUser");

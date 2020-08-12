@@ -44,14 +44,32 @@ public class PostingInterface {
     @Autowired
     public CommentService commentService;
 
-    @RequestMapping("/selectAll")
-    @JsonIgnoreProperties(value = {"handler"})
-    public Object getAll(){
+    @RequestMapping("/selectAllPosting")
+    @JsonIgnoreProperties(value = {"handler"})//延迟加载
+    public Object getAll(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
         HashMap<String,Object> map = new HashMap<>();
         List<Posting> postings = postingService.selectAll();
         map.put("data",postings);
         return map;
     }
+    //@RequestMapping("/selectAllPosting")
+    //public Object getAllPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
+    //    HashMap<String,Object> map = new HashMap<>();
+    //    //逻辑查询，  展示给用户
+    //    if(logic == 1){
+    //        QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
+    //        queryWrapper.eq("deleted","0");
+    //        List<Posting> postings = postingService.list(queryWrapper);
+    //        map.put("data",postings);
+    //        return map;
+    //    }
+    //    //非逻辑查询，  展示给管理员  所以包括被用户删除的数据
+    //    else{
+    //        List<Posting> postings = postingService.list();
+    //        map.put("data",postings);
+    //        return map;
+    //    }
+    //}
 
     @RequestMapping("/select")
     @JsonIgnoreProperties(value = {"handler"})
@@ -94,24 +112,7 @@ public class PostingInterface {
         return map;
     }
 
-    @RequestMapping("/selectAllPosting")
-    public Object getAllPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
-        HashMap<String,Object> map = new HashMap<>();
-        //逻辑查询，  展示给用户
-        if(logic == 1){
-            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("deleted","0");
-            List<Posting> postings = postingService.list(queryWrapper);
-            map.put("data",postings);
-            return map;
-        }
-        //非逻辑查询，  展示给管理员  所以包括被用户删除的数据
-        else{
-            List<Posting> postings = postingService.list();
-            map.put("data",postings);
-            return map;
-        }
-    }
+
 
 
 

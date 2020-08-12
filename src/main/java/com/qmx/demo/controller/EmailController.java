@@ -15,6 +15,12 @@ import java.util.List;
 
 @Controller
 public class EmailController {
+    public int makeAuthCode() {
+        int authCodeNew = 0;
+        authCodeNew = (int) Math.round(Math.random() * (9999 - 1000) + 1000);
+        return authCodeNew;
+    }
+
     @Autowired
     private EmailService emailService;
 

@@ -35,6 +35,37 @@ public class loadController {
         model.addAttribute("userclasses",userclasses);
         return "/loginService/register";
     }
+    //注册 验证
+    @RequestMapping(value = "/registerCheck",method = RequestMethod.POST)
+    public String registerCheck(User user,
+                             Model model,
+                                HttpSession session,
+                                @RequestParam(value = "code", required = false, defaultValue = "0")int code){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("email",user.getEmail());
+        User user1 = userService.getOne(wrapper);
+        if(user1 == null){
+            if(session.getAttribute("email") == null || session.getAttribute("code") == null){
+                model.addAttribute("msg","未发送验证码");
+                return "redirect:/register";
+            }
+            String sessionEmail = (String)session.getAttribute("email");
+            int sessionCode = (int)session.getAttribute("code");
+            if(code == sessionCode && user.getEmail().equals(sessionEmail)){
+                userService.save(user);
+                System.out.println("成功创建新用户");
+                return "redirect:/loginService/load";
+            }else{
+                System.out.println("验证码错误");
+                model.addAttribute("msg","验证码错误或邮箱不匹配");
+                return "redirect:/register";
+            }
+        }else{
+            System.out.println("邮箱已注册，请联系管理员");
+            model.addAttribute("msg","邮箱已注册，请联系管理员");
+            return "redirect:/register";
+        }
+    }
     //快速登录
     @RequestMapping(value = "/1")
     public String adminQuickLoad(HttpSession session){
