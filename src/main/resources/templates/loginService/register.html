@@ -22,131 +22,219 @@
 
     <body class="bg-gradient-primary">
 
-        <div class="container">
+    <div class="container">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
 
-                    <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block"
-                             style="background: url('../../static/img/bg-1.jpg') 80%,50%;"></div>
-                        <div class="col-lg-7">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4"><img th:src="@{/static/img/qmx_icon.png}"
-                                                                           alt="QMX" width="40" height="40"
-                                                                           style="margin-top: -10px;">欢迎注册启明星</h1>
-                                </div>
-                                <!--              表单在这里-->
-                                <form class="user" method="post" th:action="@{/registerCheck}">
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="username" class="form-control form-control-user"
-                                                   id="realName" placeholder="真实姓名">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="schoolid" class="form-control form-control-user"
-                                                   id="schoolID" placeholder="学号">
-                                        </div>
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block"
+                         style="background: url('../../static/img/bg-1.jpg') 80%,50%;"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4"><img src="../../static/img/qmx_icon.png"
+                                                                       alt="QMX" width="40" height="40"
+                                                                       style="margin-top: -10px;">欢迎注册启明星</h1>
+                            </div>
+                            <!--              表单在这里-->
+                            <!--            <form class="user" method="post" th:action="@{/registerCheck}">-->
+                            <form class="user" method="post">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" name="username" class="form-control form-control-user"
+                                               id="realName" placeholder="真实姓名" onblur="checkRealName();">
+                                        <div id="realNameCheck" class="animated--grow-in btn btn-sm btn-danger d-none" style="border-radius: 20px;">您输入的姓名有误</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="schoolid" class="form-control form-control-user"
+                                               id="schoolID" placeholder="学号" onblur="checkID();">
+                                        <div id="IdCheck" class="animated--grow-in btn btn-sm btn-danger d-none" style="border-radius: 20px;">请输入正确的学号</div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="email" name="email" class="form-control form-control-user"
-                                                   id="inputEmail" placeholder="电子邮箱">
-                                        </div>
+                                </div>
 
-                                        <div class="col-sm-6 mb-3 mb-sm-0" style="overflow: hidden;">
-                                            <div class="form-control form-control-user">
-                                                <div style="margin-top: -15px;">
-                                                    请选择性别：
-                                                    <input class="" type="radio" checked="checked" name="gender"
-                                                           value="0"/> <i class="fas fa-male fa-2x text-primary"></i>
-                                                    <input class="" type="radio" name="gender" value="1"/> <i
-                                                        class="fas fa-female fa-2x text-danger"></i>
-                                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="email" name="email" class="form-control form-control-user"
+                                               id="inputEmail" placeholder="电子邮箱" onblur="checkEmail();">
+                                        <div id="emailCheck" class="animated--grow-in btn btn-sm btn-danger d-none" style="border-radius: 20px;">请输入正确的邮箱</div>
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3 mb-sm-0" style="overflow: hidden;">
+                                        <div class="form-control form-control-user">
+                                            <div style="margin-top: -15px;" class="text-nowrap">
+                                                请选择性别：
+                                                <input class="" type="radio" checked="checked" name="gender"
+                                                       value="0"/> <i class="fas fa-male fa-2x text-primary"></i>
+                                                <input class="" type="radio" name="gender"
+                                                       value="1"/> <i class="fas fa-female fa-2x text-danger"></i>
+                                                <input class="" type="radio" name="gender"
+                                                       value="2"/> <i class="fas fa-lock text-info" style="font-size: 16px;"> 保密</i>
                                             </div>
                                         </div>
+                                    </div>
 
+                                    <div class="col-sm-6 mb-3 mb-sm-0 mt-3" style="overflow: hidden;">
+                                        <input class="form-control form-control-user" id="inputCode" onblur="check();checkVerificationCode();" name="code" placeholder="验证码">
+                                        <div id="verificationCodeCheck" class="animated--grow-in btn btn-sm btn-danger d-none" style="border-radius: 20px;">请填写邮箱中的验证码</div>
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3 mb-sm-0 mt-3" style="overflow: hidden;">
+                                        <button id="sendEmailBtn" class="btn btn-primary mt-1 d-block"
+                                                style="border-radius: 20px;" type="button" onclick="get()">
+                                            <small id="sendEmailIcon" class="ml-3 mr-1"><i class="fa fa-envelope"></i></small>
+                                            <small id="returnMsg" class="mr-3">请先填写您的邮箱</small>
+                                        </button>
+                                        <!--                  <div id="returnMsg"></div>-->
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="form-control mt-3" name="userclass" style="border-radius: 50px;">
+                                        <option th:each="userclass :${userclasses}"
+                                                th:value="${userclass.getUserclass()}"
+                                                th:text="${userclass.getUserclassname()}"
+                                                th:selected="${userclass.getUserclass() eq 1}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3 mb-sm-0">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="inputPassword" placeholder="密码" name="password" onblur="checkPassword();">
+                                        <div id="passwordCheck" class="animated--grow-in btn btn-sm btn-danger d-none" style="border-radius: 20px;">请输入正确的密码</div>
+                                        <div id="passwordTestDiv" class="d-none">
+                                            <small class="ml-3">密码强度：<small id="passwordStrong"></small>（密码只能包括大小写字母，特殊符号或者数字，并且至少6位）</small>
+                                            <div class="progress progress-sm mb-2 ml-3" style="width: 90%;">
+                                                <div id="passwordStrongBar" class="progress-bar bg-danger" role="progressbar" style="width: 0" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group mb-3 mb-sm-0">
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                   id="inputPassword" placeholder="密码" name="password">
-                                        </div>
-                                        <div class="form-group mb-3 mb-sm-0">
-                                            <input type="password" class="form-control form-control-user"
-                                                   id="rpeatPassword" placeholder="重复输入密码">
-                                        </div>
+                                        <input type="password" class="form-control form-control-user"
+                                               id="repeatPassword" placeholder="重复输入密码" onblur="checkRepeatPassword()">
+                                        <div id="repeatPasswordCheck" class="animated--grow-in btn btn-sm btn-danger d-none" style="border-radius: 20px;">两次输入的密码不对应</div>
                                     </div>
+                                </div>
 
-                                    <div class="form-group">
-                                        <select class="form-control mt-3" name="userclass" style="border-radius: 50px;">
-                                            <option th:each="userclass :${userclasses}"
-                                                    th:value="${userclass.getUserclass()}"
-                                                    th:text="${userclass.getUserclassname()}"
-                                                    th:selected="${userclass.getUserclass() eq 1}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input id="inputCode" onblur="check()" name="code" placeholder="验证码">
-                                        <button type="button" onclick="get()">通过邮箱发送</button>
-                                        <br>
-                                        <div id="returnMsg"></div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block mt-3">
-                                        注册
-                                    </button>
-
-                                    <hr>
-                                    <a href="#" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-weixin fa-fw"></i> 使用微信账号注册
-                                    </a>
-                                    <a href="#" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-qq fa-fw"></i>使用QQ账号注册
-                                    </a>
-                                </form>
-                                <!--              表单结束-->
+                                <button type="submit" class="btn btn-primary btn-user btn-block mt-4" id="registerBtn"
+                                        onclick="return checkFormValidAll()">
+                                    注册
+                                </button>
 
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgotPassword">忘记密码？</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="login.html">已经有了账号？前去登录！</a>
-                                </div>
+                                <a href="#" class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-weixin fa-fw"></i> 使用微信账号注册
+                                </a>
+                                <a href="#" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-qq fa-fw"></i>使用QQ账号注册
+                                </a>
+                            </form>
+                            <!--              表单结束-->
+
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgotPassword">忘记密码？</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="login.html">已经有了账号？前去登录！</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
+    </div>
         <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
         <script th:src="@{/static/js/index-min.js}"></script>
-        <script type="text/javascript">
-            function get() {
-                var email = $('#inputEmail').val();
-                $.post("/email/sendEmailCode?email=" + email, function (data) {
-                    console.log(data);
-                    console.log(data.msg);
-                    var msg = data.msg;
+    <script th:src="@{/static/js/checkRegisterForm.js}"></script>
+    <script type="text/javascript">
+        $("#sendEmailBtn").attr({"disabled":"disabled"});
+        $("#inputPassword").bind("input propertychange",function(event){
+            $('#passwordTestDiv').addClass("d-block").removeClass("d-none");
+            $('#passwordCheck').addClass("d-none").removeClass("d-block");
+            let password = $('#inputPassword').val();
+            if(strongPassword.test(password)){
+                $('#passwordStrong').text("较强");
+                $('#passwordStrongBar').css('width','90%').removeClass("bg-danger bg-warning").addClass("bg-success");
+            }
+            else if(ordinaryPassword.test(password)){
+                $('#passwordStrong').text("中等");
+                $('#passwordStrongBar').css('width','60%').removeClass("bg-success bg-danger").addClass("bg-warning");
+            }
+            else if(weekPassword.test(password)){
+                $('#passwordStrong').text("较弱");
+                $('#passwordStrongBar').css('width','30%').removeClass("bg-success bg-warning").addClass("bg-danger");
+            }
+        });
+        let sendEmailLimited = 30;
+        let countDownFun;
+        let msg="";
+        function get() {
+            var email = $('#inputEmail').val();
+            $.post("/email/sendEmailCode?email=" + email, function (data) {
+                console.log(data);
+                console.log(data.msg);
+                msg = data.msg;
+                if(msg!=="发送成功")
                     $("#returnMsg").html(msg);
-                })
+            });
+            if(msg!=="该邮箱已注册"||msg!=="未发送验证码"||msg!=="发送失败"){
+                $("#returnMsg").html("已发送("+sendEmailLimited+"秒后可再发送)");
+                countDownFun = setInterval(function (){
+                    sendEmailLimited--;
+                    $("#returnMsg").html("已发送（"+sendEmailLimited+"秒后可再发送）");
+                    if(sendEmailLimited<=0){
+                        clearInterval(countDownFun);
+                        sendEmailLimited = 5;
+                        $('#sendEmailBtn').removeClass("btn-info btn-success btn-danger").addClass("btn-primary");
+                        $('#sendEmailIcon').html('<i class="fa fa-envelope"></i>');
+                        $("#returnMsg").html("没有收到？重新发送");
+                    }
+                },1000);
+
+                $('#sendEmailBtn').removeClass("btn-primary btn-success btn-danger").addClass("btn-info");
+                $('#sendEmailIcon').html('<i class="fa fa-paper-plane"></i>');
+                $("#sendEmailBtn").attr({"disabled":"disabled"});
+                setTimeout(function () {
+                    $('#sendEmailBtn').removeAttr("disabled");
+                },30000);
             }
 
-            function check() {
-                var email = $('#inputEmail').val();
-                var code = $('#inputCode').val();
-                $.post("/email/checkCode?email=" + email + "&code=" + code, function (data) {
-                    var msg  = data.msg;
-                    $("#returnMsg").html(msg);
-                })
-            }
-        </script>
+        }
+
+        function check() {
+            var code = $('#inputCode').val();
+            var email = $('#inputEmail').val();
+            $.post("/email/checkCode?email=" + email + "&code=" + code, function (data) {
+                msg  = data.msg;
+                // $("#returnMsg").html(msg);
+                // alert("信息是："+msg+"，当前code为："+code);
+                if(msg==="校验成功"){
+                    clearInterval(countDownFun);
+                    $('#sendEmailBtn').removeClass("btn-primary btn-info btn-danger").addClass("btn-success");
+                    $('#sendEmailIcon').html('<i class="fa fa-check-square"></i>');
+                    $("#sendEmailBtn").attr({"disabled":"disabled"});
+                    $("#returnMsg").html("验证通过");
+                }
+                else if(msg==="邮箱与验证码不匹配"){
+                    $('#sendEmailBtn').removeClass("btn-primary btn-info btn-success").addClass("btn-danger").removeAttr("disabled");
+                    $('#sendEmailIcon').html('<i class="fa fa-window-close"></i>');
+                    $("#returnMsg").html("验证失败！重新发送？");
+                }
+                else if(msg==="该邮箱已注册"){
+                    $('#sendEmailBtn').removeClass("btn-primary btn-info btn-success").addClass("btn-danger").removeAttr("disabled");
+                    $('#sendEmailIcon').html('<i class="fa fa-window-close"></i>');
+                    $("#returnMsg").html("该邮箱已注册，请更换或直接登录");
+                }
+            });
+        }
+    </script>
 
     </body>
 
