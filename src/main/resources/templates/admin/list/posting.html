@@ -123,8 +123,15 @@
                                                name="username"></th>
                                     <th><input class="form-control form-control-user" type="text"
                                                name="postingcontent"></th>
-                                    <th><input class="form-control form-control-user" type="text"
-                                               name="postingclass">
+                                    <th><select class="form-control" name="postingclass" style="border-radius: 50px;">
+                                        <option th:each="postingclass :${session.postingclasses}"
+                                                th:value="${postingclass.postingclass}"
+                                                th:text="${postingclass.postingclassname}"
+                                                th:selected="${postingclass.postingclass eq 0}"></option>
+                                    </select>
+                                    </th>
+                                    <th><input  type="text"
+                                               name="postingclass" value="0" placeholder="0" readonly="readonly">
                                     </th>
                                     <th><select class="form-control" name="deleted">
                                         <option value="0">可见</option>

@@ -32,11 +32,6 @@ public class Comment implements Serializable {
 
     private Integer topostingid;
 
-    private Integer tocommentid;
-
-    @ApiModelProperty(value = "0 文章评论 1文章评论回复 2留言")
-    private Integer commentclass;
-
     @ApiModelProperty(value = "点赞 喜欢")
     private Integer likes;
 
@@ -81,22 +76,6 @@ public class Comment implements Serializable {
 
     public void setTopostingid(Integer topostingid) {
         this.topostingid = topostingid;
-    }
-
-    public Integer getTocommentid() {
-        return tocommentid;
-    }
-
-    public void setTocommentid(Integer tocommentid) {
-        this.tocommentid = tocommentid;
-    }
-
-    public Integer getCommentclass() {
-        return commentclass;
-    }
-
-    public void setCommentclass(Integer commentclass) {
-        this.commentclass = commentclass;
     }
 
     public Integer getLikes() {

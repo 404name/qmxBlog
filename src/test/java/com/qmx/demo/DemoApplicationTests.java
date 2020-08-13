@@ -23,10 +23,17 @@ class DemoApplicationTests {
     private CommentMapper commentMapper;
     @Autowired
     private PostingMapper postingMapper;
+    @Autowired
+    private UserMapper userMapper;
     @Test
     void contextLoads() {
     }
 
+    @Test
+    void test0(){
+        List<User> userList = userMapper.selectList(null);
+        userList.forEach(System.out::println);
+    }
     @Test
     void test1(){
         List<Comment> commentList= commentMapper.selectList(null);

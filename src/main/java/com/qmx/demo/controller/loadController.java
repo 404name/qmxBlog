@@ -7,9 +7,11 @@ package com.qmx.demo.controller;
  *------------------------*/
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qmx.demo.entity.Postingclass;
 import com.qmx.demo.entity.User;
 import com.qmx.demo.entity.Userclass;
 import com.qmx.demo.service.CommentService;
+import com.qmx.demo.service.PostingclassService;
 import com.qmx.demo.service.UserService;
 import com.qmx.demo.service.UserclassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class loadController {
     private CommentService commentService;
     @Autowired
     private UserclassService userclassService;
+    @Autowired
+    private PostingclassService postingclassService;
     //注册 跳转
     @GetMapping("/register")
     public String toRegister(Model model){
@@ -38,9 +42,11 @@ public class loadController {
     //注册 验证
     @RequestMapping(value = "/registerCheck",method = RequestMethod.POST)
     public String registerCheck(User user,
-                             Model model,
-                                HttpSession session,
-                                @RequestParam(value = "code", required = false, defaultValue = "0")int code){
+                                @RequestParam(value = "code", required = false, defaultValue = "0")int code,
+                                Model model,
+                                HttpSession session
+                                ){
+        System.out.println("加入");
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("email",user.getEmail());
         User user1 = userService.getOne(wrapper);
@@ -100,6 +106,10 @@ public class loadController {
             return "redirect:/loginService/login";
         }else{
             //管理员管理界面
+            List<Userclass> userclasses = userclassService.list();
+            List<Postingclass> postingclasses = postingclassService.list();
+            session.setAttribute("userclasses",userclasses);
+            session.setAttribute("postingclasses",postingclasses);
             session.setAttribute("loadUser",user);
             session.setAttribute("msg","");
             return "redirect:/index";

@@ -7,7 +7,6 @@ package com.qmx.demo.controller;
  *------------------------*/
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.User;
 import com.qmx.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class UserController {
         queryWrapper.eq("id",id);
         User user =  userService.getOne(queryWrapper);
         model.addAttribute("user",user);
-        return "redirect:/admin/detail/userUpdata";
+        return "/admin/detail/userUpdata";
     }
     @RequestMapping(value = "/showUser")
     public String showUser(@RequestParam(value = "id",required = true)int id,
@@ -64,13 +63,13 @@ public class UserController {
                                  Model model){
         System.out.println(user);
         userService.updateById(user);
-        return "redirect:/admin/list/user";
+        return "/admin/list/user";
     }
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public String adduser(User user,
                           Model model){
         System.out.println(user);
         userService.save(user);
-        return "redirect:/admin/list/user";
+        return "/admin/list/user";
     }
 }

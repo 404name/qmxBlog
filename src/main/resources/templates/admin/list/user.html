@@ -97,14 +97,12 @@
                                         <th><input class="form-control form-control-user" type="text" name="email"></th>
                                         <th><input class="form-control form-control-user" type="password" name="password"></th>
                                         <th><input class="form-control form-control-user" type="text" name="gender"></th>
-                                        <th><select class="form-control" name="userclass">
-                                            <option value="0">注销</option>
-                                            <option value="1">游客</option>
-                                            <option value="2">开发组员</option>
-                                            <option value="3">硬件组员</option>
-                                            <option value="4">老师</option>
-                                            <option value="5">管理员</option>
-                                        </select></th>
+                                        <th><select class="form-control" name="userclass" style="border-radius: 50px;">
+                                                <option th:each="userclass :${session.userclasses}"
+                                                        th:value="${userclass.userclass}"
+                                                        th:text="${userclass.userclassname}"
+                                                        th:selected="${userclass.userclass eq 1}"></option>
+                                            </select></th>
                                         <th><select class="form-control" name="deleted">
                                             <option value="0">可见</option>
                                             <option value="1">不可见</option>

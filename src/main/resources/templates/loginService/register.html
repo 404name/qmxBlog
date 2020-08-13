@@ -39,7 +39,7 @@
                             </div>
                             <!--              表单在这里-->
                             <!--            <form class="user" method="post" th:action="@{/registerCheck}">-->
-                            <form class="user" method="post">
+                            <form class="user" method="post" th:action="@{/registerCheck}">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" name="username" class="form-control form-control-user"
@@ -88,8 +88,6 @@
                                         </button>
                                         <!--                  <div id="returnMsg"></div>-->
                                     </div>
-
-
                                 </div>
 
                                 <div class="form-group">
@@ -161,7 +159,7 @@
             let password = $('#inputPassword').val();
             if(strongPassword.test(password)){
                 $('#passwordStrong').text("较强");
-                $('#passwordStrongBar').css('width','90%').removeClass("bg-danger bg-warning").addClass("bg-success");
+                $('#passwordStrongBar').css('width','75%').removeClass("bg-danger bg-warning").addClass("bg-success");
             }
             else if(ordinaryPassword.test(password)){
                 $('#passwordStrong').text("中等");
@@ -176,36 +174,34 @@
         let countDownFun;
         let msg="";
         function get() {
-            var email = $('#inputEmail').val();
-            $.post("/email/sendEmailCode?email=" + email, function (data) {
-                console.log(data);
-                console.log(data.msg);
-                msg = data.msg;
-                if(msg!=="发送成功")
-                    $("#returnMsg").html(msg);
-            });
-            if(msg!=="该邮箱已注册"||msg!=="未发送验证码"||msg!=="发送失败"){
-                $("#returnMsg").html("已发送("+sendEmailLimited+"秒后可再发送)");
-                countDownFun = setInterval(function (){
-                    sendEmailLimited--;
-                    $("#returnMsg").html("已发送（"+sendEmailLimited+"秒后可再发送）");
-                    if(sendEmailLimited<=0){
-                        clearInterval(countDownFun);
-                        sendEmailLimited = 5;
-                        $('#sendEmailBtn').removeClass("btn-info btn-success btn-danger").addClass("btn-primary");
-                        $('#sendEmailIcon').html('<i class="fa fa-envelope"></i>');
-                        $("#returnMsg").html("没有收到？重新发送");
-                    }
-                },1000);
-
-                $('#sendEmailBtn').removeClass("btn-primary btn-success btn-danger").addClass("btn-info");
-                $('#sendEmailIcon').html('<i class="fa fa-paper-plane"></i>');
-                $("#sendEmailBtn").attr({"disabled":"disabled"});
-                setTimeout(function () {
-                    $('#sendEmailBtn').removeAttr("disabled");
-                },30000);
+            if(sendEmailLimited == 30){
+                var email = $('#inputEmail').val();
+                $.post("/email/sendEmailCode?email=" + email, function (data) {
+                    console.log(data);
+                    console.log(data.msg);
+                    msg = data.msg;
+                    if(msg!=="发送成功")
+                        $("#returnMsg").html(msg);
+                });
+                if(msg!=="该邮箱已注册"||msg!=="未发送验证码"||msg!=="发送失败"){
+                    $("#returnMsg").html("已发送("+sendEmailLimited+"秒后可再发送)");
+                    countDownFun = setInterval(function (){
+                        sendEmailLimited--;
+                        $("#returnMsg").html("已发送（"+sendEmailLimited+"秒后可再发送）");
+                        if(sendEmailLimited<=0){
+                            clearInterval(countDownFun);
+                            sendEmailLimited = 30;
+                            $('#sendEmailBtn').removeClass("btn-info btn-success btn-danger").addClass("btn-primary");
+                            $('#sendEmailIcon').html('<i class="fa fa-envelope"></i>');
+                            $("#returnMsg").html("没有收到？重新发送");
+                            $('#sendEmailBtn').removeAttr("disabled");
+                        }
+                    },1000);
+                    $('#sendEmailBtn').removeClass("btn-primary btn-success btn-danger").addClass("btn-info");
+                    $('#sendEmailIcon').html('<i class="fa fa-paper-plane"></i>');
+                    $("#sendEmailBtn").attr({"disabled":"disabled"});
+                }
             }
-
         }
 
         function check() {
@@ -217,6 +213,7 @@
                 // alert("信息是："+msg+"，当前code为："+code);
                 if(msg==="校验成功"){
                     clearInterval(countDownFun);
+                    sendEmailLimited = 30;
                     $('#sendEmailBtn').removeClass("btn-primary btn-info btn-danger").addClass("btn-success");
                     $('#sendEmailIcon').html('<i class="fa fa-check-square"></i>');
                     $("#sendEmailBtn").attr({"disabled":"disabled"});

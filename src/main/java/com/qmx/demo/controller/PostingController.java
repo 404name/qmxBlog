@@ -62,7 +62,7 @@ public class PostingController {
                                 Model model){
         System.out.println(posting);
         postingService.updateById(posting);
-        return "redirect:/admin/list/posting";
+        return "/admin/list/posting";
     }
 
     @PostMapping("/addPosting")
@@ -70,7 +70,7 @@ public class PostingController {
                                  Model model){
         System.out.println(posting);
         postingService.save(posting);
-        return "redirect:/admin/list/posting";
+        return "/admin/list/posting";
     }
     @PostMapping("/addSoftwarePostingByUser")
     public String addPostingByUser(Posting posting,
@@ -78,7 +78,7 @@ public class PostingController {
         posting.setDeleted(0);
         System.out.println(posting);
         postingService.save(posting);
-        return "redirect:/webGroupPostsPage";
+        return "/webGroupPostsPage";
     }
 
     @RequestMapping("/showPosting")
