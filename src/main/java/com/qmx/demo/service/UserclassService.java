@@ -3,6 +3,8 @@ package com.qmx.demo.service;
 import com.qmx.demo.entity.Userclass;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-08-07
  */
 public interface UserclassService extends IService<Userclass> {
-
+    List<Userclass> selectAll();
 }

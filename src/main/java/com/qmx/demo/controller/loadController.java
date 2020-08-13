@@ -78,6 +78,10 @@ public class loadController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("email","111");
         User user = userService.getOne(queryWrapper);
+        List<Userclass> userclasses = userclassService.selectAll();
+        List<Postingclass> postingclasses = postingclassService.selectAll();
+        session.setAttribute("userclasses",userclasses);
+        session.setAttribute("postingclasses",postingclasses);
         session.setAttribute("loadUser",user);
         session.setAttribute("msg","");
         return "redirect:/index";
@@ -87,6 +91,10 @@ public class loadController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("email","666");
         User user = userService.getOne(queryWrapper);
+        List<Userclass> userclasses = userclassService.selectAll();
+        List<Postingclass> postingclasses = postingclassService.selectAll();
+        session.setAttribute("userclasses",userclasses);
+        session.setAttribute("postingclasses",postingclasses);
         session.setAttribute("loadUser",user);
         session.setAttribute("msg","");
         return "redirect:/index";
@@ -103,11 +111,11 @@ public class loadController {
         User user = userService.getOne(queryWrapper);
         if(user == null){
             session.setAttribute("msg","密码错误,或查询不到该用户");
-            return "redirect:/loginService/login";
+            return "/loginService/login";
         }else{
             //管理员管理界面
-            List<Userclass> userclasses = userclassService.list();
-            List<Postingclass> postingclasses = postingclassService.list();
+            List<Userclass> userclasses = userclassService.selectAll();
+            List<Postingclass> postingclasses = postingclassService.selectAll();
             session.setAttribute("userclasses",userclasses);
             session.setAttribute("postingclasses",postingclasses);
             session.setAttribute("loadUser",user);

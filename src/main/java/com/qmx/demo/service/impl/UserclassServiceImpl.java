@@ -4,7 +4,10 @@ import com.qmx.demo.entity.Userclass;
 import com.qmx.demo.mapper.UserclassMapper;
 import com.qmx.demo.service.UserclassService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserclassServiceImpl extends ServiceImpl<UserclassMapper, Userclass> implements UserclassService {
-
+    @Autowired
+    private  UserclassMapper userclassMapper;
+    @Override
+    public List<Userclass> selectAll() {
+        return userclassMapper.selectAll();
+    }
 }

@@ -30,4 +30,14 @@ public class PostingServiceImpl extends ServiceImpl<PostingMapper, Posting> impl
     public List<Posting> selectAll() {
         return postingMapper.selectAll();
     }
+
+    @Override
+    public Integer getPostingclassNum(Integer postingclass) {
+        return postingMapper.getPostingclassNum(postingclass);
+    }
+
+    @Override
+    public Integer getPostingNum() {
+        return postingMapper.getPostingNum();
+    }
 }

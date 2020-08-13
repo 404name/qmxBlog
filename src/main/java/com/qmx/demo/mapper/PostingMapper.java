@@ -47,4 +47,10 @@ public interface PostingMapper extends BaseMapper<Posting> {
             )
     })
     List<Posting> selectAll();
+
+    @Select("select count(*) from posting where postingclass=#{postingclass}")
+    Integer getPostingclassNum(Integer postingclass);
+
+    @Select("select count(*) from posting")
+    Integer getPostingNum();
 }

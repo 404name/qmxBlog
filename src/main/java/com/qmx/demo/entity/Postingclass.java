@@ -1,6 +1,7 @@
 package com.qmx.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -31,6 +32,17 @@ public class Postingclass implements Serializable {
     private Integer postingclass;
 
     private String postingclassname;
+
+    @TableField(exist = false)
+    private Integer postingclassnum;
+
+    public Integer getPostingclassnum() {
+        return postingclassnum;
+    }
+
+    public void setPostingclassnum(Integer postingclassnum) {
+        this.postingclassnum = postingclassnum;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

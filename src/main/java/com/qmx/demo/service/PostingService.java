@@ -21,4 +21,6 @@ import java.util.List;
 public interface PostingService extends IService<Posting> {
     Posting selectByPositngId(Integer postingid);
     List<Posting> selectAll();
+    Integer getPostingclassNum(Integer postingclass);
+    Integer getPostingNum();
 }

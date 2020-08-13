@@ -6,9 +6,11 @@ import com.qmx.demo.controller.EmailController;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.User;
+import com.qmx.demo.entity.Userclass;
 import com.qmx.demo.mapper.CommentMapper;
 import com.qmx.demo.mapper.PostingMapper;
 import com.qmx.demo.mapper.UserMapper;
+import com.qmx.demo.mapper.UserclassMapper;
 import com.qmx.demo.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,16 @@ class DemoApplicationTests {
     private PostingMapper postingMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserclassMapper userclassMapper;
     @Test
     void contextLoads() {
     }
 
     @Test
     void test0(){
-        List<User> userList = userMapper.selectList(null);
-        userList.forEach(System.out::println);
+        List<Userclass> userclasses = userclassMapper.selectAll();
+        userclasses.forEach(System.out::println);
     }
     @Test
     void test1(){

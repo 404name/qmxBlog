@@ -2,6 +2,7 @@ package com.qmx.demo.mapper;
 
 import com.qmx.demo.entity.Collection;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 404name
  * @since 2020-08-13
  */
+@Repository
 public interface CollectionMapper extends BaseMapper<Collection> {
 
 }
