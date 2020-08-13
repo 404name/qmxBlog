@@ -26,6 +26,7 @@ import java.util.List;
 public interface PostingclassMapper extends BaseMapper<Postingclass> {
     @Select("select * from postingclass")
     @Results({
+            @Result(column="postingclass",property="postingclass"),
             @Result(column="postingclass",property="postingclassnum",
                     one=@One(
                             select="com.qmx.demo.mapper.PostingMapper.getPostingclassNum",

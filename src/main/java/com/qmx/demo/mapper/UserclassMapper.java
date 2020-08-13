@@ -26,6 +26,7 @@ import java.util.List;
 public interface UserclassMapper extends BaseMapper<Userclass> {
     @Select("select * from userclass")
     @Results({
+            @Result(column="userclass",property="userclass"),
             @Result(column="userclass",property="userclassnum",
                     one=@One(
                             select="com.qmx.demo.mapper.UserMapper.getUserclassNum",
