@@ -39,7 +39,7 @@ public class User implements Serializable {
 
     private String schoolid;
 
-    @ApiModelProperty(value = "0 男 1女")
+    @ApiModelProperty(value = "0 男 1女 2保密")
     private Integer gender;
 
     @ApiModelProperty(value = "  class 0游客 1开发组组员 2智能组组员 3老师 （4管理员）")
@@ -54,8 +54,53 @@ public class User implements Serializable {
 
     private Date registerdate;
 
+    private Date birthday;
+    private String introduction;//个性介绍
+    private String phonenumber;
+    private String gitpage;//git主页
+    private String school;//就读学校
+    private String institute;//所在学院
+    private int enrollmentyear;//入学年份
+
     @ApiModelProperty(value = "0")
     private Integer deleted;
+
+    public User(String username, String email, String password, String schoolid, Integer gender, Integer userclass, Integer likes, String headsculpture, String headpicture, Date registerdate, Date birthday, String introduction, String phonenumber, String gitpage, String school, String institute, int enrollmentyear, Integer deleted) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.schoolid = schoolid;
+        this.gender = gender;
+        this.userclass = userclass;
+        this.likes = likes;
+        this.headsculpture = headsculpture;
+        this.headpicture = headpicture;
+        this.registerdate = registerdate;
+        this.birthday = birthday;
+        this.introduction = introduction;
+        this.phonenumber = phonenumber;
+        this.gitpage = gitpage;
+        this.school = school;
+        this.institute = institute;
+        this.enrollmentyear = enrollmentyear;
+        this.deleted = deleted;
+    }
+
+    public User(String username, String email, String password, String schoolid, Integer gender, Integer userclass, Date birthday, String introduction, String phonenumber, String gitpage, String school, String institute, int enrollmentyear) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.schoolid = schoolid;
+        this.gender = gender;
+        this.userclass = userclass;
+        this.birthday = birthday;
+        this.introduction = introduction;
+        this.phonenumber = phonenumber;
+        this.gitpage = gitpage;
+        this.school = school;
+        this.institute = institute;
+        this.enrollmentyear = enrollmentyear;
+    }
 
     public User(String username, String email, String password, String schoolid, Integer gender, Integer userclass) {
         this.username = username;
@@ -64,6 +109,62 @@ public class User implements Serializable {
         this.schoolid = schoolid;
         this.gender = gender;
         this.userclass = userclass;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getGitpage() {
+        return gitpage;
+    }
+
+    public void setGitpage(String gitpage) {
+        this.gitpage = gitpage;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getInstitute() {
+        return institute;
+    }
+
+    public void setInstitute(String institute) {
+        this.institute = institute;
+    }
+
+    public int getEnrollmentyear() {
+        return enrollmentyear;
+    }
+
+    public void setEnrollmentyear(int enrollmentyear) {
+        this.enrollmentyear = enrollmentyear;
     }
 
     public static long getSerialVersionUID() {
@@ -164,5 +265,30 @@ public class User implements Serializable {
 
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", schoolid='" + schoolid + '\'' +
+                ", gender=" + gender +
+                ", userclass=" + userclass +
+                ", likes=" + likes +
+                ", headsculpture='" + headsculpture + '\'' +
+                ", headpicture='" + headpicture + '\'' +
+                ", registerdate=" + registerdate +
+                ", birthday=" + birthday +
+                ", introduction='" + introduction + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", gitpage='" + gitpage + '\'' +
+                ", school='" + school + '\'' +
+                ", institute='" + institute + '\'' +
+                ", enrollmentyear=" + enrollmentyear +
+                ", deleted=" + deleted +
+                '}';
     }
 }
