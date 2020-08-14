@@ -36,6 +36,12 @@ public class PostingServiceImpl extends ServiceImpl<PostingMapper, Posting> impl
         return postingMapper.getPostingclassNum(postingclass);
     }
 
+//    @Override
+//    public void increasePostingLikes(Integer postingclass) {
+//        postingMapper.increasePostingLikes(postingid);
+//    }
+
+
     @Override
     public Integer getPostingNum() {
         return postingMapper.getPostingNum();

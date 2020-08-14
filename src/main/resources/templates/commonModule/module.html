@@ -284,6 +284,9 @@
                         <!--                            用户名的接口在这里-->
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="userName"
                               th:text="${session.loadUser.username}"></span>
+                        <div class="d-none overflow-hidden">
+                            <small id="userID" th:text="${session.loadUser.getId()}"></small>
+                        </div>
                         <!--                  用户头像-->
                         <img class="img-profile rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt=""/>
                     </a>

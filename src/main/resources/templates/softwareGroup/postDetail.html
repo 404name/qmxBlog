@@ -93,6 +93,38 @@
                 height: auto;
                 max-width: 20%;
             }
+
+            code div{
+                background: #e2e2e2;
+                border-left:5px solid #b7cfcf;
+            }
+
+            #blogContent table
+            {
+                font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+                width:100%;
+                border-collapse:collapse;
+            }
+            #blogContent table td, #blogContent table th
+            {
+                font-size:1em;
+                border:1px solid #c7e2e5;
+                padding:3px 7px 2px 7px;
+            }
+            #blogContent table th
+            {
+                font-size:1.1em;
+                text-align:left;
+                padding-top:5px;
+                padding-bottom:4px;
+                background-color: #6ecbcf;
+                color: #ffffff;
+            }
+            #blogContent table tr.alt td
+            {
+                color:#000000;
+                background-color: #eaf2d3;
+            }
         </style>
     </head>
 
@@ -118,6 +150,9 @@
                             <!--   <img class="mr-2" src="img/qmx_icon_w.png" width="52" height="52" alt="qmx">-->
                             <div class="lh-125 w-100">
                                 <h4 class="lh-125 d-block"> <span th:text="${posting.getPostingtitle()}">发帖标题</span> </h4>
+                                <div class="d-none overflow-hidden">
+                                    <small id="postID" th:text="${posting.getPostingid()}"></small>
+                                </div>
                                 <small class="mr-2"><img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32"
                                                          width="32"><small class="text-success"
                                                                            style="font-size: 16px;"><span th:text="${posting.getUsername()}"></span></small>
@@ -139,8 +174,9 @@
                                     <a class="text-muted" href="#">邀请 <i class="fas fa-envelope"></i> </a>
                                 <a class="text-muted" href="#">举报 <i class="fas fa-exclamation-circle"></i> </a>
                             </div>
-                            <a class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap" href="#">关注本帖 | <span
-                                    class="badge align-text-bottom" style="font-size: 14px;">21</span></a>
+                            <button id="postsLikesBtn" class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap" onclick="likesThisPost();">
+                                关注本帖 | <span class="badge align-text-bottom" style="font-size: 14px;" th:text="${posting.getLikes()}"></span>
+                            </button>
                         </div>
 
                         <div class="my-3 p-3 bg-white rounded shadow-sm">
@@ -221,7 +257,47 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
-
+        <script>
+            // 如果resize运行优先级大于th:text的话，改成这个应该问题不大
+            // $('#postsLikesBtn').html("取消关注"+' | <span class="badge align-text-bottom" ' +
+            //                      'style="font-size: 14px;" th:text="${posting.getLikes()}"></span>');
+            // $(window).resize(function() {
+            //     $.post("某个url" , function (data) {
+            //         let msg  = data.msg;
+            //         if(msg==="该贴已经关注"){
+            //             // $.post() 这里需要去修改posting表中的likes数据的接口
+            //             $('#postsLikesBtn').html("取消关注"+' | <span class="badge align-text-bottom" ' +
+            //                 'style="font-size: 14px;">'+$('#postsLikesBtn span').text()+'</span>');
+            //         }
+            //         else if(msg==="该贴尚未关注"){
+            //             nowLikesNum--;
+            //             $('#postsLikesBtn').html("关注本帖"+' | <span class="badge align-text-bottom" ' +
+            //                 'style="font-size: 14px;">'+$('#postsLikesBtn span').text()+'</span>');
+            //         }
+            //     });
+            // });
+            function likesThisPost(){
+                let userid = $('#userID').text();
+                let username = $('#userName').text();
+                let postingid = $('#postID').text();
+                let nowLikesNum = $('#postsLikesBtn span').text();
+                $.post("/collection?userid=" + userid + "&username=" + username +"&postingid=" + postingid, function (data) {
+                    let msg  = data.msg;
+                    if(msg==="关注成功"){
+                        nowLikesNum++;
+                        // $.post() 这里需要去修改posting表中的likes数据的接口
+                        // 现在只有联立表中的数据可以更新
+                        $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注"+' | <span class="badge align-text-bottom" ' +
+                            'style="font-size: 14px;">'+nowLikesNum+'</span>');
+                    }
+                    else if(msg==="取消关注"){
+                        nowLikesNum--;
+                        $('#postsLikesBtn').removeClass("btn-dark").addClass("btn-success").html("关注本帖"+' | <span class="badge align-text-bottom" ' +
+                            'style="font-size: 14px;">'+nowLikesNum+'</span>');
+                    }
+                });
+            }
+        </script>
 
         <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>

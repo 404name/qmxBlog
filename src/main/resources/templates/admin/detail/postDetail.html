@@ -93,6 +93,38 @@
                 height: auto;
                 max-width: 20%;
             }
+
+            code div{
+                background: #e2e2e2;
+                border-left:5px solid #b7cfcf;
+            }
+
+            #blogContent table
+            {
+                font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+                width:100%;
+                border-collapse:collapse;
+            }
+            #blogContent table td, #blogContent table th
+            {
+                font-size:1em;
+                border:1px solid #c7e2e5;
+                padding:3px 7px 2px 7px;
+            }
+            #blogContent table th
+            {
+                font-size:1.1em;
+                text-align:left;
+                padding-top:5px;
+                padding-bottom:4px;
+                background-color: #6ecbcf;
+                color: #ffffff;
+            }
+            #blogContent table tr.alt td
+            {
+                color:#000000;
+                background-color: #eaf2d3;
+            }
         </style>
     </head>
 
@@ -119,6 +151,9 @@
                             <!--   <img class="mr-2" src="img/qmx_icon_w.png" width="52" height="52" alt="qmx">-->
                             <div class="lh-125 w-100">
                                 <h4 class="lh-125 d-block"> <span th:text="${posting.getPostingtitle()}">发帖标题</span> </h4>
+                                <div class="d-none overflow-hidden">
+                                    <small id="postID" th:text="${posting.getPostingid()}"></small>
+                                </div>
                                 <small class="mr-2"><img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32"
                                                          width="32"><small class="text-success"
                                                                            style="font-size: 16px;"><span th:text="${posting.getUsername()}"></span></small>
@@ -140,8 +175,9 @@
                                     <a class="text-muted" href="#">邀请 <i class="fas fa-envelope"></i> </a>
                                 <a class="text-muted" href="#">举报 <i class="fas fa-exclamation-circle"></i> </a>
                             </div>
-                            <a class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap" href="#">关注本帖 | <span
-                                    class="badge align-text-bottom" style="font-size: 14px;">21</span></a>
+                            <button id="postsLikesBtn" class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap" onclick="likesThisPost();">
+                                关注本帖 | <span class="badge align-text-bottom" style="font-size: 14px;" th:text="${posting.getLikes()}"></span>
+                            </button>
                         </div>
 
                         <div class="my-3 p-3 bg-white rounded shadow-sm">
@@ -180,8 +216,8 @@
 
                         <div class="my-3 p-3 bg-white rounded shadow-sm" id="commentBlock">
 
-                            <h6 class="border-bottom border-gray pb-2 mb-0"><span
-                                    class="badge align-text-bottom bg-info text-light" style="font-size: 14px;">1</span>
+                            <h6 class="border-bottom border-gray pb-2 mb-0">
+                                <span class="badge align-text-bottom bg-info text-light" id="commentNum" style="font-size: 14px;">1</span>
                                 个回复</h6>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -222,195 +258,241 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
+<script>
+    // 如果resize运行优先级大于th:text的话，改成这个应该问题不大
+    // $('#postsLikesBtn').html("取消关注"+' | <span class="badge align-text-bottom" ' +
+    //                      'style="font-size: 14px;" th:text="${posting.getLikes()}"></span>');
+    // $(window).resize(function() {
+    //     $.post("某个url" , function (data) {
+    //         let msg  = data.msg;
+    //         if(msg==="该贴已经关注"){
+    //             // $.post() 这里需要去修改posting表中的likes数据的接口
+    //             $('#postsLikesBtn').html("取消关注"+' | <span class="badge align-text-bottom" ' +
+    //                 'style="font-size: 14px;">'+$('#postsLikesBtn span').text()+'</span>');
+    //         }
+    //         else if(msg==="该贴尚未关注"){
+    //             nowLikesNum--;
+    //             $('#postsLikesBtn').html("关注本帖"+' | <span class="badge align-text-bottom" ' +
+    //                 'style="font-size: 14px;">'+$('#postsLikesBtn span').text()+'</span>');
+    //         }
+    //     });
+    // });
+    function likesThisPost(){
+        // let userid = $('#userID').text();bug解除后就用这三个数据试试就好
+        // let username = $('#userName').text();
+        // let postingid = $('#postID').text();
+        let userid = 111;
+        let username = 111;正常数据
+        // let username = "111";正常数据
+        //  let username = "aaa";只能点赞无法删除
+        let postingid = 111;
+        alert("用户id："+userid+"，用户姓名："+username+"，帖子id："+postingid);
+        let nowLikesNum = $('#postsLikesBtn span').text();
+        $.post("/collection?userid=" + userid + "&username=" + username +"&postingid=" + postingid, function (data) {
+            let msg  = data.msg;
+            alert(msg);
+            if(msg==="关注成功"){
+                nowLikesNum++;
+                // $.post() 这里需要去修改posting表中的likes数据的接口
+                // 现在只有联立表中的数据可以更新
+                $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注"+' | <span class="badge align-text-bottom" ' +
+                    'style="font-size: 14px;">'+nowLikesNum+'</span>');
+            }
+            else if(msg==="取消关注"){
+                nowLikesNum--;
+                $('#postsLikesBtn').removeClass("btn-dark").addClass("btn-success").html("关注本帖"+' | <span class="badge align-text-bottom" ' +
+                    'style="font-size: 14px;">'+nowLikesNum+'</span>');
+            }
+        });
+    }
+</script>
 
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<!-- 自己的js文件-->
 
-        <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
-        <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-        <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
-        <!-- 自己的js文件-->
-
-        <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
-        <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
-        <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                function getavatar() {
-                    let pathTemp = "../static/img/avatar/icon";
-                    let avatars = document.getElementsByClassName("avatar");
-                    for (let i = 1; i <= avatars.length; i++) {
-                        avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
+<!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
+<script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        function getavatar() {
+            let pathTemp = "../static/img/avatar/icon";
+            let avatars = document.getElementsByClassName("avatar");
+            for (let i = 1; i <= avatars.length; i++) {
+                avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
+            }
+        }
+        function openComment() {
+            if ($('#comment_com').is(":hidden")) {
+                $('#comment_com').show();
+            } else {
+                $('#comment_com').hide();
+            }
+        }
+        function dateformat(str) {
+            if (str == null || str == "") {
+                return "2020";
+            }
+            var now = new Date(str);
+            var year = now.getFullYear();
+            var month = (now.getMonth() + 1).toString();
+            var day = (now.getDate()).toString();
+            if (month.length == 1) {
+                month = "0" + month;
+            }
+            if (day.length == 1) {
+                day = "0" + day;
+            }
+            var dateTime = year + "-" + month + "-" + day;
+            return dateTime;
+        }
+        var postingid = [[${posting.getPostingid()}]];
+        $('#dataTable').DataTable( {
+            "ajax": "/posting/selectPosting?postingid="+postingid,
+            "columns": [
+                // { "data": "commentcontent" }
+                { "data": "commentcontent",
+                    "render": function (data,type,full){
+                    var html =
+                    '<div class="media text-muted pt-3" id="comment_div">'+
+                            '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>'+
+                        '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
+                            '<div>'+
+                            '<strong class="text-info" >'+full.username+'</strong> ||'+
+                            '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>'+
+                            '</div>'+
+                            '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">'+
+                            '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">关注</a>'+
+                            '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>'+
+                            '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>'+
+                            '</div>'+
+                            '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>'+
+                            '<div>'+
+                            '<!--          点踩就减少赞数就好-->'+
+                            '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |'+
+                            '<small>12</small></button>'+
+                        '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i>'+
+                            '</button>'+
+                            '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏'+
+                            '</button>'+
+                            '<button class="btn btn-sm btn-outline-info" onclick="openComment()"><i class="fas fa-comment"></i> | <small>1</small></button>'+
+                        '</div>'+
+                        '<!--        楼中楼评论-->'+
+                        '<div id="comment_com" class="mt-3" style="display: none">'+
+                            '<div class="my-3 p-3 bg-white rounded shadow-sm">'+
+                            '<!--         一个评论区块-->'+
+                            '<div class="media text-muted pt-3">'+
+                            '<img width="54" height="54" class="avatar mr-2"style="margin-bottom: 10px;"/>'+
+                            '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
+                            '<div>'+
+                            '<strong class="text-info">评论人</strong> ||'+
+                            '<strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>'+
+                            '</div>'+
+                            '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">'+
+                            '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">回复此人</a>'+
+                            '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updateComment?commentid=${comment.getCommentid()}">修改</a>'+
+                            '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid=${comment.getCommentid()}">删除</a>'+
+                            '</div>'+
+                            '<span class="d-block text-dark mt-1 comment">goooooood~</span>'+
+                        '</div>'+
+                        '</div>'+
+                        '<div class="mt-2">'+
+                            '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">'+
+                            '<button class="btn btn-sm btn-success mt-2">评论</button>'+
+                            '<button class="btn btn-sm btn-dark mt-2">取消</button>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '<!--          楼中楼评论-->'+
+                            '</div>'+
+                            '</div>';
+                        getavatar();
+                        return html;
                     }
                 }
-                function openComment() {
-                    if ($('#comment_com').is(":hidden")) {
-                        $('#comment_com').show();
-                    } else {
-                        $('#comment_com').hide();
-                    }
-                }
-                function dateformat(str) {
-                    if (str == null || str == "") {
-                        return "2020";
-                    }
-                    var now = new Date(str);
-                    var year = now.getFullYear();
-                    var month = (now.getMonth() + 1).toString();
-                    var day = (now.getDate()).toString();
-                    if (month.length == 1) {
-                        month = "0" + month;
-                    }
-                    if (day.length == 1) {
-                        day = "0" + day;
-                    }
-                    var dateTime = year + "-" + month + "-" + day;
-                    return dateTime;
-                }
-                var postingid = [[${posting.getPostingid()}]];
-                $('#dataTable').DataTable( {
-                    "ajax": "/posting/selectPosting?postingid="+postingid,
-                    "columns": [
-                        // { "data": "commentcontent" }
-                        { "data": "commentcontent",
-                            "render": function (data,type,full){
-                            var html =
-                            '<div class="media text-muted pt-3" id="comment_div">'+
-                                    '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>'+
-                                '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
-                                    '<div>'+
-                                    '<strong class="text-info" >'+full.username+'</strong> ||'+
-                                    '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>'+
-                                    '</div>'+
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">'+
-                                    '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">关注</a>'+
-                                    '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>'+
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>'+
-                                    '</div>'+
-                                    '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>'+
-                                    '<div>'+
-                                    '<!--          点踩就减少赞数就好-->'+
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |'+
-                                    '<small>12</small></button>'+
-                                '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i>'+
-                                    '</button>'+
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏'+
-                                    '</button>'+
-                                    '<button class="btn btn-sm btn-outline-info" onclick="openComment()"><i class="fas fa-comment"></i> | <small>1</small></button>'+
-                                '</div>'+
-                                '<!--        楼中楼评论-->'+
-                                '<div id="comment_com" class="mt-3" style="display: none">'+
-                                    '<div class="my-3 p-3 bg-white rounded shadow-sm">'+
-                                    '<!--         一个评论区块-->'+
-                                    '<div class="media text-muted pt-3">'+
-                                    '<img width="54" height="54" class="avatar mr-2"style="margin-bottom: 10px;"/>'+
-                                    '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
-                                    '<div>'+
-                                    '<strong class="text-info">评论人</strong> ||'+
-                                    '<strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>'+
-                                    '</div>'+
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">'+
-                                    '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">回复此人</a>'+
-                                    '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updateComment?commentid=${comment.getCommentid()}">修改</a>'+
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid=${comment.getCommentid()}">删除</a>'+
-                                    '</div>'+
-                                    '<span class="d-block text-dark mt-1 comment">goooooood~</span>'+
-                                '</div>'+
-                                '</div>'+
-                                '<div class="mt-2">'+
-                                    '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">'+
-                                    '<button class="btn btn-sm btn-success mt-2">评论</button>'+
-                                    '<button class="btn btn-sm btn-dark mt-2">取消</button>'+
-                                    '</div>'+
-                                    '</div>'+
-                                    '</div>'+
-                                    '<!--          楼中楼评论-->'+
-                                    '</div>'+
-                                    '</div>';
-                                getavatar();
-                                return html;
-                            }
-                        }
-                    ],
-                });
-            });
-        </script>
+            ],
+        });
+    });
+</script>
 
-        <script>
-            (function ($) {
-                "use strict";
+<script>
+    (function ($) {
+        "use strict";
 
-                // 侧边栏导航的开合
-                $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
-                    $("body").toggleClass("sidebar-toggled");
-                    $(".sidebar").toggleClass("toggled");
-                    if ($(".sidebar").hasClass("toggled")) {
-                        $('.sidebar .collapse').collapse('hide');
-                    }
-                    ;
-                });
+        // 侧边栏导航的开合
+        $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
+            $("body").toggleClass("sidebar-toggled");
+            $(".sidebar").toggleClass("toggled");
+            if ($(".sidebar").hasClass("toggled")) {
+                $('.sidebar .collapse').collapse('hide');
+            };
+        });
 
-                // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
-                $(window).resize(function () {
-                    if ($(window).width() < 920) {
-                        $('.sidebar .collapse').collapse('hide');
-                    }
+        // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
+        $(window).resize(function () {
+            if ($(window).width() < 920) {
+                $('.sidebar .collapse').collapse('hide');
+            }
 
-                    // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
-                    if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
-                        $("body").addClass("sidebar-toggled");
-                        $(".sidebar").addClass("toggled");
-                        $('.sidebar .collapse').collapse('hide');
-                    }
-                    if ($(window).width() < 1600) {
-                        $(".sidebar").addClass("toggled");
-                    } else {
-                        $(".sidebar").removeClass("toggled");
-                    }
-                });
+            // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
+            if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
+                $("body").addClass("sidebar-toggled");
+                $(".sidebar").addClass("toggled");
+                $('.sidebar .collapse').collapse('hide');
+            }
+            if ($(window).width() < 1600) {
+                $(".sidebar").addClass("toggled");
+            } else {
+                $(".sidebar").removeClass("toggled");
+            }
+        });
 
-                // 当侧边导航栏被固定的时候，防止滑动页面时出排版bug
-                $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
-                    if ($(window).width() > 920) {
-                        var e0 = e.originalEvent,
-                            delta = e0.wheelDelta || -e0.detail;
-                        this.scrollTop += (delta < 0 ? 1 : -1) * 30;
-                        e.preventDefault();
-                    }
-                });
+        // 当侧边导航栏被固定的时候，防止滑动页面时出排版bug
+        $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
+            if ($(window).width() > 920) {
+                var e0 = e.originalEvent,
+                    delta = e0.wheelDelta || -e0.detail;
+                this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                e.preventDefault();
+            }
+        });
 
-                // 滚动到顶部按钮的浮现
-                $(document).on('scroll', function () {
-                    var scrollDistance = $(this).scrollTop();
-                    if (scrollDistance > 100) {
-                        $('.scroll-to-top').fadeIn();
-                    } else {
-                        $('.scroll-to-top').fadeOut();
-                    }
-                });
+        // 滚动到顶部按钮的浮现
+        $(document).on('scroll', function () {
+            var scrollDistance = $(this).scrollTop();
+            if (scrollDistance > 100) {
+                $('.scroll-to-top').fadeIn();
+            } else {
+                $('.scroll-to-top').fadeOut();
+            }
+        });
 
-                // 搭配jQuery实现返回顶部平滑的移动
-                $(document).on('click', 'a.scroll-to-top', function (e) {
-                    var $anchor = $(this);
-                    $('html, body').stop().animate({
-                        scrollTop: ($($anchor.attr('href')).offset().top)
-                    }, 1000, 'easeInOutExpo');
-                    e.preventDefault();
-                });
+        // 搭配jQuery实现返回顶部平滑的移动
+        $(document).on('click', 'a.scroll-to-top', function (e) {
+            var $anchor = $(this);
+            $('html, body').stop().animate({
+                scrollTop: ($($anchor.attr('href')).offset().top)
+            }, 1000, 'easeInOutExpo');
+            e.preventDefault();
+        });
 
-                // 当未读取用户名时隐藏整个用户信息
-                $(function () {
-                    if (!$('#userName').html()) {
-                        $('#user-area,#newEmailButton,#newMsgButton').hide();
-                        $('#login-button').show();
-                        $('#checkIn').hide();
-                    } else {
-                        $('#checkIn').show();
-                        $('#login-button').hide();
-                    }
-                });
-            })(jQuery);
+        // 当未读取用户名时隐藏整个用户信息
+        $(function () {
+            if (!$('#userName').html()) {
+                $('#user-area,#newEmailButton,#newMsgButton').hide();
+                $('#login-button').show();
+                $('#checkIn').hide();
+            } else {
+                $('#checkIn').show();
+                $('#login-button').hide();
+            }
+        });
+    })(jQuery);
 
-        </script>
+</script>
 
-    </body>
+</body>
 
 </html>

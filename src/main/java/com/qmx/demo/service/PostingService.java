@@ -23,4 +23,5 @@ public interface PostingService extends IService<Posting> {
     List<Posting> selectAll();
     Integer getPostingclassNum(Integer postingclass);
     Integer getPostingNum();
+//    Void increasePostingLikes(Integer postingid);
 }
