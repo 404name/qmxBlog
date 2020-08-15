@@ -57,6 +57,4 @@ public class Commenttocomment implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除，备用")
     private Integer deleted;
-
-
 }

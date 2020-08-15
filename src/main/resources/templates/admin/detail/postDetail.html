@@ -173,10 +173,10 @@
                                         </small>
                                         <i class="fas fa-tags"></i> </small>
                                     <a class="text-muted" href="#">邀请 <i class="fas fa-envelope"></i> </a>
-                                <a class="text-muted" href="#">举报 <i class="fas fa-exclamation-circle"></i> </a>
+                                <a class="text-muted" href="#">举报 <i class="fas fa-exclamation-circle"></i> </a></small>
                             </div>
                             <button id="postsLikesBtn" class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap" onclick="likesThisPost();">
-                                关注本帖 | <span class="badge align-text-bottom" style="font-size: 14px;" th:text="${posting.getLikes()}"></span>
+                                关注本帖 | <span class="badge align-text-bottom" style="font-size: 14px;" th:text="${posting.getCollectionnum()}"></span>
                             </button>
                         </div>
 
@@ -217,7 +217,7 @@
                         <div class="my-3 p-3 bg-white rounded shadow-sm" id="commentBlock">
 
                             <h6 class="border-bottom border-gray pb-2 mb-0">
-                                <span class="badge align-text-bottom bg-info text-light" id="commentNum" style="font-size: 14px;">1</span>
+                                <span class="badge align-text-bottom bg-info text-light" id="commentNum" style="font-size: 14px;">[[${posting.getCommentnum()}]]</span>
                                 个回复</h6>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -331,28 +331,25 @@
                 $('#comment_com').hide();
             }
         }
-        function dateformat(str) {
-            if (str == null || str == "") {
-                return "2020";
-            }
-            var now = new Date(str);
-            var year = now.getFullYear();
-            var month = (now.getMonth() + 1).toString();
-            var day = (now.getDate()).toString();
-            if (month.length == 1) {
-                month = "0" + month;
-            }
-            if (day.length == 1) {
-                day = "0" + day;
-            }
-            var dateTime = year + "-" + month + "-" + day;
-            return dateTime;
+        function add0(m){return m<10?'0'+m:m }
+        function dateformat(timestamp){
+            //timestamp是整数，否则要parseInt转换,不会出现少个0的情况
+            var time = new Date(timestamp);
+            var year = time.getFullYear();
+            var month = time.getMonth()+1;
+            var date = time.getDate();
+            var hours = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
         }
         var postingid = [[${posting.getPostingid()}]];
         $('#dataTable').DataTable( {
-            "ajax": "/posting/selectPosting?postingid="+postingid,
+            "ajax": {
+                "url": "/posting/selectPosting?postingid="+postingid,
+                "dataSrc": "data.commentset"
+            },
             "columns": [
-                // { "data": "commentcontent" }
                 { "data": "commentcontent",
                     "render": function (data,type,full){
                     var html =

@@ -86,31 +86,8 @@ public class PostingController {
                               @RequestParam(value = "postingid",required = true)int postingid,
                               @RequestParam(value = "type",required = false,defaultValue = "1")int type,
                               Model model){
-        if(logic == 1){
-            //获取文章
-            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("deleted","0");
-            queryWrapper.eq("postingid",postingid);
-            Posting posting =  postingService.getOne(queryWrapper);
-            //获取评论
-            QueryWrapper<Comment> queryWrapper0 = new QueryWrapper<>();
-            queryWrapper0.eq("deleted","0");
-            queryWrapper0.eq("topostingid",postingid);
-            List<Comment> comments = commentService.list(queryWrapper0);
-            model.addAttribute("posting",posting);
-            model.addAttribute("comments",comments);
-        }else{
-            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("postingid",postingid);
-            Posting posting =  postingService.getOne(queryWrapper);
-            //获取评论
-            QueryWrapper<Comment> queryWrapper0 = new QueryWrapper<>();
-            queryWrapper0.eq("deleted","1");
-            queryWrapper0.eq("topostingid",postingid);
-            List<Comment> comments = commentService.list(queryWrapper0);
-            model.addAttribute("posting",posting);
-            model.addAttribute("comments",comments);
-        }
+        Posting posting = postingService.selectByPositngId(postingid);
+        model.addAttribute("posting",posting);
         if(type == 1){
             return "/softwareGroup/postDetail";
         }else{

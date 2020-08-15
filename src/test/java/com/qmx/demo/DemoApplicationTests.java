@@ -3,14 +3,8 @@ package com.qmx.demo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qmx.demo.controller.EmailController;
-import com.qmx.demo.entity.Comment;
-import com.qmx.demo.entity.Posting;
-import com.qmx.demo.entity.User;
-import com.qmx.demo.entity.Userclass;
-import com.qmx.demo.mapper.CommentMapper;
-import com.qmx.demo.mapper.PostingMapper;
-import com.qmx.demo.mapper.UserMapper;
-import com.qmx.demo.mapper.UserclassMapper;
+import com.qmx.demo.entity.*;
+import com.qmx.demo.mapper.*;
 import com.qmx.demo.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +23,22 @@ class DemoApplicationTests {
     private UserMapper userMapper;
     @Autowired
     private UserclassMapper userclassMapper;
+    @Autowired
+    private CollectionMapper collectionMapper;
     @Test
     void contextLoads() {
     }
 
     @Test
     void test0(){
-        List<Userclass> userclasses = userclassMapper.selectAll();
-        userclasses.forEach(System.out::println);
+        //int num = collectionMapper.getCollectionnumByUserid(11);
+        //System.out.println(num);
+        int num0 = collectionMapper.getCollectionnumByPostingid(3);
+        System.out.println(num0);
+        //List<Posting> postings = collectionMapper.getCollectionByUserid(11);
+        //postings.forEach(System.out::println);
+        Posting posting = postingMapper.selectByPositngId(3);
+        System.out.println(posting);
     }
     @Test
     void test1(){

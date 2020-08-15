@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import io.swagger.annotations.ApiModel;
@@ -58,6 +59,26 @@ public class Posting implements Serializable {
     private Set<Comment> commentset;
     @TableField(exist = false)
     private Integer commentnum;
+    @TableField(exist = false)
+    private Integer collectionnum;
+    @TableField(exist = false)
+    private Set<Integer> collectionuserid;
+
+    public Integer getCollectionnum() {
+        return collectionnum;
+    }
+
+    public void setCollectionnum(Integer collectionnum) {
+        this.collectionnum = collectionnum;
+    }
+
+    public Set<Integer> getCollectionuserid() {
+        return collectionuserid;
+    }
+
+    public void setCollectionuserid(Set<Integer> collectionuserid) {
+        this.collectionuserid = collectionuserid;
+    }
 
     public Set<Comment> getCommentset() {
         return commentset;

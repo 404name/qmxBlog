@@ -83,32 +83,8 @@ public class PostingInterface {
     public Object getPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic,
                              @RequestParam(value = "postingid",required = true)int postingid){
         HashMap<String,Object> map = new HashMap<>();
-        if(logic == 1){
-            //获取文章
-            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("deleted","0");
-            queryWrapper.eq("postingid",postingid);
-            Posting posting =  postingService.getOne(queryWrapper);
-            //获取评论
-            QueryWrapper<Comment> queryWrapper0 = new QueryWrapper<>();
-            queryWrapper0.eq("deleted","0");
-            queryWrapper0.eq("topostingid",postingid);
-            List<Comment> comments = commentService.list(queryWrapper0);
-            map.put("posting",posting);
-            map.put("data",comments);
-        }else{
-            QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("deleted","1");
-            queryWrapper.eq("postingid",postingid);
-            Posting posting =  postingService.getOne(queryWrapper);
-            //获取评论
-            QueryWrapper<Comment> queryWrapper0 = new QueryWrapper<>();
-            queryWrapper0.eq("deleted","1");
-            queryWrapper0.eq("topostingid",postingid);
-            List<Comment> comments = commentService.list(queryWrapper0);
-            map.put("posting",posting);
-            map.put("data",comments);
-        }
+        Posting posting = postingService.selectByPositngId(postingid);
+        map.put("data",posting);
         return map;
     }
 

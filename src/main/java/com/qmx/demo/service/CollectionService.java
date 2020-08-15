@@ -2,6 +2,10 @@ package com.qmx.demo.service;
 
 import com.qmx.demo.entity.Collection;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qmx.demo.entity.Posting;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-08-13
  */
 public interface CollectionService extends IService<Collection> {
+    List<Integer> getCollectionUserByPostingid(Integer postingid);
+    Integer getCollectionnumByPostingid(Integer postingid);
 
+    List<Posting> getCollectionByUserid(Integer userid);
+    Integer getCollectionnumByUserid(Integer userid);
 }

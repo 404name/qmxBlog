@@ -35,12 +35,6 @@ public class Collection implements Serializable {
 
     private Integer postingid;
 
-    public Collection(Integer userid, String username, Integer postingid) {
-        this.userid = userid;
-        this.username = username;
-        this.postingid = postingid;
-    }
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

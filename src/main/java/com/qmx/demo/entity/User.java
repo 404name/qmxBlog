@@ -2,9 +2,13 @@ package com.qmx.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
@@ -68,6 +72,10 @@ public class User implements Serializable {
     private String major;
 
     private Integer enrollmentyear;
+    //@TableField(exist = false)
+    //private Integer collectionnum;
+    //@TableField(exist = false)
+    //private List<Posting> collection;
 
     @ApiModelProperty(value = "0")
     private Integer deleted;

@@ -31,6 +31,17 @@ public interface PostingMapper extends BaseMapper<Posting> {
                             select="com.qmx.demo.mapper.CommentMapper.getCommentByPostingid",
                             fetchType= FetchType.EAGER
                     )
+            ),
+            @Result(column="postingid",property="collectionnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"
+                    )
+            ),
+            @Result(column="postingid",property="collectionuserid",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
+                            fetchType= FetchType.EAGER
+                    )
             )
     })
     Posting selectByPositngId(Integer postingid);
@@ -42,6 +53,18 @@ public interface PostingMapper extends BaseMapper<Posting> {
             @Result(column="postingid",property="commentnum",
                     one=@One(
                             select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid",
+                            fetchType= FetchType.EAGER
+                    )
+            ),
+            @Result(column="postingid",property="collectionnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid",
+                            fetchType= FetchType.EAGER
+                    )
+            ),
+            @Result(column="postingid",property="collectionuserid",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
                             fetchType= FetchType.EAGER
                     )
             )
