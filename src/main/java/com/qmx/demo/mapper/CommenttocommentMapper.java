@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Repository
 public interface CommenttocommentMapper extends BaseMapper<Commenttocomment> {
-    @Select("select * from commenttocomment where tocommentid=#{commentid}")
+    @Select("select * from commenttocomment where tocommentid=#{commentid} order by commentid asc")
     List<Commenttocomment> getCommentBycommentid(Integer commentid);
     @Select("select count(*) from commenttocomment where tocommentid=#{commentid}")
     Integer getCommentnumBycommentid(Integer commentid);

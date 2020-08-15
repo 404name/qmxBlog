@@ -63,9 +63,25 @@ public class Comment implements Serializable {
     private Integer deleted;
 
     @TableField(exist = false)
-    private Set<Commenttocomment> commentset;
+    private Set<Commenttocomment> commenttocommentset;
     @TableField(exist = false)
-    private Integer commentnum;
+    private Integer commenttocommentnum;
+
+    public Set<Commenttocomment> getCommenttocommentset() {
+        return commenttocommentset;
+    }
+
+    public void setCommenttocommentset(Set<Commenttocomment> commenttocommentset) {
+        this.commenttocommentset = commenttocommentset;
+    }
+
+    public Integer getCommenttocommentnum() {
+        return commenttocommentnum;
+    }
+
+    public void setCommenttocommentnum(Integer commenttocommentnum) {
+        this.commenttocommentnum = commenttocommentnum;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

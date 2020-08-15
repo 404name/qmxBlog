@@ -17,8 +17,8 @@ import java.util.List;
  * @since 2020-08-03
  */
 public interface CommentService extends IService<Comment> {
-    Posting selectBycommentId(Integer commentid);
-    List<Posting> selectAllByPostingid(Integer postingid);
+    Comment selectBycommentId(Integer commentid);
+    List<Comment> selectAllByPostingid(Integer postingid);
     List<Comment> getCommentByPostingid(Integer postingid);
     int getCommentnumByPostingid(Integer postingid);
 }

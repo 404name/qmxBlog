@@ -228,9 +228,8 @@
 
                         <div class="my-3 p-3 bg-white rounded shadow-sm" id="commentBlock">
 
-                            <h6 class="border-bottom border-gray pb-2 mb-0"><span
-                                    class="badge align-text-bottom bg-info text-light" style="font-size: 14px;">[[${posting.getCommentnum()}]]</span>
-                                个回复</h6>
+                            <h6 class="border-bottom border-gray pb-2 mb-0"><span class="badge align-text-bottom bg-info text-light" style="font-size: 14px;"></span>
+                                [[${posting.getCommentnum()}]]个回复</h6>
                             <div class="card-body">
                                 <div class="table-responsive">
 
@@ -289,91 +288,6 @@
 <!--                                        </div>-->
 <!--                                    </div>-->
                                     <!--         一个评论区块-->
-                                    <div class="media text-muted pt-3">
-                                        <!--            头像-->
-                                        <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
-                                        <!--            用media的话，会自动多一个分隔细线就是了-->
-                                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">
-                                            <div>
-                                                <strong class="text-info">评论人</strong> ||
-                                                <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>
-                                            </div>
-                                            <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
-                                                <a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>
-                                                <a class="ml-1 btn-sm btn-info change float-right w-auto"
-                                                   href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
-                                                <a class="ml-1 btn-sm btn-danger delete float-right"
-                                                   href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
-                                            </div>
-                                            <span class="d-block text-dark mt-1 comment" id="comment">学期总结：巴拉巴拉巴拉巴拉巴拉</span>
-                                            <div>
-                                                <!--          点踩就减少赞数就好-->
-                                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> | <small>12</small>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i></button>
-                                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏</button>
-                                                <button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> |
-                                                    <small>2</small></button>
-                                            </div>
-
-                                            <!--        楼中楼评论-->
-                                            <div class="mt-3 animated--grow-in" style="height: auto;overflow: hidden;transition: 0.3s all!important;">
-
-                                                <div class="my-3 p-3 bg-white rounded shadow-sm">
-
-                                                    <!--         一个评论区块-->
-                                                    <div class="media text-muted pt-3">
-                                                        <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
-                                                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                                                            <div>
-                                                                <strong class="text-info">管理员</strong> ||
-                                                                <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>
-                                                            </div>
-                                                            <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
-                                                                <a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>
-                                                                <a class="ml-1 btn-sm btn-info change float-right w-auto"
-                                                                   href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
-                                                                <a class="ml-1 btn-sm btn-danger delete float-right"
-                                                                   href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
-                                                            </div>
-                                                            <span class="d-block text-dark mt-1 comment">goooooood~</span>
-                                                        </div>
-                                                    </div>
-                                                    <!--一个评论区块结束-->
-
-                                                    <!--      另一个评论区块-->
-                                                    <div class="media text-muted pt-3">
-                                                        <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>
-                                                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                                                            <div>
-                                                                <strong class="text-info">satelliter63</strong> ||
-                                                                <strong class="ttext-gray-dark text-muted" style="opacity: 75%;">回复：<a href="#">@管理员</a></strong> ||
-                                                                <strong class="text-gray-dark text-muted" style="opacity: 50%;">回复时间</strong>
-                                                            </div>
-                                                            <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">
-                                                                <a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>
-                                                                <a class="ml-1 btn-sm btn-info change float-right w-auto"
-                                                                   href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>
-                                                                <a class="ml-1 btn-sm btn-danger delete float-right"
-                                                                   href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>
-                                                            </div>
-                                                            <span class="d-block text-dark mt-1 comment">阿巴阿巴~活捉野生管理员</span>
-                                                        </div>
-                                                    </div>
-                                                    <!--一个评论区块结束-->
-
-
-                                                    <div class="mt-2">
-                                                        <input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">
-                                                        <button class="btn btn-sm btn-success mt-2">评论</button>
-                                                        <button class="btn btn-sm btn-dark mt-2">取消</button>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <!--          楼中楼评论-->
-                                        </div>
-                                    </div>
                                     <!--                                   测试 -->
 
 
@@ -392,7 +306,11 @@
 
                 </div>
                 <!-- 主体内容结束-->
-
+                <div style="display: none" id="temp">
+                    <input id="postingid" th:value="${posting.getPostingid()}">
+                    <input id="userid" th:value="${session.loadUser.id}">
+                    <input id="username" th:value="${session.loadUser.username}">
+                </div>
                 <!-- 页脚 -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
@@ -471,6 +389,10 @@
         <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
         <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
         <script type="text/javascript">
+
+            var userid =$('#userid').val();
+            var username = $('#username').val();
+            var postingid = $('#postingid').val();
             $(document).ready(function () {
                 function getavatar() {
                     let pathTemp = "../static/img/avatar/icon";
@@ -479,7 +401,6 @@
                         avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
                     }
                 }
-
 
                 function add0(m){return m<10?'0'+m:m }
                 function dateformat(timestamp){
@@ -506,59 +427,66 @@
                             "data": "commentcontent.commentcontent",
                             "render": function (data, type, full) {
                                 var html =
-                                    // '<div class="media text-muted pt-3" id="comment_div">' +
-                                    '<div class="media text-muted pt-3">' +
-                                    '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
-                                    '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
-                                    '<div>' +
-                                    '<strong class="text-info" >' + full.username + '</strong> ||' +
-                                    '<strong class="text-gray-dark text-muted" style="opacity: 50%;">' + dateformat(full.commentdate) + '</strong>' +
-                                    '</div>' +
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                    '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">关注</a>' +
-                                    '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
-                                    '</div>' +
-                                    '<span class="d-block text-dark mt-1 comment" id="comment">' + full.commentcontent + '</span>' +
-                                    '<div>' +
-                                    '<!--          点踩就减少赞数就好-->' +
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |' +
-                                    '<small>12</small></button>' +
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i>' +
-                                    '</button>' +
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏' +
-                                    '</button>' +
-                                    '<button class="btn btn-sm btn-outline-info" onclick="openComment()"><i class="fas fa-comment"></i> | <small>1</small></button>' +
-                                    '</div>' +
-                                    '<!--        楼中楼评论-->' +
-                                    '<div id="comment_com" class="mt-3" style="display: none">' +
-                                    '<div class="my-3 p-3 bg-white rounded shadow-sm">' +
-                                    '<!--         一个评论区块-->' +
-                                    '<div class="media text-muted pt-3">' +
-                                    '<img width="54" height="54" class="avatar mr-2"style="margin-bottom: 10px;"/>' +
-                                    '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
-                                    '<div>' +
-                                    '<strong class="text-info">评论人</strong> ||' +
-                                    '<strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>' +
-                                    '</div>' +
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                    '<a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">回复此人</a>' +
-                                    '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updateComment?commentid=${comment.getCommentid()}">修改</a>' +
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid=${comment.getCommentid()}">删除</a>' +
-                                    '</div>' +
-                                    '<span class="d-block text-dark mt-1 comment">goooooood~</span>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="mt-2">' +
-                                    '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +
-                                    '<button class="btn btn-sm btn-success mt-2">评论</button>' +
-                                    '<button class="btn btn-sm btn-dark mt-2">取消</button>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<!--          楼中楼评论-->' +
-                                    '</div>' +
-                                    '</div>';
+                             '<div class="media text-muted pt-3">' +
+                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
+                                 '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">' +
+                                     '<div>' +
+                                     '<strong class="text-info">'+full.username+'</strong> ||' +
+                                     '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
+                                     '</div>' +
+                                     '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +
+                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
+                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
+                                     '</div>' +
+                                     '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>' +
+                                 '<div>' +
+                                 '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> | <small>12</small>' +
+                                 '</button>' +
+                                 '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i></button>' +
+                                 '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏</button>' +
+                                 '<button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> |' +
+                                     '<small>'+full.commenttocommentnum+'</small></button>' +
+                                 '</div>' +
+
+                                 '<!--        楼中楼评论-->' +
+                                 '<div class="mt-3 animated--grow-in" style="height: auto;overflow: hidden;transition: 0.3s all!important;">' +
+
+                                     '<div class="my-3 p-3 bg-white rounded shadow-sm">';
+
+                                 var commentnum = full.commenttocommentnum;
+                                 for(var i = 0; i < commentnum; i++){
+                                     html+='<!--      另一个评论区块-->' +
+                                     '<div class="media text-muted pt-3">' +
+                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
+                                     '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
+                                     '<div>' +
+                                     '<strong class="text-info">'+full.commenttocommentset[i].username+'</strong> ||' +
+                                     '<strong class="ttext-gray-dark text-muted" style="opacity: 75%;">回复：<a href="#">@'+full.commenttocommentset[i].tousername+'</a></strong> ||' +
+                                     '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
+                                     '</div>' +
+                                     '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>' +
+                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
+                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
+                                     '</div>' +
+                                     '<span class="d-block text-dark mt-1 comment">'+full.commenttocommentset[i].commentcontent+'</span>' +
+                                     '</div>' +
+                                     '</div>' +
+                                     '<!--一个评论区块结束-->';
+                                 }
+                                html+= '<div class="mt-2">' +
+                                     '<form action="/addCommenttocomment?type=1&postingid='+postingid+'&tocommentid='+full.commentid+'&touserid='+full.id+'&tousername='+full.username+'&userid='+userid+'&username='+username+'" method="post">' +
+                                     '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +
+                                     '<button class="btn btn-sm btn-success mt-2" type="submit">评论</button>' +
+                                     '<button class="btn btn-sm btn-dark mt-2">取消</button>' +
+                                     '</form>' +
+                                     '</div>' +
+                                     '</div>' +
+                                     '</div>' +
+                                     '<!--          楼中楼评论-->' +
+                                     '</div>' +
+                                     '</div>' +
                                 getavatar();
                                 return html;
                             }
@@ -648,3 +576,59 @@
     </body>
 
 </html>
+<!--var html =-->
+<!--'<div class="media text-muted pt-3">' +-->
+<!--    '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +-->
+<!--    '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">' +-->
+<!--        '<div>' +-->
+<!--            '<strong class="text-info">'+full.username+'</strong> ||' +-->
+<!--            '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+full.commentdate+'</strong>' +-->
+<!--            '</div>' +-->
+<!--        '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +-->
+<!--            '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +-->
+<!--            '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +-->
+<!--            '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +-->
+<!--            '</div>' +-->
+<!--        '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>' +-->
+<!--        '<div>' +-->
+<!--            '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> | <small>12</small>' +-->
+<!--                '</button>' +-->
+<!--            '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i></button>' +-->
+<!--            '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏</button>' +-->
+<!--            '<button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> |' +-->
+<!--                '<small>2</small></button>' +-->
+<!--            '</div>' +-->
+
+<!--        '&lt;!&ndash;        楼中楼评论&ndash;&gt;' +-->
+<!--        '<div class="mt-3 animated&#45;&#45;grow-in" style="height: auto;overflow: hidden;transition: 0.3s all!important;">' +-->
+
+<!--            '<div class="my-3 p-3 bg-white rounded shadow-sm">' +-->
+
+<!--                '&lt;!&ndash;      另一个评论区块&ndash;&gt;' +-->
+<!--                '<div class="media text-muted pt-3">' +-->
+<!--                    '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +-->
+<!--                    '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +-->
+<!--                        '<div>' +-->
+<!--                            '<strong class="text-info">satelliter63</strong> ||' +-->
+<!--                            '<strong class="ttext-gray-dark text-muted" style="opacity: 75%;">回复：<a href="#">@管理员</a></strong> ||' +-->
+<!--                            '<strong class="text-gray-dark text-muted" style="opacity: 50%;">回复时间</strong>' +-->
+<!--                            '</div>' +-->
+<!--                        '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +-->
+<!--                            '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>' +-->
+<!--                            '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +-->
+<!--                            '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +-->
+<!--                            '</div>' +-->
+<!--                        '<span class="d-block text-dark mt-1 comment">阿巴阿巴~活捉野生管理员</span>' +-->
+<!--                        '</div>' +-->
+<!--                    '</div>' +-->
+<!--                '&lt;!&ndash;一个评论区块结束&ndash;&gt;' +-->
+<!--                '<div class="mt-2">' +-->
+<!--                    '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +-->
+<!--                    '<button class="btn btn-sm btn-success mt-2">评论</button>' +-->
+<!--                    '<button class="btn btn-sm btn-dark mt-2">取消</button>' +-->
+<!--                    '</div>' +-->
+<!--                '</div>' +-->
+<!--            '</div>' +-->
+<!--        '&lt;!&ndash;          楼中楼评论&ndash;&gt;' +-->
+<!--        '</div>' +-->
+<!--    '</div>' +-->

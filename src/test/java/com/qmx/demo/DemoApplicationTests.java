@@ -25,20 +25,20 @@ class DemoApplicationTests {
     private UserclassMapper userclassMapper;
     @Autowired
     private CollectionMapper collectionMapper;
+    @Autowired
+    private  CommenttocommentMapper commenttocommentMapper;
     @Test
     void contextLoads() {
     }
 
     @Test
     void test0(){
-        //int num = collectionMapper.getCollectionnumByUserid(11);
+        //int num = commenttocommentMapper.getCommentnumBycommentid(83);
+        //List<Commenttocomment> commenttocomments = commenttocommentMapper.getCommentBycommentid(83);
         //System.out.println(num);
-        int num0 = collectionMapper.getCollectionnumByPostingid(3);
-        System.out.println(num0);
-        //List<Posting> postings = collectionMapper.getCollectionByUserid(11);
-        //postings.forEach(System.out::println);
-        Posting posting = postingMapper.selectByPositngId(3);
-        System.out.println(posting);
+        //commenttocomments.forEach(System.out::println);
+        List<Comment> comments = commentMapper.selectAllByPostingid(83);
+        comments.forEach(System.out::println);
     }
     @Test
     void test1(){

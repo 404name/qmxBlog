@@ -114,6 +114,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th>隐藏排序字段</th>
                                     <th>帖子内容</th>
                                 </tr>
                                 </thead>
@@ -337,8 +338,12 @@
 <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
 <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
 <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
+
+
+
+<script type="text/javascript" th:inline="none">
+    //这里【【】】会被认thymeleaf
+  $(document).ready(function() {
         // fun();
         let Edit = window.wangEditor;
         let editorDiv = new Edit('#editDiv');
@@ -357,10 +362,16 @@
             return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
         }
         $('#dataTable').DataTable( {
+            "Processing" : true,
+            'iDisplayLength': 5,
             "ajax": "/posting/selectAllPosting",
+            "columnDefs": [{
+                "targets": [0], //隐藏第六bai列，从du第0列开始zhi
+                "visible": false
+            }],
             "columns": [
-                // { "data": "commentcontent" }
-                { "data": "updatadate",
+                { "data": "updatadate", "orderable": false,},
+                { "data": "postingid",
                     "render": function (data,type,full){
                         let postingclassNum = full.postingclass;
                         let strPC = "";
@@ -410,6 +421,7 @@
                     }
                 }
             ],
+            order: [[ 0, "desc" ]]
         });
     });
 </script>

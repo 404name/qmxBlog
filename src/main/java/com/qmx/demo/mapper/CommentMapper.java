@@ -27,6 +27,12 @@ public interface CommentMapper extends BaseMapper<Comment> {
     @Select("select * from comment where commentid = #{commentid}")
     @Results({
             @Result(id=true,column="commentid",property="commentid"),
+            @Result(column="commentid",property="commentnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentnumByCommentid",
+                            fetchType= FetchType.EAGER
+                    )
+            ),
             @Result(column="commentid",property="commentset",
                     many=@Many(
                             select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentByCommentid",
@@ -34,19 +40,24 @@ public interface CommentMapper extends BaseMapper<Comment> {
                     )
             )
     })
-    Posting selectBycommentId(Integer commentid);
+    Comment selectBycommentId(Integer commentid);
 
-    @Select("select * from comment where postingid = #{postingid}")
+    @Select("select * from comment where topostingid = #{postingid}")
     @Results({
             @Result(id=true,column="commentid",property="commentid"),
-            @Result(column="commentid",property="commentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentnumByCommentid",
+            @Result(column="commentid",property="commenttocommentset",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentBycommentid",
                             fetchType= FetchType.EAGER
                     )
             ),
+            @Result(column="commentid",property="commenttocommentnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentnumBycommentid"
+                    )
+            )
     })
-    List<Posting> selectAllByPostingid(Integer postingid);
+    List<Comment> selectAllByPostingid(Integer postingid);
 
     @Select("select * from comment where topostingid=#{postingid}")
     List<Comment> getCommentByPostingid(Integer postingid);

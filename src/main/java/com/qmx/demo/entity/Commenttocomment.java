@@ -57,4 +57,88 @@ public class Commenttocomment implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除，备用")
     private Integer deleted;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(Integer commentid) {
+        this.commentid = commentid;
+    }
+
+    public Integer getTocommentid() {
+        return tocommentid;
+    }
+
+    public void setTocommentid(Integer tocommentid) {
+        this.tocommentid = tocommentid;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getTouserid() {
+        return touserid;
+    }
+
+    public void setTouserid(Integer touserid) {
+        this.touserid = touserid;
+    }
+
+    public String getTousername() {
+        return tousername;
+    }
+
+    public void setTousername(String tousername) {
+        this.tousername = tousername;
+    }
+
+    public String getCommentcontent() {
+        return commentcontent;
+    }
+
+    public void setCommentcontent(String commentcontent) {
+        this.commentcontent = commentcontent;
+    }
+
+    public Date getCommentdate() {
+        return commentdate;
+    }
+
+    public void setCommentdate(Date commentdate) {
+        this.commentdate = commentdate;
+    }
+
+    public Date getUpdatadate() {
+        return updatadate;
+    }
+
+    public void setUpdatadate(Date updatadate) {
+        this.updatadate = updatadate;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
 }

@@ -24,12 +24,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private CommentMapper commentMapper;
 
     @Override
-    public Posting selectBycommentId(Integer commentid) {
+    public Comment selectBycommentId(Integer commentid) {
         return commentMapper.selectBycommentId(commentid);
     }
 
     @Override
-    public List<Posting> selectAllByPostingid(Integer postingid) {
+    public List<Comment> selectAllByPostingid(Integer postingid) {
         return commentMapper.selectAllByPostingid(postingid);
     }
 
