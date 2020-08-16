@@ -56,13 +56,13 @@ public class Posting implements Serializable {
 
     private  String imgsrc;
     @TableField(exist = false)
-    private Set<Comment> commentset;
+    private List<Comment> commentset;
     @TableField(exist = false)
     private Integer commentnum;
     @TableField(exist = false)
     private Integer collectionnum;
     @TableField(exist = false)
-    private Set<Integer> collectionuserid;
+    private List<Integer> collectionuserid;
 
     public Integer getCollectionnum() {
         return collectionnum;
@@ -72,20 +72,21 @@ public class Posting implements Serializable {
         this.collectionnum = collectionnum;
     }
 
-    public Set<Integer> getCollectionuserid() {
-        return collectionuserid;
-    }
 
-    public void setCollectionuserid(Set<Integer> collectionuserid) {
-        this.collectionuserid = collectionuserid;
-    }
-
-    public Set<Comment> getCommentset() {
+    public List<Comment> getCommentset() {
         return commentset;
     }
 
-    public void setCommentset(Set<Comment> commentset) {
+    public void setCommentset(List<Comment> commentset) {
         this.commentset = commentset;
+    }
+
+    public List<Integer> getCollectionuserid() {
+        return collectionuserid;
+    }
+
+    public void setCollectionuserid(List<Integer> collectionuserid) {
+        this.collectionuserid = collectionuserid;
     }
 
     public Integer getCommentnum() {

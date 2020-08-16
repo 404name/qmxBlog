@@ -46,4 +46,19 @@ public class PostingServiceImpl extends ServiceImpl<PostingMapper, Posting> impl
     public Integer getPostingNum() {
         return postingMapper.getPostingNum();
     }
+
+    @Override
+    public Integer getUserPostingNum(Integer id) {
+        return postingMapper.getUserPostingNum(id);
+    }
+
+    @Override
+    public List<Posting> selectByid(Integer id) {
+        return postingMapper.selectByid(id);
+    }
+
+    @Override
+    public List<Posting> selectCollectionByUserid(Integer id) {
+        return postingMapper.selectCollectionByUserid(id);
+    }
 }

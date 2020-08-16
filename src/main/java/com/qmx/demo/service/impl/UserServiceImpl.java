@@ -1,11 +1,14 @@
 package com.qmx.demo.service.impl;
 
+import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.User;
 import com.qmx.demo.mapper.UserMapper;
 import com.qmx.demo.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -28,5 +31,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Integer getUserNum() {
         return userMapper.getUserNum();
+    }
+
+    @Override
+    public User selectById(Integer id) {
+        return userMapper.selectById(id);
     }
 }

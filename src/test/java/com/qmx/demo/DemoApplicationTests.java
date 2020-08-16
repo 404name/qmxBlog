@@ -33,12 +33,8 @@ class DemoApplicationTests {
 
     @Test
     void test0(){
-        //int num = commenttocommentMapper.getCommentnumBycommentid(83);
-        //List<Commenttocomment> commenttocomments = commenttocommentMapper.getCommentBycommentid(83);
-        //System.out.println(num);
-        //commenttocomments.forEach(System.out::println);
-        List<Comment> comments = commentMapper.selectAllByPostingid(83);
-        comments.forEach(System.out::println);
+        User user = userMapper.selectById(11);
+        System.out.println(user);
     }
     @Test
     void test1(){

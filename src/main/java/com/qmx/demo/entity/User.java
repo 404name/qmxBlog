@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -72,10 +73,48 @@ public class User implements Serializable {
     private String major;
 
     private Integer enrollmentyear;
-    //@TableField(exist = false)
-    //private Integer collectionnum;
-    //@TableField(exist = false)
-    //private List<Posting> collection;
+    @TableField(exist = false)
+    private Integer collectionnum;
+    @TableField(exist = false)
+    private List<Posting> collectionset;
+    @TableField(exist = false)
+    private Integer mypostingnum;
+    @TableField(exist = false)
+    private List<Posting> mypostingset;
+
+    public Integer getCollectionnum() {
+        return collectionnum;
+    }
+
+    public void setCollectionnum(Integer collectionnum) {
+        this.collectionnum = collectionnum;
+    }
+
+    public List<Posting> getCollectionset() {
+        return collectionset;
+    }
+
+    public void setCollectionset(List<Posting> collectionset) {
+        this.collectionset = collectionset;
+    }
+
+    public List<Posting> getMypostingset() {
+        return mypostingset;
+    }
+
+    public void setMypostingset(List<Posting> mypostingset) {
+        this.mypostingset = mypostingset;
+    }
+
+    public Integer getMypostingnum() {
+        return mypostingnum;
+    }
+
+    public void setMypostingnum(Integer mypostingnum) {
+        this.mypostingnum = mypostingnum;
+    }
+
+
 
     @ApiModelProperty(value = "0")
     private Integer deleted;

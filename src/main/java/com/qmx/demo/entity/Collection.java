@@ -1,9 +1,13 @@
 package com.qmx.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,6 +38,25 @@ public class Collection implements Serializable {
     private String username;
 
     private Integer postingid;
+    private Date collectdate;
+    @TableField(exist = false)
+    private List<Posting> postingset;
+
+    public Date getCollectdate() {
+        return collectdate;
+    }
+
+    public void setCollectdate(Date collectdate) {
+        this.collectdate = collectdate;
+    }
+
+    public List<Posting> getPostingset() {
+        return postingset;
+    }
+
+    public void setPostingset(List<Posting> postingset) {
+        this.postingset = postingset;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

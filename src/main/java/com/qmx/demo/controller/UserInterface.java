@@ -38,6 +38,14 @@ public class UserInterface {
     @Autowired
     public UserService userService;
 
+    @RequestMapping("/selectUser")
+    public  Object showUser(@RequestParam(value = "id",required = false,defaultValue = "1")Integer id){
+        HashMap<String,Object> map = new HashMap<>();
+        User user = userService.selectById(id);
+        map.put("user",user);
+        return map;
+    }
+
     @RequestMapping("ajaxCheck")
     public Object ajaxCheck(String username,String password){
         QueryWrapper<User> wrapper = new QueryWrapper<>();

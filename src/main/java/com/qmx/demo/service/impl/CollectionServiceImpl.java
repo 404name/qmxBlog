@@ -33,12 +33,12 @@ public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collect
     }
 
     @Override
-    public List<Posting> getCollectionByUserid(Integer userid) {
-        return collectionMapper.getCollectionByUserid(userid);
+    public List<Posting> getCollectionByUserid(Integer id) {
+        return collectionMapper.getCollectionByUserid(id);
     }
 
     @Override
-    public Integer getCollectionnumByUserid(Integer userid) {
-        return collectionMapper.getCollectionnumByUserid(userid);
+    public Integer getCollectionnumByUserid(Integer id) {
+        return collectionMapper.getCollectionnumByUserid(id);
     }
 }

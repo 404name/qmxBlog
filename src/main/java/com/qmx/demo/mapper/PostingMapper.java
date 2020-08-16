@@ -79,4 +79,55 @@ public interface PostingMapper extends BaseMapper<Posting> {
 
     @Select("select count(*) from posting")
     Integer getPostingNum();
+
+    //用户查文章
+    @Select("select count(*) from posting where id=#{id}")
+    Integer getUserPostingNum(Integer id);
+
+    @Select("select * from posting where id = #{id}")
+    @Results({
+            @Result(id=true,column="postingid",property="postingid"),
+            @Result(column="username",property="username"),
+            @Result(column="postingid",property="commentnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid"
+                    )
+            ),
+            @Result(column="postingid",property="collectionnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"
+                    )
+            ),
+            @Result(column="postingid",property="collectionuserid",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
+                            fetchType= FetchType.EAGER
+                    )
+            )
+    })
+    List<Posting> selectByid(Integer id);
+
+    //按照收藏时间
+    @Select("select * from posting where postingid in(select postingid from collection where userid=#{id}) order by postingdate desc;")
+    @Results({
+            @Result(id=true,column="postingid",property="postingid"),
+            @Result(column="username",property="username"),
+            @Result(column="postingid",property="commentnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid"
+                    )
+            ),
+            @Result(column="postingid",property="collectionnum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"
+                    )
+            ),
+            @Result(column="postingid",property="collectionuserid",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
+                            fetchType= FetchType.EAGER
+                    )
+            )
+    })
+    List<Posting> selectCollectionByUserid(Integer id);
 }

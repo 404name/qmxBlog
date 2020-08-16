@@ -27,16 +27,17 @@ public interface CollectionMapper extends BaseMapper<Collection> {
     @Select("select count(*) from collection where postingid=#{postingid}")
     Integer getCollectionnumByPostingid(Integer postingid);
 
-    //根据用户获取文章
-    @Select("select postingid from collection where userid=#{userid}")
+    //根据用户获取文章 //报废
+    @Select("select * from collection where userid=#{id}")
     @Results({
-            @Result(column="postingid",property = "Posting",
+            @Result(column="postingid",property = "postingset",
                     one=@One(
                             select="com.qmx.demo.mapper.PostingMapper.selectByPositngId"
+                            //fetchType= FetchType.EAGER
                     )
             ),
     })
-    List<Posting> getCollectionByUserid(Integer userid);
-    @Select("select count(*) from collection where userid=#{userid}")
-    Integer getCollectionnumByUserid(Integer userid);
+    List<Posting> getCollectionByUserid(Integer id);
+    @Select("select count(*) from collection where userid=#{id}")
+    Integer getCollectionnumByUserid(Integer id);
 }

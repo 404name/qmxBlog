@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,9 +36,17 @@ public class Commentlike implements Serializable {
     private Integer userid;
 
     private String username;
+    private Date likedate;
 
+    public Date getLikedate() {
+        return likedate;
+    }
 
-    public Commentlike(Integer userid, String username,Integer commentid) {
+    public void setLikedate(Date likedate) {
+        this.likedate = likedate;
+    }
+
+    public Commentlike(Integer userid, String username, Integer commentid) {
         this.commentid = commentid;
         this.userid = userid;
         this.username = username;

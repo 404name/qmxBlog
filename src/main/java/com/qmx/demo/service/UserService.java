@@ -1,8 +1,11 @@
 package com.qmx.demo.service;
 
+import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,5 @@ import org.apache.ibatis.annotations.Select;
 public interface UserService extends IService<User> {
     Integer getUserclassNum(Integer userclass);
     Integer getUserNum();
+    User selectById(Integer id);
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import io.swagger.annotations.ApiModel;
@@ -63,15 +64,15 @@ public class Comment implements Serializable {
     private Integer deleted;
 
     @TableField(exist = false)
-    private Set<Commenttocomment> commenttocommentset;
+    private List<Commenttocomment> commenttocommentset;
     @TableField(exist = false)
     private Integer commenttocommentnum;
 
-    public Set<Commenttocomment> getCommenttocommentset() {
+    public List<Commenttocomment> getCommenttocommentset() {
         return commenttocommentset;
     }
 
-    public void setCommenttocommentset(Set<Commenttocomment> commenttocommentset) {
+    public void setCommenttocommentset(List<Commenttocomment> commenttocommentset) {
         this.commenttocommentset = commenttocommentset;
     }
 

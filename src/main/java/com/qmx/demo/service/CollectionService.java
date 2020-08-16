@@ -19,6 +19,6 @@ public interface CollectionService extends IService<Collection> {
     List<Integer> getCollectionUserByPostingid(Integer postingid);
     Integer getCollectionnumByPostingid(Integer postingid);
 
-    List<Posting> getCollectionByUserid(Integer userid);
-    Integer getCollectionnumByUserid(Integer userid);
+    List<Posting> getCollectionByUserid(Integer id);
+    Integer getCollectionnumByUserid(Integer id);
 }

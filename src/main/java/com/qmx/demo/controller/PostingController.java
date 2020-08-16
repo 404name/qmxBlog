@@ -14,6 +14,7 @@ import com.qmx.demo.entity.User;
 import com.qmx.demo.service.CommentService;
 import com.qmx.demo.service.PostingService;
 import com.qmx.demo.service.PostingclassService;
+import com.qmx.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,8 @@ public class PostingController {
 
     @Autowired
     public CommentService commentService;
+    @Autowired
+    public UserService userService;
 
     @Autowired
     public PostingclassService postingclassService;
@@ -67,10 +70,26 @@ public class PostingController {
 
     @PostMapping("/addPosting")
     public String addPosting(Posting posting,
-                                 Model model){
-        System.out.println(posting);
-        postingService.save(posting);
-        return "/admin/list/posting";
+                                 Model model,
+                        @RequestParam(value = "type",required = false,defaultValue = "1")int type){
+
+        String path = null;
+        if(type == 0){
+            QueryWrapper<User> wrapper = new QueryWrapper<>();
+            wrapper.eq("username",posting.getUsername());
+            User user = userService.getOne(wrapper);
+            if(user == null){
+                model.addAttribute("msg","该用户不存在");
+                return "/admin/list/posting";
+            }
+            posting.setId(user.getId());
+            postingService.save(posting);
+            return "/admin/list/posting";
+        }
+        else{
+            postingService.save(posting);
+            return "webGroupPostsPage";
+        }
     }
     @PostMapping("/addSoftwarePostingByUser")
     public String addPostingByUser(Posting posting,
