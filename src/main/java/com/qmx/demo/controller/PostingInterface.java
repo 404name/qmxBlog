@@ -52,6 +52,14 @@ public class PostingInterface {
         map.put("data",postings);
         return map;
     }
+//
+//    @RequestMapping("/cntPostingNum")
+//    public Object cntPostingNum(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
+//        HashMap<String,Object> map = new HashMap<>();
+//        List<Posting> postings = postingService.selectAll();
+//        map.put("data",postings.size());
+//        return map;
+//    }
     //@RequestMapping("/selectAllPosting")
     //public Object getAllPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic){
     //    HashMap<String,Object> map = new HashMap<>();
