@@ -45,7 +45,8 @@ public interface UserMapper extends BaseMapper<User> {
             ),
             @Result(column="id",property="collectionset",
                     many = @Many(
-                            select="com.qmx.demo.mapper.PostingMapper.selectCollectionByUserid"
+                            select="com.qmx.demo.mapper.PostingMapper.selectCollectionByUserid",
+                            fetchType= FetchType.EAGER
                     )
             ),
     })
