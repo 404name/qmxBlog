@@ -114,7 +114,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>隐藏排序字段</th>
+                                    <th style="display: none">隐藏排序字段</th>
                                     <th>帖子内容</th>
                                 </tr>
                                 </thead>
@@ -252,6 +252,7 @@
 
         </div>
     </div>
+    <input th:value="${session.loadUser.id}" style="display: none" id="tempid">
 </div>
 
 
@@ -368,12 +369,13 @@
         updatatable("dataTable","commentnum","/posting/selectAllPosting","data",5);
     }
     function showMyFavorite() {
-        updatatable("dataTable","updatadate","/user/selectUser?id=11","user.collectionset",5);
+        var userid = "/user/selectUser?id=" + $('#tempid').val();
+        updatatable("dataTable","postingid",userid,"user.collectionset",5);
     }
     function updatatable(tableid,sortway,ajaxurl,datasrc,size) {
         $('#'+tableid).DataTable({
-            "destroy" : true,   //允许重建
             "Processing": true,
+             "destroy" : true,
             'iDisplayLength': size,
             "ajax":{
                 "url":ajaxurl,
@@ -384,7 +386,7 @@
                 "visible": false
             }],
             "columns": [
-                {"data": sortway, "orderable": false,},
+                {"data": sortway, "orderable": false},
                 {
                     "data": "postingid",
                     "render": function (data, type, full) {
