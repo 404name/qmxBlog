@@ -416,6 +416,7 @@
                 }
 
                 var postingid = [[${posting.getPostingid()}]];
+                var index = 1;
                 $('#dataTable').DataTable({
                     "ajax": {
                         "url": "/posting/selectPosting?postingid=" + postingid,
@@ -435,6 +436,7 @@
                                      '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                      '</div>' +
                                      '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f(0,'+full.id+',\''+full.username+'\')">回复此人</a>' +
                                      '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +
                                      '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
                                      '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
@@ -466,7 +468,7 @@
                                      '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                      '</div>' +
                                      '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复此人</a>' +
                                      '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
                                      '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
                                      '</div>' +
@@ -476,8 +478,10 @@
                                      '<!--一个评论区块结束-->';
                                  }
                                 html+= '<div class="mt-2">' +
-                                     '<form action="/addCommenttocomment?type=1&postingid='+postingid+'&tocommentid='+full.commentid+'&touserid='+full.id+'&tousername='+full.username+'&userid='+userid+'&username='+username+'" method="post">' +
-                                     '<input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +
+                                     '<form action="/addCommenttocomment?type=1&postingid='+postingid+'&tocommentid='+full.commentid+'&userid='+userid+'&username='+username+'" method="post">' +
+                                     '<input id="inputid'+index+'" class="form-control" type="text" name="touserid" value="'+full.id+'" style="display: none">' +
+                                     '<input id="inputname'+index+'" class="form-control" type="text" name="touserid" value="'+full.username+'" style="display: none">' +
+                                     '<input id="inputtext'+index+'" class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +
                                      '<button class="btn btn-sm btn-success mt-2" type="submit">评论</button>' +
                                      '<button class="btn btn-sm btn-dark mt-2">取消</button>' +
                                      '</form>' +
@@ -488,12 +492,22 @@
                                      '</div>' +
                                      '</div>' +
                                 getavatar();
+                                index++;
                                 return html;
                             }
                         }
                     ],
                 });
             });
+
+            function  f(index,id,name) {
+                var idurl = "inputid" + index;
+                var nameurl = "inputname" + index;
+                var texturl = "inputtext" + index;
+                $('#'+idurl).val(id);
+                $('#'+nameurl).val(name);
+                $('#'+texturl).attr("placeholder","@"+name);
+            }
         </script>
 
         <script>
