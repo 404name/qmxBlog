@@ -130,10 +130,22 @@
                 color: #000000;
                 background-color: #eaf2d3;
             }
+
+            /*#commentBlock{*/
+            /*    white-space: pre-line;*/
+            /*}*/
+            #commentBlock iframe {
+                display: inline-block;
+                height: 480px;
+                max-width: 100%;
+                width: 720px;
+            }
+
+
         </style>
     </head>
 
-    <body id="page-top">
+    <body id="page-top" onload="collectedOrNot();">
 
         <!-- 页面整体 -->
         <div id="wrapper">
@@ -201,14 +213,14 @@
                                     <!--                                4、限本周日之前完成（2019.7.5）<br/>-->
                                 </span>
                             </div>
-                            <div class="md-4">
-                                <small class="text-right mt-3 mr-2">
-                                    <a href="#">赞<span class="badge badge-pill bg-light align-text-bottom">16</span></a>
-                                </small>
-                                <small class="text-right mt-3 mr-2">
-                                    <a href="#">踩</a>
-                                </small>
-                            </div>
+<!--                            <div class="md-4">-->
+<!--                                <small class="text-right mt-3 mr-2">-->
+<!--                                    <a href="#">赞<span class="badge badge-pill bg-light align-text-bottom">16</span></a>-->
+<!--                                </small>-->
+<!--                                <small class="text-right mt-3 mr-2">-->
+<!--                                    <a href="#">踩</a>-->
+<!--                                </small>-->
+<!--                            </div>-->
                             <div class="text-right mr-2 d-block mt-6" style="padding-top: 10px;">
                                 <form th:action="@{/addComment?type=1}" method="post">
                                     <input class="form-control" th:value="${posting.getPostingid()}" name="topostingid"
@@ -351,6 +363,17 @@
             //         }
             //     });
             // });
+            function collectedOrNot () {
+                let userid = $('#userID').text();
+                let postingid = $('#postID').text();
+                let nowLikesNum = $('#postsLikesBtn span').text();
+                $.get("/collectionornot?userid="+userid+"&postingid="+postingid,function (data){
+                    if(data.msg==="已关注"){
+                        $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注" + ' | <span class="badge align-text-bottom" ' +
+                            'style="font-size: 14px;">' + nowLikesNum + '</span>');
+                    }
+                });
+            }
             function likesThisPost() {
                 let userid = $('#userID').text();
                 let username = $('#userName').text();
@@ -360,8 +383,6 @@
                     let msg = data.msg;
                     if (msg === "关注成功") {
                         nowLikesNum++;
-                        // $.post() 这里需要去修改posting表中的likes数据的接口
-                        // 现在只有联立表中的数据可以更新
                         $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注" + ' | <span class="badge align-text-bottom" ' +
                             'style="font-size: 14px;">' + nowLikesNum + '</span>');
                     } else if (msg === "取消关注") {
@@ -393,14 +414,15 @@
             var userid =$('#userid').val();
             var username = $('#username').val();
             var postingid = $('#postingid').val();
-            $(document).ready(function () {
-                function getavatar() {
-                    let pathTemp = "../static/img/avatar/icon";
-                    let avatars = document.getElementsByClassName("avatar");
-                    for (let i = 1; i <= avatars.length; i++) {
-                        avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
-                    }
+            function getavatar() {
+                let pathTemp = "../static/img/avatar/icon";
+                let avatars = document.getElementsByClassName("avatar");
+                for (let i = 1; i <= avatars.length; i++) {
+                    avatars.item(i - 1).src = pathTemp + (Math.round(Math.random() * 19) + 1) + ".png";
                 }
+            }
+            $(document).ready(function () {
+
 
                 function add0(m){return m<10?'0'+m:m }
                 function dateformat(timestamp){
@@ -436,8 +458,8 @@
                                      '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                      '</div>' +
                                      '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f(0,'+full.id+',\''+full.username+'\')">回复此人</a>' +
-                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f(0,'+full.id+',\''+full.username+'\')">回复TA</a>' +
+                                     '<a class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +
                                      '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
                                      '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
                                      '</div>' +
@@ -446,8 +468,8 @@
                                  '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> | <small>12</small>' +
                                  '</button>' +
                                  '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i></button>' +
-                                 '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏</button>' +
-                                 '<button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> |' +
+                                 '<button class="btn btn-sm btn-outline-dark ml-1"><i class="fas fa-star"></i> 收藏</button>' +
+                                 '<button class="btn btn-sm btn-outline-info ml-1" onclick="openComment(this)"><i class="fas fa-comment"></i> | ' +
                                      '<small>'+full.commenttocommentnum+'</small></button>' +
                                  '</div>' +
 
@@ -468,8 +490,8 @@
                                      '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                      '</div>' +
                                      '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复此人</a>' +
-                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</a>' +
+                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
                                      '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
                                      '</div>' +
                                      '<span class="d-block text-dark mt-1 comment">'+full.commenttocommentset[i].commentcontent+'</span>' +
@@ -490,7 +512,7 @@
                                      '</div>' +
                                      '<!--          楼中楼评论-->' +
                                      '</div>' +
-                                     '</div>' +
+                                     '</div>'
                                 getavatar();
                                 index++;
                                 return html;
