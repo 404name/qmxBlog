@@ -49,7 +49,7 @@
         </a>
         <div id="profileSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="profileDetail" th:class="${active=='profileDetail'?'collapse-item active':'collapse-item'}">基本资料</a>
+                <a class="collapse-item" th:href="@{'/showUser?id='+${session.loadUser.id}}" th:class="${active=='profileDetail'?'collapse-item active':'collapse-item'}">基本资料</a>
                 <a class="collapse-item" href="privacy_setting" th:class="${active=='privacy_setting'?'collapse-item active':'collapse-item'}">隐私/提醒</a>
                 <a class="collapse-item" href="security_setting" th:class="${active=='security_setting'?'collapse-item active':'collapse-item'}">安全设置</a>
             </div>

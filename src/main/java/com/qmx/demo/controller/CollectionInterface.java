@@ -39,5 +39,20 @@ public class CollectionInterface {
         }
         return map;
     }
+
+    @RequestMapping("/collectionornot")
+    public Object collectedOrNot(Collection collection0) {
+        HashMap<String, Object> map = new HashMap<>();
+        QueryWrapper<Collection> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid", collection0.getUserid());
+        wrapper.eq("postingid", collection0.getPostingid());
+        Collection collection = collectionService.getOne(wrapper);
+        if (collection == null) {
+            map.put("msg", "未关注");
+        } else {
+            map.put("msg", "已关注");
+        }
+        return map;
+    }
 }
 
