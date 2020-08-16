@@ -139,13 +139,13 @@
                                             <tr></tr>
                                             </thead>
                                             <tbody>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">49</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">10</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">14</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">20</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">11</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#">56</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum0">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum1">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum2">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum3">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum4">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum5">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum6">0</a></button></td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -161,12 +161,13 @@
                 <!--                这是一个发帖分块-->
                 <div class="shadow mt-3 col-xl-11 col-md-11 animated--grow-in mb-5 postDiv" id="postDiv">
 <!--                    直接用表单跳转-->
-                    <form class="form-group" th:action="@{/addSoftwarePostingByUser}" method="post">
+                    <form class="form-group" th:action="@{/addPosting}" method="post">
                         <div class="card-header">
                             <p style="margin-bottom: -10px;"><i class="fas fa-pen"> </i> 发帖</p>
                             <hr/>
                             <div class="form-group row">
-
+                                <input name="id" value="${session.loadUser.id}" style="display: none">
+                                <input name="username" value="${session.loadUser.username}" style="display: none">
                                 <div class="col-sm-10">
                                     <input name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
                                 </div>
@@ -339,11 +340,20 @@
 <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
 <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
-
-
 <script type="text/javascript" th:inline="none">
     //这里【【】】会被认thymeleaf
   $(document).ready(function() {
+      $.ajax({
+          type: "GET",
+          url: "/postingmessage",
+          success: function(data){
+              for(var i = 0; i < 7; i++){
+                  var s1 = data.postingclasses[i].postingclassnum;
+                  $('#postingclassnum'+i).text(s1);
+              }
+          }
+      });
+
         // fun();
         let Edit = window.wangEditor;
         let editorDiv = new Edit('#editDiv');
@@ -425,6 +435,7 @@
         });
     });
 </script>
+
 </body>
 
 </html>

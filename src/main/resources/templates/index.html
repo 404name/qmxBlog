@@ -169,7 +169,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1">现有软件组用户</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{接口}}人</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="softUserNum">{{接口}}人</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-code fa-2x text-primary"></i>
@@ -186,7 +186,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="font-weight-bold text-success text-uppercase mb-1">现有硬件组用户</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{接口}}人</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="hardwareUserNum">{{接口}}人</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-microchip fa-2x text-success"></i>
@@ -198,19 +198,21 @@
 
                     <!--统计卡片-->
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-warning text-uppercase mb-1">讨论帖数量</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-warning"></i>
+                        <a href="webGroupPostsPage">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="font-weight-bold text-warning text-uppercase mb-1">讨论帖数量</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="postingnum">[讨论帖数接口]</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-warning"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
@@ -314,6 +316,28 @@
 <!-- <div class="model fade" id="testWindow" tabindex="-1" role="dialog" aria-hidden="true">-->
 <!--    测试弹窗！-->
 // data-toggle="modal" data-target="#testWindow"
+    <script type="text/javascript">
+        window.onload = function () {
+            $.ajax({
+                type: "GET",
+                url: "/usermessage",
+                success: function(data){
+                    var s1 = data.userclasses[1].userclassnum;
+                    var s2 = data.userclasses[2].userclassnum;
+                    $('#softUserNum').html(s1);
+                    $('#hardwareUserNum').html(s2);
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "/postingmessage",
+                success: function(data){
+                    var s1 = data.postingnum;
+                    $('#postingnum').html(s1);
+                }
+            });
+        };
+    </script>
 
 <!-- 使用Boostrap之前必须先引用这两个-->
 <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>

@@ -1,6 +1,8 @@
 package com.qmx.demo.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Commenttocomment;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.service.CommenttocommentService;
@@ -43,22 +45,33 @@ public class CommenttocommentController {
             }
             return path;
         }
-    @RequestMapping("/addCommenttocomment")
-    public String addPosting1(Commenttocomment commenttocomment,
-                              @RequestParam(value = "postingid",required = true)Integer postingid,
-                              @RequestParam(value = "type",required = false,defaultValue = "1")int type){
-        commenttocommentService.save(commenttocomment);
-        String path = null;
-        System.out.println("---------------------------------------------");
-        System.out.println(commenttocomment);
-        System.out.println("---------------------------------------------");
+    @RequestMapping("/deleteCommenttocomment")
+    public String deleteCommenttocomment(@RequestParam(value = "commentid",required = true)Integer commentid,
+                                @RequestParam(value = "postingid",required = true)Integer postingid,
+                                @RequestParam(value = "type",required = false,defaultValue = "1")int type){
+        QueryWrapper<Commenttocomment> wrapper = new QueryWrapper<>();
+        wrapper.eq("commentid",commentid);
+        commenttocommentService.remove(wrapper);
         if(type == 0){
-            path = "redirect:/showPosting?type=0&postingid=" + postingid;
+            return "redirect:/showPosting?type=0&postingid=" + postingid;
         }
         else{
-            path = "redirect:/showPosting?type=1&postingid=" + postingid;
+            return "redirect:/showPosting?type=1&postingid=" + postingid;
         }
-        return path;
+    }
+    @RequestMapping("/updataCommenttocomment")
+    public String updataCommenttocomment(Commenttocomment commenttocomment,
+                                @RequestParam(value = "postingid",required = true)Integer postingid,
+                                @RequestParam(value = "type",required = false,defaultValue = "1")int type){
+        QueryWrapper<Commenttocomment> wrapper = new QueryWrapper<>();
+        wrapper.eq("commentid",commenttocomment.getCommentid());
+        commenttocommentService.update(commenttocomment,wrapper);
+        if(type == 0){
+            return "redirect:/showPosting?type=0&postingid=" + postingid;
+        }
+        else{
+            return "redirect:/showPosting?type=1&postingid=" + postingid;
+        }
     }
 }
 

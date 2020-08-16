@@ -436,10 +436,10 @@
                                      '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                      '</div>' +
                                      '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f(0,'+full.id+',\''+full.username+'\')">回复此人</a>' +
+                                     '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f('+index+','+full.id+',\''+full.username+'\')">回复此人</a>' +
                                      '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +
-                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
-                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
+                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
+                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
                                      '</div>' +
                                      '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>' +
                                  '<div>' +
@@ -469,8 +469,8 @@
                                      '</div>' +
                                      '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
                                      '<a class="btn btn-sm btn-success float-right align-self-center mx-auto" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复此人</a>' +
-                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>' +
-                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>' +
+                                     '<a class="ml-1 btn-sm btn-info change float-right w-auto"href="/updataCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">修改</a>' +
+                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +
                                      '</div>' +
                                      '<span class="d-block text-dark mt-1 comment">'+full.commenttocommentset[i].commentcontent+'</span>' +
                                      '</div>' +
@@ -480,7 +480,7 @@
                                 html+= '<div class="mt-2">' +
                                      '<form action="/addCommenttocomment?type=1&postingid='+postingid+'&tocommentid='+full.commentid+'&userid='+userid+'&username='+username+'" method="post">' +
                                      '<input id="inputid'+index+'" class="form-control" type="text" name="touserid" value="'+full.id+'" style="display: none">' +
-                                     '<input id="inputname'+index+'" class="form-control" type="text" name="touserid" value="'+full.username+'" style="display: none">' +
+                                     '<input id="inputname'+index+'" class="form-control" type="text" name="tousername" value="'+full.username+'" style="display: none">' +
                                      '<input id="inputtext'+index+'" class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +
                                      '<button class="btn btn-sm btn-success mt-2" type="submit">评论</button>' +
                                      '<button class="btn btn-sm btn-dark mt-2">取消</button>' +
