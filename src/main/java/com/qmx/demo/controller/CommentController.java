@@ -39,7 +39,7 @@ public class CommentController {
         QueryWrapper<Posting> wrapper = new QueryWrapper<>();
         wrapper.eq("postingid",comment.getTopostingid());
         Posting posting = postingService.getOne(wrapper);
-        postingService.updateById(posting);
+        postingService.update(posting,wrapper);
         String path = null;
         if(type == 0){
             path = "redirect:/showPosting?type=0&postingid=" + comment.getTopostingid();

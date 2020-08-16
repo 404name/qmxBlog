@@ -6,6 +6,7 @@ import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Commenttocomment;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.service.CommenttocommentService;
+import com.qmx.demo.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,16 +28,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommenttocommentController {
     @Autowired
     private CommenttocommentService commenttocommentService;
-
+    @Autowired
+    private PostingService postingService;
     @PostMapping("/addCommenttocomment")
     public String addPosting(Commenttocomment commenttocomment,
                              @RequestParam(value = "postingid",required = true)Integer postingid,
                              @RequestParam(value = "type",required = false,defaultValue = "1")int type){
             commenttocommentService.save(commenttocomment);
-            String path = null;
-            System.out.println("---------------------------------------------");
-        System.out.println(commenttocomment);
-        System.out.println("---------------------------------------------");
+        //更新文章最后更新时间
+        QueryWrapper<Posting> wrapper = new QueryWrapper<>();
+        wrapper.eq("postingid",postingid);
+        Posting posting = postingService.getOne(wrapper);
+        postingService.update(posting,wrapper);
+
+        String path = null;
             if(type == 0){
                 path = "redirect:/showPosting?type=0&postingid=" + postingid;
             }

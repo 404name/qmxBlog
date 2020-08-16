@@ -88,16 +88,31 @@ public class PostingController {
         }
         else{
             postingService.save(posting);
-            return "webGroupPostsPage";
+            return "redirect:/webGroupPostsPage";
         }
     }
     @PostMapping("/addSoftwarePostingByUser")
     public String addPostingByUser(Posting posting,
-                             Model model){
-        posting.setDeleted(0);
-        System.out.println(posting);
-        postingService.save(posting);
-        return "/webGroupPostsPage";
+                                   Model model,
+                                   @RequestParam(value = "type",required = false,defaultValue = "1")int type){
+
+        String path = null;
+        if(type == 0){
+            QueryWrapper<User> wrapper = new QueryWrapper<>();
+            wrapper.eq("username",posting.getUsername());
+            User user = userService.getOne(wrapper);
+            if(user == null){
+                model.addAttribute("msg","该用户不存在");
+                return "/admin/list/posting";
+            }
+            posting.setId(user.getId());
+            postingService.save(posting);
+            return "/admin/list/posting";
+        }
+        else{
+            postingService.save(posting);
+            return "redirect:/webGroupPostsPage";
+        }
     }
 
     @RequestMapping("/showPosting")

@@ -166,8 +166,8 @@
                             <p style="margin-bottom: -10px;"><i class="fas fa-pen"> </i> 发帖</p>
                             <hr/>
                             <div class="form-group row">
-                                <input name="id" value="${session.loadUser.id}" style="display: none">
-                                <input name="username" value="${session.loadUser.username}" style="display: none">
+                                <input name="id" th:value="${session.loadUser.id}" style="display: none">
+                                <input name="username" th:value="${session.loadUser.username}" style="display: none">
                                 <div class="col-sm-10">
                                     <input name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
                                 </div>
@@ -353,88 +353,120 @@
               }
           }
       });
-
         // fun();
         let Edit = window.wangEditor;
         let editorDiv = new Edit('#editDiv');
         // alert("已创建编辑框");
         editorDiv.create();
-        function add0(m){return m<10?'0'+m:m }
-        function dateformat(timestamp){
-            //timestamp是整数，否则要parseInt转换,不会出现少个0的情况
-            var time = new Date(timestamp);
-            var year = time.getFullYear();
-            var month = time.getMonth()+1;
-            var date = time.getDate();
-            var hours = time.getHours();
-            var minutes = time.getMinutes();
-            var seconds = time.getSeconds();
-            return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
-        }
-
-        $('#dataTable').DataTable( {
-            "Processing" : true,
-            'iDisplayLength': 5,
-            "ajax": "/posting/selectAllPosting",
+        showNewest();
+    });
+    //updatatable("dataTable","updatadate",'"/posting/selectAllPosting"',"data",5);
+    function showNewest() {
+        updatatable("dataTable","updatadate","/posting/selectAllPosting","data",5);
+    }
+    function showHottest() {
+        updatatable("dataTable","commentnum","/posting/selectAllPosting","data",5);
+    }
+    function showMyFavorite() {
+        updatatable("dataTable","updatadate","/user/selectUser?id=11","user.collectionset",5);
+    }
+    function updatatable(tableid,sortway,ajaxurl,datasrc,size) {
+        $('#'+tableid).DataTable({
+            "destroy" : true,   //允许重建
+            "Processing": true,
+            'iDisplayLength': size,
+            "ajax":{
+                "url":ajaxurl,
+                "dataSrc": datasrc,
+            },
             "columnDefs": [{
-                "targets": [0], //隐藏第六bai列，从du第0列开始zhi
+                "targets": [0], //隐藏第0列，从du第0列开始zhi
                 "visible": false
             }],
             "columns": [
-                { "data": "updatadate", "orderable": false,},
-                { "data": "postingid",
-                    "render": function (data,type,full){
+                {"data": sortway, "orderable": false,},
+                {
+                    "data": "postingid",
+                    "render": function (data, type, full) {
                         let postingclassNum = full.postingclass;
                         let strPC = "";
                         switch (postingclassNum) {
-                            case 0:strPC="常规帖";break;
-                            case 1:strPC="学习总结";break;
-                            case 2:strPC="答辩作品";break;
-                            case 3:strPC="电脑带离";break;
-                            case 4:strPC="聊天水贴";break;
-                            case 5:strPC="实习工作";break;
-                            case 6:strPC="算法总结";break;
-                            default:strPC="常规帖";break;
+                            case 0:
+                                strPC = "常规帖";
+                                break;
+                            case 1:
+                                strPC = "学习总结";
+                                break;
+                            case 2:
+                                strPC = "答辩作品";
+                                break;
+                            case 3:
+                                strPC = "电脑带离";
+                                break;
+                            case 4:
+                                strPC = "聊天水贴";
+                                break;
+                            case 5:
+                                strPC = "实习工作";
+                                break;
+                            case 6:
+                                strPC = "算法总结";
+                                break;
+                            default:
+                                strPC = "常规帖";
+                                break;
                         }
                         var html =
-                    '<div class="row mt-0 card-body animated--grow-in">'+
-                            '<div class="col-xl-11 col-md-11 mb-1">'+
-                            '<div class="card border-left-primary shadow h-100 py-2">'+
-                            '<div class="card-body">'+
-                            '<div class="row no-gutters align-items-center">'+
-                            '<div class="mr-2">'+
-                            '<div class="list-inline">'+
-                            '<span class="badge badge-pill bg-light align-text-bottom">'+full.collectionnum +' | 关注</span><br/>'+
-                            '<span class="badge badge-pill bg-info align-text-bottom text-light">'+full.commentnum+' | 回复</span><br/>'+
-                            '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>'+
-                            '</div>'+
-                            '</div>'+
-                            '<div class="col mr-auto">'+
-                            '<a href="/showPosting?type=1&postingid='+full.postingid+'" class="font-weight-bold text-primary h5 mb-1 ml-2">'+full.postingtitle+'</a>'+
-                        '<div class="mb-0 font-weight-bold text-gray-800 ml-2">'+
-                            '<a class="text-info" href="/showUser?id='+full.id+'" >'+full.username+'</a>'+
-                            '<small class="ml-1">发帖时间：'+dateformat(full.postingdate)+'</small>'+
-                        '</div>'+
-                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">'+
-                            '<a class="text-info" href="#">最后回帖人ID</a>'+
-                            '<small class="ml-1">'+dateformat(full.updatadate)+'</small>'+
-                            '</div>'+
-                        '</div>'+
-                        '<div class="col-auto text-center">'+
-                            '<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>'+'<small class="text-primary mt-2">'+strPC+'</small>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
+                            '<div class="row mt-0 card-body animated--grow-in">' +
+                            '<div class="col-xl-11 col-md-11 mb-1">' +
+                            '<div class="card border-left-primary shadow h-100 py-2">' +
+                            '<div class="card-body">' +
+                            '<div class="row no-gutters align-items-center">' +
+                            '<div class="mr-2">' +
+                            '<div class="list-inline">' +
+                            '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
+                            '<span class="badge badge-pill bg-info align-text-bottom text-light">' + full.commentnum + ' | 回复</span><br/>' +
+                            '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="col mr-auto">' +
+                            '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
+                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                            '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' +
+                            '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
+                            '</div>' +
+                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                            '<a class="text-info" href="#">最后回帖人ID</a>' +
+                            '<small class="ml-1">' + dateformat(full.updatadate) + '</small>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="col-auto text-center">' +
+                            '<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
                             '</div>';
                         return html;
                     }
                 }
             ],
-            order: [[ 0, "desc" ]]
+            order: [[0, "desc"]]
         });
-    });
+    }
+    function add0(m){return m<10?'0'+m:m }
+    function dateformat(timestamp){
+        //timestamp是整数，否则要parseInt转换,不会出现少个0的情况
+        var time = new Date(timestamp);
+        var year = time.getFullYear();
+        var month = time.getMonth()+1;
+        var date = time.getDate();
+        var hours = time.getHours();
+        var minutes = time.getMinutes();
+        var seconds = time.getSeconds();
+        return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
+    }
 </script>
 
 </body>
