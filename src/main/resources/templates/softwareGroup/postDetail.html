@@ -104,6 +104,10 @@
                 background: #e2e2e2;
                 border-left: 5px solid #b7cfcf;
             }
+            pre {
+                background: #e2e2e2;
+                border-left: 5px solid #b7cfcf;
+            }
 
             #blogContent table {
                 font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -136,6 +140,9 @@
                 height: 480px;
                 max-width: 100%;
                 width: 720px;
+            }
+            .w-e-toolbar{
+                flex-wrap:wrap;
             }
         </style>
     </head>
@@ -208,15 +215,17 @@
                                     <!--                                4、限本周日之前完成（2019.7.5）<br/>-->
                                 </span>
                             </div>
+                            <hr/>
                             <div class="md-4">
-                                <small class="text-right mt-3 mr-2">
-                                    <a href="#">赞<span class="badge badge-pill bg-light align-text-bottom">16</span></a>
-                                </small>
-                                <small class="text-right mt-3 mr-2">
-                                    <a href="#">踩</a>
-                                </small>
+                                <button class="btn btn-success" onclick="commentThisPosting(this);">回复此贴</button>
+<!--                                <small class="text-right mt-3 mr-2">-->
+<!--                                    <a href="#">回帖:<span class="badge badge-pill bg-light align-text-bottom">16</span></a>-->
+<!--                                </small>-->
+<!--                                <small class="text-right mt-3 mr-2">-->
+<!--                                    <a href="#">踩</a>-->
+<!--                                </small>-->
                             </div>
-                            <div class="text-right mr-2 d-block mt-6" style="padding-top: 10px;">
+                            <div class="mr-2 mt-6 d-none animated--grow-in" id="commentThisPostArea" style="padding-top: 10px;">
                                 <form th:action="@{/addComment?type=1}" method="post">
                                     <input class="form-control" th:value="${posting.getPostingid()}" name="topostingid"
                                            style="display:none;">
@@ -224,9 +233,10 @@
                                            style="display:none;">
                                     <input class="form-control" th:value="${session.loadUser.username}" name="username"
                                            style="display:none;">
-                                    <textarea class="form-control" type="text" rows="1" name="commentcontent"
-                                              placeholder="..."></textarea>
-                                    <button class="btn btn-outline-info mt-1 mb-5 float-right" type="submit">回复本帖
+                                    <textarea id="commentTextArea" class="form-control d-none overflow-hidden"
+                                              type="text" rows="1" name="commentcontent" placeholder="..."></textarea>
+                                    <div id="editDiv" onmouseout="updateCommentText();"></div>
+                                    <button class="btn btn-outline-info mt-1 mb-5 float-right" type="submit">确定回复
                                     </button>
                                     <div class="mt-5 mb-0" style="width: auto;height: 1px; background: #e5e5e5;"></div>
                                 </form>
@@ -358,6 +368,10 @@
             //         }
             //     });
             // });
+            function commentThisPosting(obj){
+                $(obj).addClass("d-none");
+                $('#commentThisPostArea').removeClass("d-none");
+            }
             function collectedOrNot () {
                 let userid = $('#userID').text();
                 let postingid = $('#postID').text();
@@ -410,13 +424,24 @@
                 $(obj).parent().parent().prev().removeClass("d-none").addClass("d-block");
                 $(obj).parent().parent().removeClass("d-block").addClass("d-none");
             }
+
+            // window.onload=function () {
+            //     let Edit = window.wangEditor;
+            //     let editorDiv = new Edit('#editDiv');
+            //     //alert("已创建编辑框");
+            //     editorDiv.create();
+            // }
+            function updateCommentText(){
+                let wangEditorStr = $('.w-e-text').html();
+                $('#commentTextArea').html(wangEditorStr);
+            }
         </script>
 
         <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
         <script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
         <!-- 自己的js文件-->
-
+        <script th:src="@{/static/js/wangEditor.min.js}"></script>
         <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
         <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
         <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
@@ -426,6 +451,12 @@
             var username = $('#username').val();
             var postingid = $('#postingid').val();
             $(document).ready(function () {
+                let Edit = window.wangEditor;
+                let editorDiv = new Edit('#editDiv');
+                // alert("已创建编辑框");
+                editorDiv.create();
+
+
                 function getavatar() {
                     let pathTemp = "../static/img/avatar/icon";
                     let avatars = document.getElementsByClassName("avatar");
