@@ -173,9 +173,10 @@
                                     <small id="postID" th:text="${posting.getPostingid()}"></small>
                                 </div>
                                 <small class="mr-2"><img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32"
-                                                         width="32"><small class="text-success"
-                                                                           style="font-size: 16px;"><span
-                                        th:text="${posting.getUsername()}"></span></small>
+                                                         width="32">
+                                    <small class="text-success" style="font-size: 16px;">
+                                        <a th:href="'/showUser?id=' + ${posting.getId()}" th:text="${posting.getUsername()}"></a>
+                                    </small>
                                     <small class="text-muted">发布于:<small class="text-muted"
                                                                          th:text="${posting.getPostingdate()}"></small></small>
                                     <small class="d-block">最后更新于:<small class="text-muted"
@@ -495,12 +496,13 @@
                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
                                     '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">' +
                                     '<div>' +
-                                    '<strong class="text-info">'+full.username+'</strong> ||' +
+                                    '<a class="text-info" href="/showUser?id=' + full.id + '">'+full.username+'</a> ||' +
                                     '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                     '</div>' +
                                     '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                    '<a class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto text-light mr-1" onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</a>' +
-                                    '<a class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</a>' +
+                                    '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto mr-1" style="position: relative;right: 6px;" ' +
+                                    ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>' +
+                                    '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</button>' +
                                     // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
                                     '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
@@ -536,7 +538,7 @@
                                         '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
                                         '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
                                         '<div>' +
-                                        '<strong class="text-info">'+full.commenttocommentset[i].username+'</strong> ||' +
+                                        '<a class="text-info" href="/showUser?id=' + full.commenttocommentset[i].userid + '">'+full.commenttocommentset[i].username+'</a> ||' +
                                         '<strong class="ttext-gray-dark text-muted" style="opacity: 75%;">回复：<a href="#">@'+full.commenttocommentset[i].tousername+'</a></strong> || ' +
                                         '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                         '</div>' +
@@ -565,7 +567,7 @@
                                     '<input id="inputname'+index+'" class="form-control" type="text" name="tousername" value="'+full.username+'" style="display: none">' +
                                     '<input id="inputtext'+index+'" class="form-control" type="text" name="commentcontent" placeholder="评论一下...">' +
                                     '<button class="btn btn-sm btn-success mt-2" type="submit">评论</button>' +
-                                    '<button class="btn btn-sm btn-dark mt-2">取消</button>' +
+                                    '<button class="ml-1 btn btn-sm btn-dark mt-2">取消</button>' +
                                     '</form>' +
                                     '</div>' +
                                     '</div>' +

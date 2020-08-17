@@ -81,7 +81,7 @@
                                             <div class="row no-gutters align-items-center">
 
                                                 <div class="col mr-2">
-                                                    <div class="font-weight-bold text-info text-uppercase mb-1">我关注的人
+                                                    <div id="myFollows" class="font-weight-bold text-info text-uppercase mb-1">我关注的人
                                                     </div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                         <img src="../../static/img/avatar/icon11.png" alt="" width="32"
@@ -108,7 +108,7 @@
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <div class="font-weight-bold text-primary text-uppercase mb-1">
+                                                    <div id="followMe" class="font-weight-bold text-primary text-uppercase mb-1">
                                                         关注我的人
                                                     </div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -141,7 +141,7 @@
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <div class="font-weight-bold text-success text-uppercase mb-1">
+                                                    <div id="thePostsIlike" class="font-weight-bold text-success text-uppercase mb-1">
                                                         我关注的帖子
                                                     </div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -163,7 +163,7 @@
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <div class="font-weight-bold text-warning text-uppercase mb-1">
+                                                    <div id="myPartPosts" class="font-weight-bold text-warning text-uppercase mb-1">
                                                         我的发帖
                                                     </div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -194,7 +194,7 @@
                                 <div class="col-xl-12 col-lg-8 animated--grow-in">
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-info">我的回复</h6>
+                                            <h6 id="myReply" class="m-0 font-weight-bold text-info">我的回复</h6>
                                             <!--                  下拉菜单-->
                                             <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
@@ -241,7 +241,7 @@
                                 <div class="col-xl-12 col-lg-8 mb-5  animated--grow-in">
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-warning">我的发帖</h6>
+                                            <h6 id="myPosts" class="m-0 font-weight-bold text-warning">我的发帖</h6>
                                             <!--                  下拉菜单-->
                                             <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink3"
@@ -259,8 +259,8 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="myPostiingDataTable"
                                                    width="100%" cellspacing="0">
-                                                <thead>
-                                                <tr>
+                                                <thead class="d-none">
+                                                <tr class="d-none overflow-hidden">
                                                     <th>帖子内容</th>
                                                 </tr>
                                                 </thead>
@@ -271,7 +271,7 @@
                                     <!--这个表格区域结束-->
                                     <div class="card shadow mb-4" id="mycollection">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-warning">我的收藏</h6>
+                                            <h6 id="myCollections" class="m-0 font-weight-bold text-warning">我的收藏</h6>
                                             <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button"
                                                    id="dropdownMenuLink4"
@@ -339,7 +339,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="float-right">姓名：
-                                                    <td id="thisPageUserName" th:text="${user.getUsername()}">tjy
+                                                    <td id="thisPageUserName" th:text="${user.getUsername()}">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -579,8 +579,8 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="float-right">个性介绍：</td>
-                                                    <td><textarea class="form-control form-group w-75" rows="1"
+                                                    <td class="float-right text-nowrap">个性介绍：</td>
+                                                    <td><textarea class="form-control form-group w-100" rows="1"
                                                                   placeholder="未填写"
                                                                   th:text="${user.getIntroduction()}"></textarea>
                                                     </td>
@@ -615,14 +615,14 @@
 
                                         <!-- 表格主体 -->
                                         <div class="card-body row" id="accountContactInfo">
-                                            <table class="col-lg-8">
+                                            <table class="col-lg-10">
                                                 <tr>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>
                                                 <tr>
                                                     <td class="float-right">学号：</td>
-                                                    <td><input class="form-control form-control-user  w-75"
+                                                    <td><input class="form-control form-control-user w-100"
                                                                placeholder="未填写" th:value="${user.getSchoolid()}">
                                                     </td>
                                                 </tr>
@@ -631,14 +631,14 @@
                                                 <!--                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" th:value="${user.getEmail()}"></td>-->
                                                 <!--                                </tr>-->
                                                 <tr>
-                                                    <td class="float-right">手机号码：</td>
-                                                    <td><input class="form-control form-control-user  w-75"
+                                                    <td class="float-right text-nowrap">手机号码：</td>
+                                                    <td><input class="form-control form-control-user w-100"
                                                                placeholder="未填写"
                                                                th:value="${user.getPhonenumber()}"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="float-right">Git主页：</td>
-                                                    <td><input class="form-control form-group w-75"
+                                                    <td class="float-right text-nowrap">Git主页：</td>
+                                                    <td><input class="form-control form-group w-100"
                                                                placeholder="未填写" th:value="${user.getGitpage()}">
                                                     </td>
                                                 </tr>
@@ -672,7 +672,7 @@
 
                                         <!-- 表格主体 -->
                                         <div class="card-body row" id="accountEducationInfo">
-                                            <table class="col-lg-8">
+                                            <table class="col-lg-10">
                                                 <tr>
                                                     <th></th>
                                                     <th></th>
@@ -682,13 +682,13 @@
                                                 <!--                                    <td><input class="form-control form-control-user  w-75" placeholder="未填写" th:value="${user.getSchool()}"></td>-->
                                                 <!--                                </tr>-->
                                                 <tr>
-                                                    <td class="float-right">所在学院：</td>
-                                                    <td><input class="form-control form-control-user  w-75"
+                                                    <td class="float-right text-nowrap">所在学院：</td>
+                                                    <td><input class="form-control form-control-user  w-100"
                                                                placeholder="未填写" th:value="${user.getInstitute()}">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="float-right">入学年份：</td>
+                                                    <td class="float-right text-nowrap">入学年份：</td>
                                                     <td>
                                                         <div class="row" style="margin-left: 1px;">
                                                             <select class="form-control form-control-sm"
@@ -898,6 +898,14 @@
                     $('select').attr("disabled", "disabled");
                     $('textarea').attr("disabled", "disabled");
                     $('#accordionSidebar').hide();
+                    let thisPageUser = $('#thisPageUserName').text();
+                    $('#myPosts').text(thisPageUser+"的发帖");
+                    $('#myFollows').text(thisPageUser+"关注的人");
+                    $('#followMe').text("关注"+thisPageUser+"的人");
+                    $('#thePostsIlike').text(thisPageUser+"关注的帖子");
+                    $('#myPartPosts').text(thisPageUser+"的发帖");
+                    $('#myReply').text(thisPageUser+"的回复");
+                    $('#myCollections').text(thisPageUser+"的收藏");
                 }
 
                 // let birthday = $('#MyBirthday').text();
