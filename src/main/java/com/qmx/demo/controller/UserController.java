@@ -51,19 +51,19 @@ public class UserController {
         model.addAttribute("user",user);
         return "/admin/detail/userUpdata";
     }
+    @PostMapping("/updataUser")
+    public String updatauser1(User user,
+                              Model model){
+        System.out.println(user);
+        userService.updateById(user);
+        return "/admin/list/user";
+    }
     @RequestMapping(value = "/showUser")
     public String showUser(@RequestParam(value = "id",required = true)int id,
                            Model model){
         User user = userService.getById(id);
         model.addAttribute("user",user);
         return "/user/profileDetail";
-    }
-    @PostMapping("/updataUser")
-    public String updatauser1(User user,
-                                 Model model){
-        System.out.println(user);
-        userService.updateById(user);
-        return "/admin/list/user";
     }
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public String adduser(User user,

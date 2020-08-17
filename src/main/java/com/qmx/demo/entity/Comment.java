@@ -37,8 +37,7 @@ public class Comment implements Serializable {
 
     private Integer topostingid;
 
-    @ApiModelProperty(value = "点赞 喜欢")
-    private Integer likes;
+
 
     private Integer id;
 
@@ -67,6 +66,18 @@ public class Comment implements Serializable {
     private List<Commenttocomment> commenttocommentset;
     @TableField(exist = false)
     private Integer commenttocommentnum;
+    @TableField(exist = false)
+    private Integer likes;
+    @TableField(exist = false)
+    private List<Integer> likesset;
+
+    public List<Integer> getLikesset() {
+        return likesset;
+    }
+
+    public void setLikesset(List<Integer> likesset) {
+        this.likesset = likesset;
+    }
 
     public List<Commenttocomment> getCommenttocommentset() {
         return commenttocommentset;

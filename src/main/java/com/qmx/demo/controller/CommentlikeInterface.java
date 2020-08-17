@@ -28,16 +28,13 @@ public class CommentlikeInterface {
     public CommentlikeService commentlikeService;
 
     @RequestMapping("/commentlike")
-    public Object collection(@RequestParam(value = "userid", required = true)Integer userid,
-                             @RequestParam(value = "username", required = true)String username,
-                             @RequestParam(value = "commentid", required = true)Integer commentid){
+    public Object collection(Commentlike commentlike0){
         HashMap<String,Object> map = new HashMap<>();
         QueryWrapper<Commentlike> wrapper = new QueryWrapper<>();
-        wrapper.eq("userid",userid);
-        wrapper.eq("commentid",commentid);
+        wrapper.eq("userid",commentlike0.getUserid());
+        wrapper.eq("commentid",commentlike0.getCommentid());
         Commentlike commentlike = commentlikeService.getOne(wrapper);
         if(commentlike == null){
-            Commentlike commentlike0 = new Commentlike(userid,username,commentid);
             commentlikeService.save(commentlike0);
             map.put("msg","点赞成功");
         }else{

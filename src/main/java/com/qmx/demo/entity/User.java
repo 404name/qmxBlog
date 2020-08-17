@@ -81,6 +81,26 @@ public class User implements Serializable {
     private Integer mypostingnum;
     @TableField(exist = false)
     private List<Posting> mypostingset;
+    @TableField(exist = false)
+    private Integer follownum;
+    @TableField(exist = false)
+    private List<Integer> followidset;
+
+    public Integer getFollownum() {
+        return follownum;
+    }
+
+    public void setFollownum(Integer follownum) {
+        this.follownum = follownum;
+    }
+
+    public List<Integer> getFollowidset() {
+        return followidset;
+    }
+
+    public void setFollowidset(List<Integer> followidset) {
+        this.followidset = followidset;
+    }
 
     public Integer getCollectionnum() {
         return collectionnum;

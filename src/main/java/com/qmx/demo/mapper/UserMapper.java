@@ -49,6 +49,17 @@ public interface UserMapper extends BaseMapper<User> {
                             fetchType= FetchType.EAGER
                     )
             ),
+            @Result(column="id",property="follownum",
+                    one=@One(
+                            select="com.qmx.demo.mapper.FollowMapper.getFollowNumByid"
+                    )
+            ),
+            @Result(column="id",property="collectionset",
+                    many = @Many(
+                            select="com.qmx.demo.mapper.FollowMapper.getFollowUserByid",
+                            fetchType= FetchType.EAGER
+                    )
+            ),
     })
     User selectById(Integer id);
 

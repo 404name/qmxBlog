@@ -2,6 +2,8 @@ package com.qmx.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -57,7 +59,8 @@ public class Commenttocomment implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除，备用")
     private Integer deleted;
-
+    @TableField(exist = false)
+    private Integer likes;
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

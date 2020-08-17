@@ -38,6 +38,17 @@ public interface CommentMapper extends BaseMapper<Comment> {
                             select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentByCommentid",
                             fetchType= FetchType.EAGER
                     )
+            ),
+            @Result(column="commentid",property="likes",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikenumByCommentid"
+                    )
+            ),
+            @Result(column="commentid",property="likesset",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikeUserByCommentid",
+                            fetchType= FetchType.EAGER
+                    )
             )
     })
     Comment selectBycommentId(Integer commentid);
@@ -54,6 +65,17 @@ public interface CommentMapper extends BaseMapper<Comment> {
             @Result(column="commentid",property="commenttocommentnum",
                     one=@One(
                             select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentnumBycommentid"
+                    )
+            ),
+            @Result(column="commentid",property="likes",
+                    one=@One(
+                            select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikenumByCommentid"
+                    )
+            ),
+            @Result(column="commentid",property="likesset",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikeUserByCommentid",
+                            fetchType= FetchType.EAGER
                     )
             )
     })

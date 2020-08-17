@@ -2,6 +2,9 @@ package com.qmx.demo.service;
 
 import com.qmx.demo.entity.Commentlike;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-08-13
  */
 public interface CommentlikeService extends IService<Commentlike> {
-
+    List<Integer> getCommentLikeUserByCommentid(Integer commentid);
+    Integer getCommentLikenumByCommentid(Integer commentid);
 }
