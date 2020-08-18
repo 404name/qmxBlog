@@ -27,21 +27,10 @@ public interface CommentMapper extends BaseMapper<Comment> {
     @Select("select * from comment where commentid = #{commentid}")
     @Results({
             @Result(id=true,column="commentid",property="commentid"),
-            @Result(column="commentid",property="commentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentnumByCommentid",
-                            fetchType= FetchType.EAGER
-                    )
-            ),
             @Result(column="commentid",property="commentset",
                     many=@Many(
                             select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentByCommentid",
                             fetchType= FetchType.EAGER
-                    )
-            ),
-            @Result(column="commentid",property="likes",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikenumByCommentid"
                     )
             ),
             @Result(column="commentid",property="likesset",
@@ -60,16 +49,6 @@ public interface CommentMapper extends BaseMapper<Comment> {
                     many=@Many(
                             select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentBycommentid",
                             fetchType= FetchType.EAGER
-                    )
-            ),
-            @Result(column="commentid",property="commenttocommentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentnumBycommentid"
-                    )
-            ),
-            @Result(column="commentid",property="likes",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikenumByCommentid"
                     )
             ),
             @Result(column="commentid",property="likesset",

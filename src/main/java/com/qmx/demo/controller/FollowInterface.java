@@ -24,6 +24,7 @@ import java.util.HashMap;
 public class FollowInterface {
     @Autowired
     private FollowService followService;
+
     @RequestMapping("/follow")
     public Object collection(Follow follow0) {
         HashMap<String, Object> map = new HashMap<>();
@@ -32,7 +33,7 @@ public class FollowInterface {
         wrapper.eq("followid", follow0.getFollowid());
         Follow follow = followService.getOne(wrapper);
         if (follow == null) {
-            followService.save(follow);
+            followService.save(follow0);
             map.put("msg", "关注成功");
         } else {
             followService.remove(wrapper);

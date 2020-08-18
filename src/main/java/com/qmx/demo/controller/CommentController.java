@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+
 /*------------------------
  *
  *@author 404name
@@ -34,39 +36,38 @@ public class CommentController {
                              @RequestParam(value = "type",required = false,defaultValue = "1")int type){
         //保存
         commentService.save(comment);
-
         //更新文章最后更新时间
         QueryWrapper<Posting> wrapper = new QueryWrapper<>();
         wrapper.eq("postingid",comment.getTopostingid());
         Posting posting = postingService.getOne(wrapper);
+        posting.setCommentnum(posting.getCommentnum()+1);
+        posting.setUpdatadate(new Date());
         postingService.update(posting,wrapper);
-        String path = null;
-        if(type == 0){
-            path = "redirect:/showPosting?type=0&postingid=" + comment.getTopostingid();
-        }
-        else{
-            path = "redirect:/showPosting?type=1&postingid=" + comment.getTopostingid();
-        }
+        String path = path = "redirect:/showPosting?postingid=" + comment.getTopostingid();
         return path;
     }
     @RequestMapping("/deleteComment")
     public String deleteComment(@RequestParam(value = "commentid",required = true)Integer commentid,
                                 @RequestParam(value = "type",required = false,defaultValue = "1")int type){
+
+
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
         wrapper.eq("commentid",commentid);
         Comment comment = commentService.getOne(wrapper);
         Integer postingid = comment.getTopostingid();
         commentService.remove(wrapper);
+
+        //删除文章对应评论 以及楼中楼评论数量
+        QueryWrapper<Posting> wrapper1 = new QueryWrapper<>();
+        wrapper1.eq("postingid",postingid);
+        Posting posting = postingService.getOne(wrapper1);
+        posting.setCommentnum(posting.getCommentnum()-1-comment.getCommenttocommentnum());
+        postingService.update(posting,wrapper1);
         //删除楼中楼
         QueryWrapper<Commenttocomment> wrapper0 = new QueryWrapper<>();
         wrapper0.eq("tocommentid",commentid);
         commenttocommentService.remove(wrapper0);
-        if(type == 0){
-            return "redirect:/showPosting?type=0&postingid=" + postingid;
-        }
-        else{
-            return "redirect:/showPosting?type=1&postingid=" + postingid;
-        }
+        return "redirect:/showPosting?postingid=" + postingid;
     }
     @RequestMapping("/updataComment")
     public String updataComment(Comment comment,

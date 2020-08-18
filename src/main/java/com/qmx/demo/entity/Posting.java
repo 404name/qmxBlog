@@ -54,13 +54,12 @@ public class Posting implements Serializable {
 
     private Integer deleted;
 
+    private Integer commentnum;
+    private Integer collectionnum;
     private  String imgsrc;
     @TableField(exist = false)
     private List<Comment> commentset;
-    @TableField(exist = false)
-    private Integer commentnum;
-    @TableField(exist = false)
-    private Integer collectionnum;
+
     @TableField(exist = false)
     private List<Integer> collectionuserid;
 

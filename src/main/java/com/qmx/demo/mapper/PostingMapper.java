@@ -55,22 +55,12 @@ public interface PostingMapper extends BaseMapper<Posting> {
     @Results({
             @Result(id=true,column="postingid",property="postingid"),
             @Result(column="username",property="username"),
-            @Result(column="postingid",property="commentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid"
-                    )
-            ),
-            @Result(column="postingid",property="collectionnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"
-                    )
-            ),
-            @Result(column="postingid",property="collectionuserid",
-                    many=@Many(
-                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
-                            fetchType= FetchType.EAGER
-                    )
-            )
+            //@Result(column="postingid",property="collectionuserid",
+            //        many=@Many(
+            //                select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
+            //                fetchType= FetchType.EAGER
+            //        )
+            //)
     })
     List<Posting> selectAll();
 
@@ -88,22 +78,14 @@ public interface PostingMapper extends BaseMapper<Posting> {
     @Results({
             @Result(id=true,column="postingid",property="postingid"),
             @Result(column="username",property="username"),
-            @Result(column="postingid",property="commentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid"
-                    )
-            ),
-            @Result(column="postingid",property="collectionnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"
-                    )
-            ),
-            @Result(column="postingid",property="collectionuserid",
-                    many=@Many(
-                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
-                            fetchType= FetchType.EAGER
-                    )
-            )
+
+            //因为目前逻辑是后台检测所以先忽略
+            //@Result(column="postingid",property="collectionuserid",
+            //        many=@Many(
+            //                select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
+            //                fetchType= FetchType.EAGER
+            //        )
+            //)
     })
     List<Posting> selectByid(Integer id);
 
@@ -112,22 +94,12 @@ public interface PostingMapper extends BaseMapper<Posting> {
     @Results({
             @Result(id=true,column="postingid",property="postingid"),
             @Result(column="username",property="username"),
-            @Result(column="postingid",property="commentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid"
-                    )
-            ),
-            @Result(column="postingid",property="collectionnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"
-                    )
-            ),
-            @Result(column="postingid",property="collectionuserid",
-                    many=@Many(
-                            select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
-                            fetchType= FetchType.EAGER
-                    )
-            )
+            //@Result(column="postingid",property="collectionuserid",
+            //        many=@Many(
+            //                select="com.qmx.demo.mapper.CollectionMapper.getCollectionUserByPostingid",
+            //                fetchType= FetchType.EAGER
+            //        )
+            //)
     })
     List<Posting> selectCollectionByUserid(Integer id);
 }

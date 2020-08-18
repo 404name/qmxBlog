@@ -61,6 +61,15 @@ public class Commenttocomment implements Serializable {
     private Integer deleted;
     @TableField(exist = false)
     private Integer likes;
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

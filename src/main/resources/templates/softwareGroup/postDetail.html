@@ -252,61 +252,6 @@
                                 <div class="table-responsive">
 
 
-                                    <!--                                   测试 -->
-                                    <!--                                    <div class="media text-muted pt-3" id="comment_div">-->
-                                    <!--                                        <img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>-->
-                                    <!--                                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">-->
-                                    <!--                                            <div>-->
-                                    <!--                                                <strong class="text-info" >' + full.username + '</strong> ||-->
-                                    <!--                                                <strong class="text-gray-dark text-muted" style="opacity: 50%;">' + dateformat(full.commentdate) + '</strong>-->
-                                    <!--                                            </div>-->
-                                    <!--                                            <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">-->
-                                    <!--                                                <a class="btn btn-sm btn-success float-right align-self-center mx-auto"href="#">关注</a>-->
-                                    <!--                                                <a class="ml-1 btn-sm btn-info change float-right w-auto"href="/comment/update?commentid=<%=comment.getCommentid()%>">修改</a>-->
-                                    <!--                                                <a class="ml-1 btn-sm btn-danger delete float-right" href="/comment/delete?commentid=<%=comment.getCommentid()%>">删除</a>-->
-                                    <!--                                            </div>-->
-                                    <!--                                            <span class="d-block text-dark mt-1 comment" id="comment">' + full.commentcontent + '</span>-->
-                                    <!--                                            <div>-->
-                                    <!--                                                &lt;!&ndash;          点踩就减少赞数就好&ndash;&gt;-->
-                                    <!--                                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> |-->
-                                    <!--                                                    <small>12</small></button>-->
-                                    <!--                                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i>-->
-                                    <!--                                                </button>-->
-                                    <!--                                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏-->
-                                    <!--                                                </button>-->
-                                    <!--                                                <button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> | <small>1</small></button>-->
-                                    <!--                                            </div>-->
-                                    <!--                                            &lt;!&ndash;        楼中楼评论&ndash;&gt;-->
-                                    <!--                                            <div id="comment_com" class="mt-3">-->
-                                    <!--                                                <div class="my-3 p-3 bg-white rounded shadow-sm">-->
-                                    <!--                                                    &lt;!&ndash;         一个评论区块&ndash;&gt;-->
-                                    <!--                                                    <div class="media text-muted pt-3">-->
-                                    <!--                                                        <img width="54" height="54" class="avatar mr-2"style="margin-bottom: 10px;"/>-->
-                                    <!--                                                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">-->
-                                    <!--                                                            <div>-->
-                                    <!--                                                                <strong class="text-info">评论人</strong> ||-->
-                                    <!--                                                                <strong class="text-gray-dark text-muted" style="opacity: 50%;">评论时间</strong>-->
-                                    <!--                                                            </div>-->
-                                    <!--                                                            <div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">-->
-                                    <!--                                                                <a class="btn btn-sm btn-success float-right align-self-center mx-auto" href="#">回复此人</a>-->
-                                    <!--                                                                <a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updateComment?commentid=${comment.getCommentid()}">修改</a>-->
-                                    <!--                                                                <a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid=${comment.getCommentid()}">删除</a>-->
-                                    <!--                                                            </div>-->
-                                    <!--                                                            <span class="d-block text-dark mt-1 comment">goooooood~</span>-->
-                                    <!--                                                        </div>-->
-                                    <!--                                                    </div>-->
-                                    <!--                                                    <div class="mt-2">-->
-                                    <!--                                                        <input class="form-control" type="text" name="commentcontent" placeholder="评论一下...">-->
-                                    <!--                                                        <button class="btn btn-sm btn-success mt-2">评论</button>-->
-                                    <!--                                                        <button class="btn btn-sm btn-dark mt-2">取消</button>-->
-                                    <!--                                                    </div>-->
-                                    <!--                                                </div>-->
-                                    <!--                                            </div>-->
-                                    <!--                                            &lt;!&ndash;          楼中楼评论&ndash;&gt;-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--         一个评论区块-->
-                                    <!--                                   测试 -->
 
 
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -404,6 +349,41 @@
                     }
                 });
             }
+            function like(type,commentid,userid,username){
+                $.post("/commentlike?userid=" + userid + "&username=" + username + "&commentid=" + commentid, function (data) {
+                    //type 0是comment 1是commenttocomment的现在未添加楼中楼点赞
+                    let msg = data.msg;
+                    console.log(msg);
+                    // if (msg === "点赞成功") {
+                    //     nowLikesNum++;
+                    //     // $.post() 这里需要去修改posting表中的likes数据的接口
+                    //     // 现在只有联立表中的数据可以更新
+                    //     $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注" + ' | <span class="badge align-text-bottom" ' +
+                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
+                    // } else if (msg === "取消点赞") {
+                    //     nowLikesNum--;
+                    //     $('#postsLikesBtn').removeClass("btn-dark").addClass("btn-success").html("关注本帖" + ' | <span class="badge align-text-bottom" ' +
+                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
+                    // }
+                });
+            }
+            function follow(userid,username,followid,followname){
+                $.post("/follow?userid=" + userid + "&username=" + username + "&followid=" + followid +"&followname="+followname, function (data) {
+                    let msg = data.msg;
+                    console.log(msg);
+                    // if (msg === "点赞成功") {
+                    //     nowLikesNum++;
+                    //     // $.post() 这里需要去修改posting表中的likes数据的接口
+                    //     // 现在只有联立表中的数据可以更新
+                    //     $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注" + ' | <span class="badge align-text-bottom" ' +
+                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
+                    // } else if (msg === "取消点赞") {
+                    //     nowLikesNum--;
+                    //     $('#postsLikesBtn').removeClass("btn-dark").addClass("btn-success").html("关注本帖" + ' | <span class="badge align-text-bottom" ' +
+                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
+                    // }
+                });
+            }
             function openComment(obj) {
                 if($(obj).parent().next().is(':hidden')){
                     $(obj).parent().next().show();
@@ -478,8 +458,9 @@
                     var seconds = time.getSeconds();
                     return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
                 }
-
-                var postingid = [[${posting.getPostingid()}]];
+                let userid = $('#userID').text();
+                let username = $('#userName').text();
+                let postingid = $('#postID').text();
                 var index = 1;
                 $('#dataTable').DataTable({
                     "ajax": {
@@ -502,7 +483,7 @@
                                     '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
                                     '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto mr-1" style="position: relative;right: 6px;" ' +
                                     ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>' +
-                                    '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#">关注</button>' +
+                                    '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#" onclick="follow('+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>' +
                                     // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
                                     '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
@@ -519,10 +500,8 @@
                                     '</span>'+
 
                                     '<div>' +
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-up"></i> | <small>12</small>' +
+                                    '<button class="btn btn-sm btn-outline-dark" onclick="like(0,'+full.commentid+','+userid+',\''+username+'\')"><i class="fas fa-thumbs-up"></i> | <small>'+full.likes+'</small>' +
                                     '</button>' +
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-thumbs-down"></i></button>' +
-                                    '<button class="btn btn-sm btn-outline-dark"><i class="fas fa-star"></i> 收藏</button>' +
                                     '<button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> | ' +
                                     '<small>'+full.commenttocommentnum+'</small></button>' +
                                     '</div>' +
@@ -544,6 +523,7 @@
                                         '</div>' +
                                         '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
                                         '<a class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</a>' +
+                                        '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#" onclick="follow('+userid+',\''+username+'\','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">关注</button>' +
                                         '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                         // '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" href="/updataCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">修改</button>' +
                                         '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +

@@ -126,7 +126,7 @@
                                 <tbody id="listcontent"></tbody>
 
                                 <tbody class="table table-bordered">
-                                <form class="form-group text-center" th:action="@{/addPosting?type=0}" method="post">
+                                <form class="form-group text-center" th:action="@{/addPosting}" method="post">
                                     <th><input class="form-control form-control-user" type="text"
                                                name="postingtitle"></th>
                                     <th><input class="form-control form-control-user" type="text"
@@ -323,7 +323,7 @@
                         var html = "";
                         html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?type=0&postingid=' + data + '">详细</a>' +
                             '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/updataPosting?postingid=' + data + '">修改</a>' +
-                            '<a class="btn btn-sm btn-danger text-nowrap" href="/posting/delete?postingid=' + data + '">删除</a>';
+                            '<a class="btn btn-sm btn-danger text-nowrap" href="/deletePosting?postingid=' + data + '">删除</a>';
                         return html;
                     }
                 }

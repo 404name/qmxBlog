@@ -17,4 +17,6 @@ import java.util.List;
 public interface FollowService extends IService<Follow> {
     List<Integer> getFollowUserByid(Integer id);
     Integer getFollowNumByid(Integer id);
+    List<Integer> getBeFollowUserByid(Integer id);
+    Integer getBeFollowNumByid(Integer id);
 }

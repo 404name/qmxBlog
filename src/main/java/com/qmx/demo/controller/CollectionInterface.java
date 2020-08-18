@@ -3,7 +3,9 @@ package com.qmx.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qmx.demo.entity.Collection;
+import com.qmx.demo.entity.Posting;
 import com.qmx.demo.service.CollectionService;
+import com.qmx.demo.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +24,8 @@ import java.util.HashMap;
 public class CollectionInterface {
     @Autowired
     public CollectionService collectionService;
-
+    @Autowired
+    private PostingService postingService;
     @RequestMapping("/collection")
     public Object collection(Collection collection0) {
         HashMap<String, Object> map = new HashMap<>();
@@ -32,9 +35,21 @@ public class CollectionInterface {
         Collection collection = collectionService.getOne(wrapper);
         if (collection == null) {
             collectionService.save(collection0);
+            //增加收藏量
+            QueryWrapper<Posting> wrapper1 = new QueryWrapper<>();
+            wrapper1.eq("postingid",collection0.getPostingid());
+            Posting posting = postingService.getOne(wrapper1);
+            posting.setCollectionnum(posting.getCollectionnum()+1);
+            postingService.update(posting,wrapper1);
             map.put("msg", "关注成功");
         } else {
             collectionService.remove(wrapper);
+            //减少收藏量
+            QueryWrapper<Posting> wrapper1 = new QueryWrapper<>();
+            wrapper1.eq("postingid",collection0.getPostingid());
+            Posting posting = postingService.getOne(wrapper1);
+            posting.setCollectionnum(posting.getCollectionnum()-1);
+            postingService.update(posting,wrapper1);
             map.put("msg", "取消关注");
         }
         return map;

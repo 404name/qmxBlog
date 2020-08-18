@@ -64,9 +64,7 @@ public class Comment implements Serializable {
 
     @TableField(exist = false)
     private List<Commenttocomment> commenttocommentset;
-    @TableField(exist = false)
     private Integer commenttocommentnum;
-    @TableField(exist = false)
     private Integer likes;
     @TableField(exist = false)
     private List<Integer> likesset;

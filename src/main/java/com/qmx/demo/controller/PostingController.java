@@ -7,6 +7,7 @@ package com.qmx.demo.controller;
  *------------------------*/
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.entity.Postingclass;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 @Controller
 public class PostingController {
@@ -47,6 +49,20 @@ public class PostingController {
             return "redirect:/index";
         }
         return "/admin/list/posting";
+    }
+    @RequestMapping("/deletePosting")
+    public String deleteposting(@RequestParam(value = "postingid", required = true)int postingid,
+                            @RequestParam(value = "type",required = false,defaultValue = "1")int type){
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("postingid",postingid);
+        Boolean res = postingService.removeByMap(hashMap);
+        if(type==0){
+            //管理员
+            return "/admin/list/posting";
+        }else{
+            //用户 （还未设置）
+            return "/admin/list/posting";
+        }
     }
     @GetMapping("/updataPosting")
     public String updataPosting(@RequestParam(value = "postingid",required = true)int postingid,
@@ -118,14 +134,10 @@ public class PostingController {
     @RequestMapping("/showPosting")
     public String showPosting(@RequestParam(value = "logic",required = false,defaultValue = "1")int logic,
                               @RequestParam(value = "postingid",required = true)int postingid,
-                              @RequestParam(value = "type",required = false,defaultValue = "1")int type,
                               Model model){
         Posting posting = postingService.selectByPositngId(postingid);
         model.addAttribute("posting",posting);
-        if(type == 1){
-            return "/softwareGroup/postDetail";
-        }else{
-            return "/admin/detail/postDetail";
-        }
+        return "/softwareGroup/postDetail";
+
     }
 }
