@@ -261,6 +261,7 @@
 
 
 <script type="text/javascript">
+
     function getWangEditorContent() {
         // let wangEditorStr = $('#editDiv[class="w-e-text"]').html();
         let wangEditorStr = $('.w-e-text').html();
@@ -345,8 +346,14 @@
 <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
 <script type="text/javascript" th:inline="none">
+    $('#searchPostArea').bind("input propertychange",function(event){
+         let searchContent = $('#searchPostArea').val();
+         $("#dataTable_filter input").trigger("click").trigger("focus").val(searchContent).keyup();
+    });
     //这里【【】】会被认thymeleaf
+    let sortFlag=0;
   $(document).ready(function() {
+
       $.ajax({
           type: "GET",
           url: "/postingmessage",
@@ -427,7 +434,7 @@
                         }
                         var html =
                             '<div class="row mt-0 card-body animated--grow-in">' +
-                            '<div class="col-xl-11 col-md-11 mb-1">' +
+                            '<div class="col-xl-12 col-md-12 mb-1">' +
                             '<div class="card border-left-primary shadow h-100 py-2">' +
                             '<div class="card-body">' +
                             '<div class="row no-gutters align-items-center">' +
@@ -462,6 +469,21 @@
                 }
             ],
             order: [[0, "desc"]]
+        });
+        $("#dataTable_filter").hide();
+        $("#dataTable_length").addClass("text-nowrap");
+        let sortBtn = $("#dataTable").children().first().children().first().children().first();
+        let sortBtnStr =  $(sortBtn).html();
+        $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为倒序排列</small>');
+        $(sortBtn).click(function (){
+            // alert("切换排序");
+            if(sortFlag===0){
+                sortFlag=1;
+                $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为正序排列</small>');
+            }else{
+                sortFlag=0;
+                $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为倒序排列</small>');
+            }
         });
     }
     function add0(m){return m<10?'0'+m:m }
