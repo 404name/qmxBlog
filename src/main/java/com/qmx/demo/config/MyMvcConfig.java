@@ -28,6 +28,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
 //        额外界面
         registry.addViewController("/404").setViewName("error");
         registry.addViewController("/404").setViewName("404");
+        registry.addViewController("aboutUs").setViewName("aboutUs");
+        registry.addViewController("contactUs").setViewName("contactUs");
+        registry.addViewController("problemFeedback").setViewName("loginService/problemFeedback");
 //        用户界面的跳转部分
         registry.addViewController("profile").setViewName("user/profile");
         registry.addViewController("profileDetail").setViewName("user/profileDetail");

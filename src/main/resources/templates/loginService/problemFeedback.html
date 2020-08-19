@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
+  <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
+  <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
+  <title>登陆启明星工作室</title>
+
+  <!-- 导入模板css以及字体-->
+  <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- 导入自定义模板-->
+  <link th:href="@{/static/css/myWeb-min.css}" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary">
+
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!--            利用卡片本体的排版-->
+          <div class="row">
+
+            <div class="col-lg-6 d-none d-lg-block" style="background: url('../../static/img/bg-2-new.jpg') 10% 20%;"></div>
+
+            <div class="col-lg-6">
+              <div class="p-5">
+
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">
+                    <img class="mb-3" src="../../static/img/qmx_icon.png" width="46" height="46">问题反馈</h1>
+                  <hr>
+                  <small class="mb-4 text-muted">请您详细地填写使用中发现的问题，管理员将会收到私信提醒，并及时修复</small>
+                </div>
+                <!--                  表单-->
+                <form class="user form-signin mt-4"  method="post" action="">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="errorPage"
+                           placeholder="请填写发现问题的界面" name="errorPage"/>
+                  </div>
+                  <div class="form-group">
+                      <textarea rows="5" type="text" class="form-control"
+                                placeholder="请填写您发现的问题..." name="inputError"></textarea>
+                  </div>
+
+                  <button class="btn btn-primary btn-user btn-block" type="submit"
+                          data-toggle="modal" data-target="#login">提交问题</button>
+                  <!--                下划线-->
+                  <hr>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!--登陆出错提示-->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center items-center">
+
+      <div class="modal-header text-center">
+        <h5 class="modal-title text-success" id="exampleModalLabel">提交完成</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body m-0">感谢您的反馈</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+  // window.onload=function () {
+  //   if(!$('#loginMsg').html()){
+  //     $('#loginMsg').hide();
+  //     $('#loginErrorDiv').show();
+  //   }
+  // }
+</script>
+
+<!-- 使用Bootstrap之前必须先引用这两个-->
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- 一些js插件-->
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- 自己的js文件-->
+<script th:src="@{/static/js/index-min.js}"></script>
+<script th:src="@{/static/js/loginCheck.js}"></script>
+
+</body>
+
+</html>

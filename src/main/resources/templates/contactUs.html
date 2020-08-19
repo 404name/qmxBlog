@@ -9,7 +9,7 @@
   <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
   <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
   <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
-  <title>页面走丢了</title>
+  <title>联系我们</title>
 
   <!-- 导入模板css以及字体-->
   <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -22,6 +22,8 @@
 
 <body id="page-top" class="bg-gray-100">
 
+
+<div th:replace="~{commonModule/module::navBar}"></div>
 
 <div id="wrapper">
 
@@ -36,12 +38,15 @@
       <div class="container-fluid">
 
 
-        <div class="text-center">
-          <div class="error mx-auto" data-text="404">404</div>
-          <p class="lead text-gray-800 mb-5">十分抱歉，页面走丢了</p>
-          <img class="mb-5" src="img/qmx_icon.png" alt="" width="128" height="128" style="opacity: 60%;">
-          <p class="text-gray-500 mb-0">您可以向管理员反馈此问题...</p>
-          <a href="index.html">&larr; 回到首页</a>
+        <div class="text-center card">
+          <div class="card-header">
+            <p class="h4 font-weight-bold">联系我们</p>
+          </div>
+          <div class="mx-auto card-body" >
+            <p>启明星工作室在湖北省三峡大学校内，位于信息科学楼一楼112、114室。</p>
+            <p>负责人：胡老师</p>
+            <p>电话：13972605144</p>
+          </div>
         </div>
 
       </div>

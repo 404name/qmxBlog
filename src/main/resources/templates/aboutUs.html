@@ -9,7 +9,7 @@
   <link rel="Shortcut Icon" th:href="@{/static/img/qmx_icon.png}" type="image/x-icon"/>
   <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="32x32" type="image/png">
   <link rel="icon" th:href="@{/static/img/qmx_icon.png}" sizes="16x16" type="image/png">
-  <title>页面走丢了</title>
+  <title>关于启明星</title>
 
   <!-- 导入模板css以及字体-->
   <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -22,6 +22,8 @@
 
 <body id="page-top" class="bg-gray-100">
 
+
+<div th:replace="~{commonModule/module::navBar}"></div>
 
 <div id="wrapper">
 
@@ -36,12 +38,22 @@
       <div class="container-fluid">
 
 
-        <div class="text-center">
-          <div class="error mx-auto" data-text="404">404</div>
-          <p class="lead text-gray-800 mb-5">十分抱歉，页面走丢了</p>
-          <img class="mb-5" src="img/qmx_icon.png" alt="" width="128" height="128" style="opacity: 60%;">
-          <p class="text-gray-500 mb-0">您可以向管理员反馈此问题...</p>
-          <a href="index.html">&larr; 回到首页</a>
+        <div class="text-center card">
+          <div class="card-header">
+            <p class="h4 font-weight-bold">关于我们</p>
+          </div>
+          <div class="mx-auto card-body" >
+            <p style="text-indent: 2em;">启明星创新实验室是以三峡大学计算机专业学生为主，
+              同时包含部分其他专业但有共同兴趣的同学组成的学生实训工作室。
+              其创建的宗旨是以实践为驱动逐步提高我们学习的积极性和主动性，
+              增强学生的动手操作能力，进而适应当代计算机专业人才的市场需求。
+              启明星工作室的创办给计算机专业的学生提供了良好的环境，将一些同学从寝室游戏中拉了回来，
+              让我们找到了前进的方向。从2009年3月成立以来，我们自己管理自己，
+              在老一代室员的带领下，我们不断地传承理想。今天“启明星”是我们的骄傲，
+              明天我们是“启明星”的骄傲！</p>
+            <img src="../../static/img/aboutUsImg.jpg" alt=""><br/>
+            <small class="text-muted" style="opacity: 80%;">工作室成果展示</small>
+          </div>
         </div>
 
       </div>
