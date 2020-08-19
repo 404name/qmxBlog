@@ -37,8 +37,6 @@ public class Comment implements Serializable {
 
     private Integer topostingid;
 
-
-
     private Integer id;
 
     public String getUsername() {
@@ -68,6 +66,16 @@ public class Comment implements Serializable {
     private Integer likes;
     @TableField(exist = false)
     private List<Integer> likesset;
+    @TableField(exist = false)
+    private List<Integer> followset;
+
+    public List<Integer> getFollowset() {
+        return followset;
+    }
+
+    public void setFollowset(List<Integer> followset) {
+        this.followset = followset;
+    }
 
     public List<Integer> getLikesset() {
         return likesset;

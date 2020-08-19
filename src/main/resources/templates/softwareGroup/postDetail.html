@@ -349,39 +349,39 @@
                     }
                 });
             }
-            function like(type,commentid,userid,username){
+            function like(obj,type,commentid,userid,username){
                 $.post("/commentlike?userid=" + userid + "&username=" + username + "&commentid=" + commentid, function (data) {
                     //type 0是comment 1是commenttocomment的现在未添加楼中楼点赞
                     let msg = data.msg;
                     console.log(msg);
-                    // if (msg === "点赞成功") {
-                    //     nowLikesNum++;
-                    //     // $.post() 这里需要去修改posting表中的likes数据的接口
-                    //     // 现在只有联立表中的数据可以更新
-                    //     $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注" + ' | <span class="badge align-text-bottom" ' +
-                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
-                    // } else if (msg === "取消点赞") {
-                    //     nowLikesNum--;
-                    //     $('#postsLikesBtn').removeClass("btn-dark").addClass("btn-success").html("关注本帖" + ' | <span class="badge align-text-bottom" ' +
-                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
-                    // }
+                    var nowLikesNum =  $(obj).children('small').text();
+                    if (msg === "点赞成功") {
+                        nowLikesNum++;
+                        $(obj).children('i').removeClass("fa-thumbs-up").addClass("fa-thumbs-down");
+                        $(obj).children('small').text(nowLikesNum)
+                        $(obj).children('i').text("取消")
+                    } else if (msg === "取消点赞") {
+                        nowLikesNum--;
+                        $(obj).children('i').removeClass("fa-thumbs-down").addClass("fa-thumbs-up");
+                        $(obj).children('small').text(nowLikesNum)
+                        $(obj).children('i').text("点赞")
+                    }
                 });
             }
-            function follow(userid,username,followid,followname){
+            function follow(obj,userid,username,followid,followname){
+                let msg = $(obj).text();
                 $.post("/follow?userid=" + userid + "&username=" + username + "&followid=" + followid +"&followname="+followname, function (data) {
                     let msg = data.msg;
                     console.log(msg);
-                    // if (msg === "点赞成功") {
-                    //     nowLikesNum++;
-                    //     // $.post() 这里需要去修改posting表中的likes数据的接口
-                    //     // 现在只有联立表中的数据可以更新
-                    //     $('#postsLikesBtn').removeClass("btn-success").addClass("btn-dark").html("取消关注" + ' | <span class="badge align-text-bottom" ' +
-                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
-                    // } else if (msg === "取消点赞") {
-                    //     nowLikesNum--;
-                    //     $('#postsLikesBtn').removeClass("btn-dark").addClass("btn-success").html("关注本帖" + ' | <span class="badge align-text-bottom" ' +
-                    //         'style="font-size: 14px;">' + nowLikesNum + '</span>');
-                    // }
+                    if (msg === "关注成功") {
+                        $("."+followname).each(function (i, n) {
+                            $(this).text("取消关注");
+                        })
+                    } else if (msg === "取消关注") {
+                        $("."+followname).each(function (i, n) {
+                            $(this).text("关注");
+                        })
+                    }
                 });
             }
             function openComment(obj) {
@@ -482,10 +482,22 @@
                                     '</div>' +
                                     '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
                                     '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto mr-1" style="position: relative;right: 6px;" ' +
-                                    ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>' +
-                                    '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#" onclick="follow('+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>' +
+                                    ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>';
+                                    var followset = full.followset;
+                                    var flag = 0;
+                                    for(var i = 0; i < followset.length; i++){
+                                        if(userid == followset[i]){
+                                            flag = 1;
+                                            break;
+                                        }
+                                    }
+                                    if(flag == 1){
+                                        html+= '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">取消关注</button>';
+                                    }else{
+                                        html += '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>';
+                                    }
                                     // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
-                                    '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
+                                html+='<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                     '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
                                     '</div>' +
                                     '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>' +
@@ -500,7 +512,22 @@
                                     '</span>'+
 
                                     '<div>' +
-                                    '<button class="btn btn-sm btn-outline-dark" onclick="like(0,'+full.commentid+','+userid+',\''+username+'\')"><i class="fas fa-thumbs-up"></i> | <small>'+full.likes+'</small>' +
+                                    '<button class="btn btn-sm btn-outline-dark" onclick="like(this,0,'+full.commentid+','+userid+',\''+username+'\')">';
+
+                                    followset = full.likesset;
+                                    flag = 0;
+                                    for(i = 0; i < followset.length; i++){
+                                        if(userid == followset[i]){
+                                            flag = 1;
+                                            break;
+                                        }
+                                    }
+                                    if(flag == 1){
+                                        html+='<i class="fas fa-thumbs-down">取消';
+                                    }else{
+                                        html+='<i class="fas fa-thumbs-up">点赞';
+                                    }
+                                    html+='</i> | <small>'+full.likes+'</small>' +
                                     '</button>' +
                                     '<button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> | ' +
                                     '<small>'+full.commenttocommentnum+'</small></button>' +
@@ -522,8 +549,21 @@
                                         '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                         '</div>' +
                                         '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                        '<a class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</a>' +
-                                        '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#" onclick="follow('+userid+',\''+username+'\','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">关注</button>' +
+                                        '<a class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</a>';
+                                        var followset0 = full.commenttocommentset[i].followset;
+                                        var flag0 = 0;
+                                        for(var j  = 0; j < followset0.length; j++){
+                                            if(userid == followset0[j]){
+                                                flag0 = 1;
+                                                break;
+                                            }
+                                        }
+                                        if(flag0 == 1){
+                                           html+='<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.commenttocommentset[i].username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">取消关注</button>';
+                                       }else{
+                                            html+='<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.commenttocommentset[i].username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">关注</button>';
+                                        }
+                                        html+=
                                         '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                         // '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" href="/updataCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">修改</button>' +
                                         '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +

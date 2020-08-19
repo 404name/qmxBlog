@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -61,7 +63,8 @@ public class Commenttocomment implements Serializable {
     private Integer deleted;
     @TableField(exist = false)
     private Integer likes;
-
+    @TableField(exist = false)
+    private List<Integer> followset;
     public Integer getLikes() {
         return likes;
     }

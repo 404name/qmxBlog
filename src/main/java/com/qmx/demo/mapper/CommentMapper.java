@@ -45,6 +45,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
     @Select("select * from comment where topostingid = #{postingid}")
     @Results({
             @Result(id=true,column="commentid",property="commentid"),
+            @Result(column="id",property="id"),
             @Result(column="commentid",property="commenttocommentset",
                     many=@Many(
                             select="com.qmx.demo.mapper.CommenttocommentMapper.getCommentBycommentid",
@@ -54,6 +55,12 @@ public interface CommentMapper extends BaseMapper<Comment> {
             @Result(column="commentid",property="likesset",
                     many=@Many(
                             select="com.qmx.demo.mapper.CommentlikeMapper.getCommentLikeUserByCommentid",
+                            fetchType= FetchType.EAGER
+                    )
+            ),
+            @Result(column="id",property="followset",
+                    many=@Many(
+                            select="com.qmx.demo.mapper.FollowMapper.getFollowUserByid",
                             fetchType= FetchType.EAGER
                     )
             )

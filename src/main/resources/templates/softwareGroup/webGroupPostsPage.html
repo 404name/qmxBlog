@@ -103,7 +103,7 @@
 
             <!-- 主页内容 -->
             <div class="container-fluid">
-                <div class="card-header text-nowrap" style="margin-left: 45px;">
+                <div class="card-header text-nowrap" style="margin-left: -20px;">
                     <button class="btn btn-primary" id="showNewestPostBtn" onclick="showNewest()">最新的帖子</button>
                     <button class="btn btn-secondary" id="showHottestPostBtn" onclick="showHottest()">最热门的帖子</button>
                     <button class="btn btn-secondary" id="showMyFavoritePostBtn" onclick="showMyFavorite()">我关注的帖子</button>
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-8" style="margin-left: 65px;">
+                    <div class="col-lg-9">
                         <!--统计卡片-->
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -162,7 +162,7 @@
 
 
                 <!--                这是一个发帖分块-->
-                <div class="shadow mt-3 col-xl-11 col-md-11 animated--grow-in mb-5 postDiv" id="postDiv">
+                <div class="shadow mt-3 col-xl-12 col-md-12 animated--grow-in mb-5 postDiv" id="postDiv">
 <!--                    直接用表单跳转-->
                     <form class="form-group" th:action="@{/addPosting}" method="post">
                         <div class="card-header">
@@ -171,7 +171,7 @@
                             <div class="form-group row">
                                 <input name="id" th:value="${session.loadUser.id}" style="display: none">
                                 <input name="username" th:value="${session.loadUser.username}" style="display: none">
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
                                 </div>
                                 <div class="d-none hidden overflow-hidden">
@@ -198,7 +198,7 @@
                                     </label>
                                 </div>
                                 <!--                        这里是富文本编辑器的插件入口-->
-                                <div  class="col-sm-10" id="editDiv"></div>
+                                <div  class="col-sm-9" id="editDiv"></div>
                                 <div class="col-sm-2">
                                     <button type="submit" class="btn btn-success mb-0" id="submitBtn" onclick="getWangEditorContent()">确定发帖</button>
                                 </div>
