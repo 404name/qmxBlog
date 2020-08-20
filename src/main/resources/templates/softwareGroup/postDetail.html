@@ -171,6 +171,7 @@
                                 <h4 class="lh-125 d-block"><span th:text="${posting.getPostingtitle()}">发帖标题</span></h4>
                                 <div class="d-none overflow-hidden">
                                     <small id="postID" th:text="${posting.getPostingid()}"></small>
+                                    <small id="thisPageUserID" th:text="${posting.getId()}"></small>
                                 </div>
                                 <small class="mr-2"><img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32"
                                                          width="32">
@@ -217,16 +218,18 @@
                                 </span>
                             </div>
                             <hr/>
-                            <div class="md-4">
-                                <button class="btn btn-success" onclick="commentThisPosting(this);">回复此贴</button>
-<!--                                <small class="text-right mt-3 mr-2">-->
-<!--                                    <a href="#">回帖:<span class="badge badge-pill bg-light align-text-bottom">16</span></a>-->
-<!--                                </small>-->
-<!--                                <small class="text-right mt-3 mr-2">-->
-<!--                                    <a href="#">踩</a>-->
-<!--                                </small>-->
+                            <div class="md-4"  id="commentThisPostBtnArea">
+                                <!--            <small class="text-right mt-3 mr-2">-->
+                                <!--                <a href="#">赞<span class="badge badge-pill bg-light align-text-bottom">16</span></a>-->
+                                <!--            </small>-->
+                                <!--            <small class="text-right mt-3 mr-2">-->
+                                <!--                <a href="#">踩</a>-->
+                                <!--            </small>-->
+                                <button class="btn btn-success" onclick="commentThisPosting();">回复此贴</button>
+                                <button id="modifyThisPostBtn" class="btn btn-info d-none" onclick="modifyThisPosting();">修改此贴</button>
                             </div>
-                            <div class="mr-2 mt-6 d-none animated--grow-in" id="commentThisPostArea" style="padding-top: 10px;">
+
+                            <div id="commentThisPostArea" class="mr-2 mt-6 d-none animated--grow-in" style="padding-top: 10px;">
                                 <form th:action="@{/addComment?type=1}" method="post">
                                     <input class="form-control" th:value="${posting.getPostingid()}" name="topostingid"
                                            style="display:none;">
@@ -234,14 +237,30 @@
                                            style="display:none;">
                                     <input class="form-control" th:value="${session.loadUser.username}" name="username"
                                            style="display:none;">
+                                    <div id="editDiv" onmouseout="updateCommentText(this);"></div>
                                     <textarea id="commentTextArea" class="form-control d-none overflow-hidden"
                                               type="text" rows="1" name="commentcontent" placeholder="..."></textarea>
-                                    <div id="editDiv" onmouseout="updateCommentText();"></div>
-                                    <button class="btn btn-outline-info mt-1 mb-5 float-right" type="submit">确定回复
-                                    </button>
+
+                                    <button class="btn btn-outline-info mt-1 mb-5 float-right ml-1" type="submit">确定回复</button>
+                                    <button onclick="cancelComment(this);" class="btn btn-outline-secondary mt-1 mb-5 float-right" type="button">取消</button>
                                     <div class="mt-5 mb-0" style="width: auto;height: 1px; background: #e5e5e5;"></div>
                                 </form>
                             </div>
+
+                            <!--        修改此贴的form-->
+                            <div id="modifyThisPostArea" class="mr-2 d-none mt-6 animated--grow-in" style="padding-top: 10px;">
+                                <form action="" method="post">
+                                    <div id="modifyEditDiv" onmouseout="updateCommentText(this);"></div>
+                                    <textarea class="form-control   d-none   overflow-hidden" type="text" rows="4" name="" placeholder="..."></textarea>
+                                    <button class="btn btn-outline-danger mt-1 mb-5 float-right ml-1" type="submit">确定修改</button>
+                                    <button onclick="cancelComment(this);" class="btn btn-outline-secondary mt-1 mb-5 float-right" type="button">取消</button>
+                                    <div class="mt-5 mb-0" style="width: auto;height: 1px; background: #e5e5e5;"></div>
+                                </form>
+                            </div>
+
+
+
+
                         </div>
 
                         <div class="my-3 p-3 bg-white rounded shadow-sm" id="commentBlock">
@@ -394,11 +413,11 @@
             function changeCommentBtn(obj){
                 let commentArea = $(obj).parent().next();
                 let changeCommentArea = $(commentArea).next();
-                let commentStr = $(commentArea).text();
+                let commentStr = $(commentArea).html();
                 let inputArea =  $(changeCommentArea).children().first().children().first();
                 $(commentArea).removeClass("d-block").addClass("d-none");
                 $(changeCommentArea).removeClass("d-none").addClass("d-block");
-                $(inputArea).val(commentStr);
+                $(inputArea).html(commentStr);
                 //alert($(commentArea).html());
             }
             function cancelChangeCommentBtn(obj){
@@ -412,9 +431,16 @@
             //     //alert("已创建编辑框");
             //     editorDiv.create();
             // }
-            function updateCommentText(){
-                let wangEditorStr = $('.w-e-text').html();
-                $('#commentTextArea').html(wangEditorStr);
+            function updateCommentText(obj){
+                let wangEditorStr = "";
+                if($(obj).attr("id")==="editDiv"){
+                    wangEditorStr = $('#editDiv .w-e-text').html();
+                    //alert("评论信息");
+                }else if($(obj).attr("id")==="modifyEditDiv"){
+                    wangEditorStr = $('#modifyEditDiv .w-e-text').html();
+                    //alert("修改信息"+wangEditorStr);
+                }
+                $(obj).next().html(wangEditorStr);
             }
         </script>
 
@@ -426,6 +452,22 @@
         <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
         <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
         <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+        <script>
+            function commentThisPosting(){
+                $('#commentThisPostBtnArea').addClass("d-none");
+                $('#commentThisPostArea').removeClass("d-none");
+            }
+            function cancelComment(obj){
+                $(obj).parent().parent().addClass("d-none");
+                $('#commentThisPostBtnArea').removeClass("d-none");
+            }
+            function modifyThisPosting(){
+                $('#commentThisPostBtnArea').addClass("d-none");
+                $('#modifyThisPostArea').removeClass("d-none");
+                let modifyPostStr = $('#blogContent').html();
+                $('#modifyEditDiv .w-e-text').html(modifyPostStr);
+            }
+        </script>
         <script type="text/javascript">
 
             var userid =$('#userid').val();
@@ -436,6 +478,18 @@
                 let editorDiv = new Edit('#editDiv');
                 // alert("已创建编辑框");
                 editorDiv.create();
+
+                let modifyEdit = window.wangEditor;
+                let modifyEditorDiv = new modifyEdit('#modifyEditDiv');
+                modifyEditorDiv.create();
+
+                if($('#userID').text()===$('#thisPageUserID').text() || $('#NowUserClass').text()==="5"){
+                    $('#modifyThisPostBtn').removeClass('d-none');
+                    // alert("已更改按钮显示"+$('#NowUserClass').text());
+                }
+                // alert($('#NowUserClass').text());
+
+
 
 
                 function getavatar() {
@@ -462,6 +516,11 @@
                 let username = $('#userName').text();
                 let postingid = $('#postID').text();
                 var index = 1;
+                let CCindex = 1;
+                // let adminBtn1=Math.random().toString(36).substr(-10);
+                // let adminBtn2=Math.random().toString(36).substr(-10);
+                // let adminBtn3=Math.random().toString(36).substr(-10);
+                // let adminBtn4=Math.random().toString(36).substr(-10);
                 $('#dataTable').DataTable({
                     "ajax": {
                         "url": "/posting/selectPosting?postingid=" + postingid,
@@ -472,6 +531,7 @@
                         {
                             "data": "commentcontent.commentcontent",
                             "render": function (data, type, full) {
+
                                 var html =
                                     '<div class="media text-muted pt-3">' +
                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
@@ -497,22 +557,22 @@
                                         html += '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>';
                                     }
                                     // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
-                                html+='<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
-                                    '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
+                                html+='<button id="adminBtn1'+index+'" class="d-none ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
+                                    '<a id="adminBtn2'+index+'" class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
                                     '</div>' +
                                     '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>' +
 
                                     '<span class="d-none mb-2">'+
                                     // 表单在这里
                                     '<form>'+
-                                    '<input class="form-control w-50 mb-1">'+
+                                    '<textarea rows="4" class="form-control w-50 mb-1"></textarea>'+
                                     '<button type="submit" class="btn btn-success btn-sm text-light mr-1">确定修改</button>'+
                                     '<button type="button" class="btn btn-secondary btn-sm" onclick="cancelChangeCommentBtn(this);">取消修改</button>'+
                                     '</form>'+
                                     '</span>'+
 
                                     '<div>' +
-                                    '<button class="btn btn-sm btn-outline-dark" onclick="like(this,0,'+full.commentid+','+userid+',\''+username+'\')">';
+                                    '<button class="btn btn-sm btn-outline-dark mr-1" onclick="like(this,0,'+full.commentid+','+userid+',\''+username+'\')">';
 
                                     followset = full.likesset;
                                     flag = 0;
@@ -523,9 +583,9 @@
                                         }
                                     }
                                     if(flag == 1){
-                                        html+='<i class="fas fa-thumbs-down">取消';
+                                        html+='<i class="fas fa-thumbs-down mr-1">取消';
                                     }else{
-                                        html+='<i class="fas fa-thumbs-up">点赞';
+                                        html+='<i class="fas fa-thumbs-up mr-1">点赞';
                                     }
                                     html+='</i> | <small>'+full.likes+'</small>' +
                                     '</button>' +
@@ -549,7 +609,7 @@
                                         '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                         '</div>' +
                                         '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
-                                        '<a class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</a>';
+                                        '<button style="position: relative;right: 6px;" class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</button>';
                                         var followset0 = full.commenttocommentset[i].followset;
                                         var flag0 = 0;
                                         for(var j  = 0; j < followset0.length; j++){
@@ -564,15 +624,15 @@
                                             html+='<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.commenttocommentset[i].username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">关注</button>';
                                         }
                                         html+=
-                                        '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
+                                        '<button id="adminBtn3'+CCindex+'" class="d-none ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                         // '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" href="/updataCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">修改</button>' +
-                                        '<a class="ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +
+                                        '<a id="adminBtn4'+CCindex+'" class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +
                                         '</div>' +
-                                        '<span class="d-block text-dark mt-1 comment">'+full.commenttocommentset[i].commentcontent+'</span>' +
+                                        '<span class="d-block text-dark mt-1 comment" style="font-size: 14px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
                                         '<span class="d-none">'+
                                         // 表单在这里
                                         '<form>'+
-                                        '<input class="form-control w-50 mb-1">'+
+                                        '<textarea rows="4" class="form-control w-50 mb-1"></textarea>'+
                                         '<button type="submit" class="btn btn-success btn-sm text-light mr-1">确定修改</button>'+
                                         '<button type="button" class="btn btn-secondary btn-sm" onclick="cancelChangeCommentBtn(this);">取消修改</button>'+
                                         '</form>'+
@@ -580,8 +640,10 @@
                                         '</div>' +
                                         '</div>' +
                                         '<!--一个评论区块结束-->';
+                                    CCindex++;
+
                                 }
-                                html+= '<div class="mt-2">' +
+                                html+= '<div id="CCArea" class="mt-2 animated--grow-in">' +
                                     '<form action="/addCommenttocomment?type=1&postingid='+postingid+'&tocommentid='+full.commentid+'&userid='+userid+'&username='+username+'" method="post">' +
                                     '<input id="inputid'+index+'" class="form-control" type="text" name="touserid" value="'+full.id+'" style="display: none">' +
                                     '<input id="inputname'+index+'" class="form-control" type="text" name="tousername" value="'+full.username+'" style="display: none">' +
@@ -597,12 +659,35 @@
                                     '</div>'
                                     getavatar();
                                 index++;
+                                if($('#NowUserClass').text()==="5"){
+                                    //alert(index);
+                                    for(let i=1;i<=index;i++){
+                                        $('#'+"adminBtn1"+i).removeClass('d-none');
+                                        //alert($('#'+"adminBtn"+i).html());
+                                        $('#'+'adminBtn2'+i).removeClass('d-none');
+                                        for(let j=1;j<=CCindex;j++){
+                                            $('#'+'adminBtn3'+j).removeClass('d-none');
+                                            $('#'+'adminBtn4'+j).removeClass('d-none');
+                                        }
+                                    }
+                                }
+
+                                if($('#userID').text()===$('#thisPageUserID').text()){
+                                    for(let i=1;i<=index;i++){
+                                        $('#'+'adminBtn2'+i).removeClass('d-none');
+                                        for(let j=1;j<=CCindex;j++){
+                                            $('#'+'adminBtn4'+j).removeClass('d-none');
+                                        }
+                                    }
+                                }
                                 return html;
                             }
                         }
                     ],
                 });
             });
+
+
 
             function  f(index,id,name) {
                 var idurl = "inputid" + index;

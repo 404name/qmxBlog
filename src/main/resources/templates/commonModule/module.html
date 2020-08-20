@@ -286,6 +286,7 @@
                               th:text="${session.loadUser.username}"></span>
                         <div class="d-none overflow-hidden">
                             <small id="userID" th:text="${session.loadUser.getId()}"></small>
+                            <small id="NowUserClass" th:text="${session.loadUser.getUserclass()}"></small>
                         </div>
                         <!--                  用户头像-->
                         <img class="img-profile rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt=""/>
