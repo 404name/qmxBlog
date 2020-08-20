@@ -314,6 +314,32 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
+        <!--删除提示-->
+        <div class="modal fade" id="deleteInfo" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content text-center items-center">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="fas fa-exclamation-circle mr-1"></i>注意！</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body m-0">删除该层回帖将导致该层的楼中楼回复一并删除，是否继续？</div>
+
+                    <div class="modal-footer" id="deleteInfoFooter">
+                        <!--                                                          这个命令可以开关这个div-->
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
         <script>
             // 如果resize运行优先级大于th:text的话，改成这个应该问题不大
             // $('#postsLikesBtn').html("取消关注"+' | <span class="badge align-text-bottom" ' +
@@ -453,6 +479,14 @@
         <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
         <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
         <script>
+            // 删除提示
+            function deleteInfoFun(obj){
+                let deleteATag = $(obj).next();
+                let deleteUrl = $(deleteATag).attr('href');
+                let deleteFooter = $('#deleteInfoFooter').html();
+                deleteFooter+='<a class="btn btn-danger" href="'+deleteUrl+'">确定删除</a>';
+                $('#deleteInfoFooter').html(deleteFooter);
+            }
             function commentThisPosting(){
                 $('#commentThisPostBtnArea').addClass("d-none");
                 $('#commentThisPostArea').removeClass("d-none");
@@ -558,9 +592,10 @@
                                     }
                                     // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
                                 html+='<button id="adminBtn1'+index+'" class="d-none ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
-                                    '<a id="adminBtn2'+index+'" class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
+                                    '<button  id="adminBtn2'+index+'" class="ml-1 btn btn-sm btn-danger delete float-right" onclick="deleteInfoFun(this);"  data-toggle="modal" data-target="#deleteInfo">删除</button>' +
+                                    '<a class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
                                     '</div>' +
-                                    '<span class="d-block text-dark mt-1 comment" id="comment">'+full.commentcontent+'</span>' +
+                                    '<span class="d-block text-dark mt-1 comment w-75" id="comment">'+full.commentcontent+'</span>' +
 
                                     '<span class="d-none mb-2">'+
                                     // 表单在这里
@@ -628,7 +663,7 @@
                                         // '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" href="/updataCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">修改</button>' +
                                         '<a id="adminBtn4'+CCindex+'" class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +
                                         '</div>' +
-                                        '<span class="d-block text-dark mt-1 comment" style="font-size: 14px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
+                                        '<span class="d-block text-dark mt-1 comment w-75" style="font-size: 14px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
                                         '<span class="d-none">'+
                                         // 表单在这里
                                         '<form>'+
