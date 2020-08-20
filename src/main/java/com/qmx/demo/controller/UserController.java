@@ -7,7 +7,9 @@ package com.qmx.demo.controller;
  *------------------------*/
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qmx.demo.entity.Follow;
 import com.qmx.demo.entity.User;
+import com.qmx.demo.service.FollowService;
 import com.qmx.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private FollowService followService;
     //通过邮箱检测用户
     public boolean checkUser(String email){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
@@ -60,9 +63,24 @@ public class UserController {
     }
     @RequestMapping(value = "/showUser")
     public String showUser(@RequestParam(value = "id",required = true)int id,
+                           HttpSession session,
                            Model model){
         User user = userService.getById(id);
         model.addAttribute("user",user);
+        //判断是否关注
+        User user1 = (User)session.getAttribute("loadUser");
+        Integer id1 = user1.getId();
+        QueryWrapper<Follow> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid",id1);
+        wrapper.eq("followid",id);
+        Follow follow = followService.getOne(wrapper);
+        if(follow == null){
+            String msg = "未关注";
+            model.addAttribute("followMsg",msg);
+        }else{
+            String msg = "已关注";
+            model.addAttribute("followMsg",msg);
+        }
         return "/user/profileDetail";
     }
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)

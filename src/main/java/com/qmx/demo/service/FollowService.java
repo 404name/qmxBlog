@@ -19,4 +19,6 @@ public interface FollowService extends IService<Follow> {
     Integer getFollowNumByid(Integer id);
     List<Integer> getBeFollowUserByid(Integer id);
     Integer getBeFollowNumByid(Integer id);
+    List<String> getFollowUserNameByid(Integer id);
+    List<String> getBeFollowUserNameByid(Integer id);
 }

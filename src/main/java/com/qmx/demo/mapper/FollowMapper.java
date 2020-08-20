@@ -19,10 +19,14 @@ import java.util.List;
 public interface FollowMapper extends BaseMapper<Follow> {
     @Select("select followid from  follow where userid=#{id}")
     List<Integer> getFollowUserByid(Integer id);
+    @Select("select followname from  follow where userid=#{id}")
+    List<String> getFollowUserNameByid(Integer id);
     @Select("select count(*) from follow where userid=#{id}")
     Integer getFollowNumByid(Integer id);
     @Select("select userid from  follow where followid=#{id}")
     List<Integer> getBeFollowUserByid(Integer id);
+    @Select("select username from  follow where followid=#{id}")
+    List<String> getBeFollowUserNameByid(Integer id);
     @Select("select count(*) from follow where followid=#{id}")
     Integer getBeFollowNumByid(Integer id);
 }

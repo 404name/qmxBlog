@@ -49,8 +49,6 @@ public class CommentController {
     @RequestMapping("/deleteComment")
     public String deleteComment(@RequestParam(value = "commentid",required = true)Integer commentid,
                                 @RequestParam(value = "type",required = false,defaultValue = "1")int type){
-
-
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
         wrapper.eq("commentid",commentid);
         Comment comment = commentService.getOne(wrapper);
@@ -74,12 +72,14 @@ public class CommentController {
                                 @RequestParam(value = "type",required = false,defaultValue = "1")int type){
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
         wrapper.eq("commentid",comment.getCommentid());
-        commentService.update(comment,wrapper);
+        Comment comment1 = commentService.getOne(wrapper);
+        comment1.setCommentcontent(comment.getCommentcontent());
+        commentService.update(comment1,wrapper);
         if(type == 0){
-            return "redirect:/showPosting?type=0&postingid=" + comment.getTopostingid();
+            return "redirect:/showPosting?type=0&postingid=" + comment1.getTopostingid();
         }
         else{
-            return "redirect:/showPosting?type=1&postingid=" + comment.getTopostingid();
+            return "redirect:/showPosting?type=1&postingid=" + comment1.getTopostingid();
         }
     }
 }

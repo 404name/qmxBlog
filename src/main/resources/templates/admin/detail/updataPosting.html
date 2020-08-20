@@ -120,35 +120,34 @@
                     <!-- 顶栏到此为止 -->
                     <!-- 主页内容 -->
                     <div class="form-group text-center w-100 h-auto">
-                        <form class="form-signin" th:action="@{/updataPosting}" method="post">
+                        <form class="form-signin" th:action="@{/updataPosting?type=0}" method="post">
                             <span>发布时间:</span><br>
-                            <span th:text="${session.posting.postingdate}"></span>
+                            <span th:text="${posting.getPostingdate()}"></span>
                             <span>最后修改时间:</span>
-                            <span th:text="${session.posting.updatadate}"></span><br>
-                            <input class="form-control mt-1" name="postingid" th:value="${session.posting.postingid}"
+                            <span th:text="${ posting.getUpdatadate()}"></span><br>
+                            <input class="form-control mt-1" name="postingid" th:value="${ posting.getPostingid()}"
                                    style="display: none">
                             <i class="btn-info btn-sm" style="font-style: normal;">文章标题</i>
                             <input class="form-control mt-1" name="postingtitle"
-                                   th:value="${session.posting.postingtitle}">
+                                   th:value="${ posting.getPostingtitle()}">
                             <br>
                             <i class="btn-info btn-sm" style="font-style: normal;">文章作者</i>
-                            <input class="form-control mt-1" name="username" th:value="${session.posting.username}"><br>
+                            <input class="form-control mt-1" name="username" th:value="${ posting.getUsername()}"><br>
                             帖子封面
-                            <div th:utext="${session.posting.imgsrc}"></div>
+                            <div th:utext="${ posting.getImgsrc()}"></div>
                             <i class="btn-info btn-sm" style="font-style: normal;">封面修改</i>
-                            <input class="form-control mt-1" name="imgsrc" th:value="${session.posting.imgsrc}">
+                            <input class="form-control mt-1" name="imgsrc" th:value="${ posting.getImgsrc()}">
                             <i class="btn-info btn-sm" style="font-style: normal;">文章内容</i>
                             <textarea class="form-control mt-1" rows="15" type="text" name="postingcontent"
-                                      th:value="${session.posting.postingcontent}" th:text="${session.posting.postingcontent}"> </textarea>
-                            <span th:text="${cnm}"></span>
+                                      th:value="${ posting.getPostingcontent()}" th:text="${ posting.getPostingcontent()}"> </textarea>
                             <i class="btn-info btn-sm" style="font-style: normal;">组别</i>
                             <select class="form-control" name="postingclass" >
                                 <option th:each="postingclass :${postingclasses}" th:value="${postingclass.getPostingclass()}"
                                         th:text="${postingclass.getPostingclassname()}"
-                                        th:selected="${postingclass.getPostingclass()} eq ${session.posting.postingclass}"></option>
+                                        th:selected="${postingclass.getPostingclass()} eq ${ posting.getPostingclass()}"></option>
                             </select>
                             <i class="btn-info btn-sm" style="font-style: normal;">可见性</i>
-                            <select class="form-control" name="deleted" th:value="${session.posting.deleted}">
+                            <select class="form-control" name="deleted" th:value="${ posting.getDeleted()}">
                                 <option value="0">可见</option>
                                 <option value="1">不可见</option>
                             </select>

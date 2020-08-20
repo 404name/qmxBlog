@@ -85,7 +85,9 @@ public class CommenttocommentController {
                                 @RequestParam(value = "type",required = false,defaultValue = "1")int type){
         QueryWrapper<Commenttocomment> wrapper = new QueryWrapper<>();
         wrapper.eq("commentid",commenttocomment.getCommentid());
-        commenttocommentService.update(commenttocomment,wrapper);
+        Commenttocomment commenttocomment1 = commenttocommentService.getOne(wrapper);
+        commenttocomment1.setCommentcontent(commenttocomment.getCommentcontent());
+        commenttocommentService.update(commenttocomment1,wrapper);
         if(type == 0){
             return "redirect:/showPosting?type=0&postingid=" + postingid;
         }

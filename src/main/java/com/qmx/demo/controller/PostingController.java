@@ -64,13 +64,13 @@ public class PostingController {
             return "/admin/list/posting";
         }
     }
-    @GetMapping("/updataPosting")
-    public String updataPosting(@RequestParam(value = "postingid",required = true)int postingid,
-                                HttpSession session,Model model){
+    @RequestMapping("/toupdataPosting")
+    public String toupdataPosting(@RequestParam(value = "postingid",required = true)int postingid,
+                                Model model){
         QueryWrapper<Posting> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("postingid",postingid);
         Posting posting =  postingService.getOne(queryWrapper);
-        session.setAttribute("posting",posting);
+        model.addAttribute("posting",posting);
         System.out.println(posting);
         List<Postingclass> postingclasses = postingclassService.list();
         model.addAttribute("postingclasses",postingclasses);
@@ -78,10 +78,17 @@ public class PostingController {
     }
     @PostMapping("/updataPosting")
     public String updataPosting1(Posting posting,
+                                 @RequestParam(value = "type",required = false,defaultValue = "1")int type,
                                 Model model){
-        System.out.println(posting);
-        postingService.updateById(posting);
-        return "/admin/list/posting";
+        QueryWrapper<Posting> wrapper = new QueryWrapper<>();
+        wrapper.eq("postingid",posting.getPostingid());
+        postingService.update(posting,wrapper);
+        if(type == 0){
+            return "/admin/list/posting";
+        }else{
+            return "redirect:/showPosting?postingid=" + posting.getPostingid();
+        }
+
     }
 
     @PostMapping("/addPosting")
@@ -138,6 +145,5 @@ public class PostingController {
         Posting posting = postingService.selectByPositngId(postingid);
         model.addAttribute("posting",posting);
         return "/softwareGroup/postDetail";
-
     }
 }

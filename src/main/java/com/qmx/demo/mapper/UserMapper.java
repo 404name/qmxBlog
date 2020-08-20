@@ -60,6 +60,12 @@ public interface UserMapper extends BaseMapper<User> {
                             fetchType= FetchType.EAGER
                     )
             ),
+            @Result(column="id",property="follownameset",
+                    many = @Many(
+                            select="com.qmx.demo.mapper.FollowMapper.getFollowUserNameByid",
+                            fetchType= FetchType.EAGER
+                    )
+            ),
             @Result(column="id",property="befollownum",
                     one=@One(
                             select="com.qmx.demo.mapper.FollowMapper.getBeFollowNumByid"
@@ -71,6 +77,12 @@ public interface UserMapper extends BaseMapper<User> {
                             fetchType= FetchType.EAGER
                     )
             ),
+            @Result(column="id",property="befollownameset",
+                    many = @Many(
+                            select="com.qmx.demo.mapper.FollowMapper.getBeFollowUserNameByid",
+                            fetchType= FetchType.EAGER
+                    )
+            )
     })
     User selectById(Integer id);
 

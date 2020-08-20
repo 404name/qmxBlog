@@ -249,9 +249,11 @@
 
                             <!--        修改此贴的form-->
                             <div id="modifyThisPostArea" class="mr-2 d-none mt-6 animated--grow-in" style="padding-top: 10px;">
-                                <form action="" method="post">
+                                <form action="/updataPosting" method="post">
+                                    <input th:value="${posting.getPostingid()}" name="postingid" style="display:none;">
+                                    <input th:value="${posting.getPostingtitle()}" name="postingtitle">
                                     <div id="modifyEditDiv" onmouseout="updateCommentText(this);"></div>
-                                    <textarea class="form-control   d-none   overflow-hidden" type="text" rows="4" name="" placeholder="..."></textarea>
+                                    <textarea class="form-control   d-none   overflow-hidden" type="text" rows="4" name="postingcontent" placeholder="..."></textarea>
                                     <button class="btn btn-outline-danger mt-1 mb-5 float-right ml-1" type="submit">确定修改</button>
                                     <button onclick="cancelComment(this);" class="btn btn-outline-secondary mt-1 mb-5 float-right" type="button">取消</button>
                                     <div class="mt-5 mb-0" style="width: auto;height: 1px; background: #e5e5e5;"></div>
@@ -564,10 +566,12 @@
 
                                     '<span class="d-none mb-2">'+
                                     // 表单在这里
-                                    '<form>'+
-                                    '<textarea rows="4" class="form-control w-50 mb-1"></textarea>'+
+                                    '<form action="/updataComment" method="post">'+
+                                    '<textarea rows="4" name="commentcontent" class="form-control w-50 mb-1"></textarea>'+
                                     '<button type="submit" class="btn btn-success btn-sm text-light mr-1">确定修改</button>'+
                                     '<button type="button" class="btn btn-secondary btn-sm" onclick="cancelChangeCommentBtn(this);">取消修改</button>'+
+                                    '<input name="commentid" value="'+full.commentid+'"; style="display: none">'+
+                                    '<input name="postingid" value="'+postingid+'"; style="display: none">'+
                                     '</form>'+
                                     '</span>'+
 
@@ -631,10 +635,12 @@
                                         '<span class="d-block text-dark mt-1 comment" style="font-size: 14px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
                                         '<span class="d-none">'+
                                         // 表单在这里
-                                        '<form>'+
-                                        '<textarea rows="4" class="form-control w-50 mb-1"></textarea>'+
+                                        '<form action="/updataCommenttocomment" method="post">'+
+                                        '<textarea rows="4" class="form-control w-50 mb-1" name="commentcontent"></textarea>'+
                                         '<button type="submit" class="btn btn-success btn-sm text-light mr-1">确定修改</button>'+
                                         '<button type="button" class="btn btn-secondary btn-sm" onclick="cancelChangeCommentBtn(this);">取消修改</button>'+
+                                        '<input name="commentid" value="'+full.commenttocommentset[i].commentid+'"; style="display: none">'+
+                                        '<input name="postingid" value="'+postingid+'"; style="display: none">'+
                                         '</form>'+
                                         '</span>'+
                                         '</div>' +

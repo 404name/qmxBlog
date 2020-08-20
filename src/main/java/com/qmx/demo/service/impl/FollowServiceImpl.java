@@ -40,4 +40,14 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
     public Integer getBeFollowNumByid(Integer id) {
         return followMapper.getBeFollowNumByid(id);
     }
+
+    @Override
+    public List<String> getFollowUserNameByid(Integer id) {
+        return followMapper.getFollowUserNameByid(id);
+    }
+
+    @Override
+    public List<String> getBeFollowUserNameByid(Integer id) {
+        return followMapper.getBeFollowUserNameByid(id);
+    }
 }

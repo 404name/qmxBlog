@@ -84,14 +84,15 @@
                                                     <div id="myFollows" class="font-weight-bold text-info text-uppercase mb-1">我关注的人
                                                     </div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                        <img src="../../static/img/avatar/icon11.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon15.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon16.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon18.png" alt="" width="32"
-                                                             height="32">
+                                                        <div th:if="${user.getFollownum() > 0}" th:each="name,nameStat: ${user.getFollownameset()}">
+                                                            <div>
+                                                                <a th:href="'/showUser?id='+${user.getFollowidset()[nameStat.index]}">
+                                                                    <img src="../../static/img/avatar/icon11.png" alt="" width="32"
+                                                                         height="32">
+                                                                    [[${name}]]
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -112,19 +113,13 @@
                                                         关注我的人
                                                     </div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                        <img src="../../static/img/avatar/icon13.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon17.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon2.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon19.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon12.png" alt="" width="32"
-                                                             height="32">
-                                                        <img src="../../static/img/avatar/icon8.png" alt="" width="32"
-                                                             height="32">
-                                                        ...
+                                                        <div th:if="${user.getBefollownum() > 0}" th:each="name,nameStat: ${user.getBefollownameset()}">
+                                                            <a th:href="'/showUser?id='+${user.getBefollowidset()[nameStat.index]}">
+                                                                <img src="../../static/img/avatar/icon11.png" alt="" width="32"
+                                                                     height="32">
+                                                                [[${name}]]
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-auto">
@@ -311,6 +306,9 @@
                                             <h6 class="m-0 font-weight-bold text-info"><i
                                                     class="fas fa-pencil-alt"></i>基本信息</h6>
                                             <!--                  下拉菜单-->
+
+                                            <button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#" th:if="${followMsg} == '未关注'" onclick="follow(this)">关注</button>
+                                            <button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto" href="#" th:if="${followMsg} == '已关注'" onclick="follow(this)">取消关注</button>
                                             <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button"
                                                    data-toggle="dropdown" aria-haspopup="true"
@@ -1109,6 +1107,23 @@
                 var minutes = time.getMinutes();
                 var seconds = time.getSeconds();
                 return year + '-' + add0(month) + '-' + add0(date) + ' ' + add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
+            }
+
+            function follow(obj){
+                let msg = $(obj).text();
+                var userid = [[${session.loadUser.id}]];
+                var username = "[[${session.loadUser.username}]]";
+                var followid = [[${user.getId()}]];
+                var followname = "[[${user.getUsername()}]]";
+                $.post("/follow?userid=" + userid + "&username=" + username + "&followid=" + followid +"&followname="+followname, function (data) {
+                    let msg = data.msg;
+                    console.log(msg);
+                    if (msg === "关注成功") {
+                            $(obj).text("取消关注");
+                    } else if (msg === "取消关注") {
+                            $(obj).text("关注");
+                    }
+                });
             }
         </script>
 

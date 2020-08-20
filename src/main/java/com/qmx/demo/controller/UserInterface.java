@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qmx.demo.entity.Comment;
+import com.qmx.demo.entity.Follow;
 import com.qmx.demo.entity.User;
+import com.qmx.demo.service.FollowService;
 import com.qmx.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +41,8 @@ public class UserInterface {
     public UserService userService;
 
     @RequestMapping("/selectUser")
-    public  Object showUser(@RequestParam(value = "id",required = false,defaultValue = "1")Integer id){
+    public  Object showUser(@RequestParam(value = "id",required = false,defaultValue = "1")Integer id,
+                            HttpSession session){
         HashMap<String,Object> map = new HashMap<>();
         User user = userService.selectById(id);
         map.put("user",user);

@@ -86,9 +86,29 @@ public class User implements Serializable {
     @TableField(exist = false)
     private List<Integer> followidset;
     @TableField(exist = false)
+    private List<String> follownameset;
+    @TableField(exist = false)
     private Integer befollownum;
     @TableField(exist = false)
     private List<Integer> befollowidset;
+    @TableField(exist = false)
+    private List<String> befollownameset;
+
+    public List<String> getFollownameset() {
+        return follownameset;
+    }
+
+    public void setFollownameset(List<String> follownameset) {
+        this.follownameset = follownameset;
+    }
+
+    public List<String> getBefollownameset() {
+        return befollownameset;
+    }
+
+    public void setBefollownameset(List<String> befollownameset) {
+        this.befollownameset = befollownameset;
+    }
 
     public Integer getBefollownum() {
         return befollownum;
