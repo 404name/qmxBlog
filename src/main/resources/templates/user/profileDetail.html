@@ -140,22 +140,18 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="font-weight-bold text-success text-uppercase mb-1">
-                                                        <span id="thePostsIlike">我关注的帖子</span>
+                                                        <span id="myPartPosts">我的发帖</span>
                                                         <div class="col-auto float-right">
-                                                            <button onclick="unfoldThisCard(this);" class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button>
+                                                            <a href="#myposting"><button  class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
                                                         </div>
                                                     </div>
                                                     <div class="mb-0 font-weight-bold text-gray-800">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;width: 190px;">
                                                             <!--                      这个div中填入th:if的值，请不要增删div的个数-->
-                                                            <div>
-                                                                <a class="text-success" style="opacity: 75%;" href="#">
+                                                            <div th:each="myposting: ${user.getMypostingset()}">
+                                                                <a class="text-warning" style="opacity: 75%;" th:href="'/showPosting?type=1&postingid='+${myposting.getPostingid()}">
                                                                     <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">暑假答辩总结,超长测试测试测试测试测试</div>
-                                                                </a>
-                                                                <a class="text-success" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">第一周周任务发布</div>
+                                                                    white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">[[${myposting.getPostingtitle()}]]</div>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -173,131 +169,19 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="font-weight-bold text-warning text-uppercase mb-1">
-                                                        <span id="myPartPosts">我的发帖</span>
+                                                        <span id="thePostsIlike">我关注的帖子</span>
                                                         <div class="col-auto float-right">
-                                                            <button onclick="unfoldThisCard(this);" class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button>
+                                                            <a href="#mycollection"><button class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
                                                         </div>
                                                     </div>
 
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 15px;">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;width: 190px;">
                                                             <!--                      这个div中填入th:if的值，请不要增删div的个数-->
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
+                                                            <div th:each="collection: ${user.getCollectionset()}">
+                                                                <a class="text-warning" style="opacity: 75%;" th:href="'/showPosting?type=1&postingid='+${collection.getPostingid()}">
                                                                     <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
-                                                                </a>
-                                                            </div>
-
-                                                            <div>
-                                                                <a class="text-warning" style="opacity: 75%;" href="#">
-                                                                    <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">关于小项目的个人答辩</div>
+                                                                    white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">[[${collection.getPostingtitle()}]]</div>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -724,6 +608,7 @@
                                                     <td class="float-right text-nowrap">个性介绍：</td>
                                                     <td><textarea id="thisPageUserIntroduction" class="form-control form-group w-100" rows="1"
                                                                   placeholder="未填写"
+                                                                  th:value="${user.getIntroduction()}"
                                                                   th:text="${user.getIntroduction()}"></textarea>
                                                     </td>
                                                 </tr>
@@ -972,19 +857,20 @@
                             </div>
                             <div class="col-lg-11 ml-4 mb-3">
 <!--                                提交用户信息的表单-->
-                                <form>
+                                <form method="post" action="/updataUser">
 <!--                                    对接后台后，这个表单的class中填入d-none隐藏掉就好-->
                                     <div class="">
-                                        <input id="saveMyEmail">
-                                        <input id="saveMyName">
-                                        <input id="saveMyGender">
-                                        <input id="saveMyBirthday">
-                                        <input id="saveMyIntroduction">
-                                        <input id="saveMySchoolID">
-                                        <input id="saveMyPhone">
-                                        <input id="saveMyGitPage">
-                                        <input id="saveMyInstitute">
-                                        <input id="saveMyEnrollmentYear">
+                                        <input id="" name="id" th:value="${user.getId()}">
+                                        <input id="saveMyEmail" name="email">
+                                        <input id="saveMyName" name="username">
+                                        <input id="saveMyGender" name="gender">
+                                        <input id="saveMyBirthday" name="birthday">
+                                        <input id="saveMyIntroduction" name="introduction">
+                                        <input id="saveMySchoolID" name="schoolid">
+                                        <input id="saveMyPhone" name="phonenumber">
+                                        <input id="saveMyGitPage" name="gitpage">
+                                        <input id="saveMyInstitute" name="institute">
+                                        <input id="saveMyEnrollmentYear" name="enrollmentYear">
                                     </div>
                                     <button id="saveInfoBtn" class="btn btn-success float-right" type="submit"
                                             onclick="setFormInputVal();">保存信息
@@ -1179,6 +1065,11 @@
                 var r = window.location.search.substr(1).match(reg); //匹配目标参数
                 if (r != null) return unescape(r[2]); return null; //返回参数值
             }
+            function StringToDate(d) {
+                //部分浏览器(IE)不支持日期格式“yyyy-MM-dd hh:mm:ss”,必须将“-”转化为“/”
+                var date = new Date(Date.parse(d.replace(/-/g, "/")));
+                return date;
+            };
             function setFormInputVal(){
                 // 开始的时候导入用户信息form数据
                 let emailFormData = $('#thisPageUserEmail').text();
@@ -1186,7 +1077,7 @@
                 let genderFormData = getCheckedGender();
                 //alert(genderFormData);
                 let birthdayYearFormData = getCheckedBirthday();
-                let introductionFormData = $('#thisPageUserIntroduction').text();
+                let introductionFormData = $('#thisPageUserIntroduction').val();
                 let schoolIDFormData = $('#thisPageUserSchooleID').val();
                 let phoneFormData = $('#thisPageUserPhone').val();
                 let gitPageFormData = $('#thisPageUserGitPage').val();
@@ -1196,7 +1087,7 @@
                 $('#saveMyEmail').val(emailFormData);
                 $('#saveMyName').val(nameFormData);
                 $('#saveMyGender').val(genderFormData);
-                $('#saveMyBirthday').val(birthdayYearFormData);
+                $('#saveMyBirthday').val(StringToDate(birthdayYearFormData));
                 $('#saveMyIntroduction').val(introductionFormData);
                 $('#saveMySchoolID').val(schoolIDFormData);
                 $('#saveMyPhone').val(phoneFormData);

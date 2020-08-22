@@ -237,8 +237,8 @@
                     "render": function (data,type,full) {
                         var html = "";
                         html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showUser?id='+ data +'">详细</a>' +
-                        '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/updataUser?id='+ data +'">修改</a>' +
-                        '<a class="btn btn-sm btn-danger text-nowrap" href="/user/delete?id='+ data +'">删除</a>'
+                        '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showUser?id='+ data +'">修改</a>' +
+                        '<a class="btn btn-sm btn-danger text-nowrap" href="/deleteUser?id='+ data +'">删除</a>'
                         return html;
                     }
                 }

@@ -46,19 +46,19 @@ public class UserController {
         return "/admin/list/user";
     }
     @RequestMapping("/updataUser")
-    public String updatauser(@RequestParam(value = "userid",required = true)int id,
+    public String updatauser(User user,
                                 Model model){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id",id);
-        User user =  userService.getOne(queryWrapper);
-        model.addAttribute("user",user);
-        return "/admin/detail/userUpdata";
+        queryWrapper.eq("id",user.getId());
+        userService.update(user,queryWrapper);
+        return "redirect:/showUser?id="+user.getId();
     }
-    @PostMapping("/updataUser")
-    public String updatauser1(User user,
-                              Model model){
-        System.out.println(user);
-        userService.updateById(user);
+    @RequestMapping("/deleteUser")
+    public String deleteuser(Integer id,
+                             Model model){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        userService.remove(queryWrapper);
         return "/admin/list/user";
     }
     @RequestMapping(value = "/showUser")
@@ -90,4 +90,5 @@ public class UserController {
         userService.save(user);
         return "/admin/list/user";
     }
+
 }
