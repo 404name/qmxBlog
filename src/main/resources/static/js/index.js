@@ -2,16 +2,16 @@
 function IsMobile() {
   var isMobile = {
     Android: function () {
-      return navigator.userAgent.match(/Android/i) ? true : false;
+      return navigator.userAgent.match(/Android/i);
     },
     BlackBerry: function () {
-      return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+      return navigator.userAgent.match(/BlackBerry/i);
     },
     iOS: function () {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
     },
     Windows: function () {
-      return navigator.userAgent.match(/IEMobile/i) ? true : false;
+      return navigator.userAgent.match(/IEMobile/i);
     },
     any: function () {
       return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
@@ -19,22 +19,24 @@ function IsMobile() {
   };
   return isMobile.any(); //是移动设备
 }
-(function($) {
-  "use strict";
 
+function sideBarFun(){
   // 侧边栏导航的开合
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
     if ($(".sidebar").hasClass("toggled")) {
       $('.sidebar .collapse').collapse('hide');
-    };
+    }
   });
 
   // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
   $(window).resize(function() {
-    if(!IsMobile()){
+
+    if(IsMobile()==null){
       if ($(window).width() < 768) {
+        $("body").addClass("sidebar-toggled");
+        $(".sidebar").addClass("toggled");
         $('.sidebar .collapse').collapse('hide');
       }
       // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
@@ -60,11 +62,17 @@ function IsMobile() {
   $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
     if ($(window).width() > 768) {
       var e0 = e.originalEvent,
-        delta = e0.wheelDelta || -e0.detail;
+          delta = e0.wheelDelta || -e0.detail;
       this.scrollTop += (delta < 0 ? 1 : -1) * 30;
       e.preventDefault();
     }
   });
+}
+
+(function($) {
+  "use strict";
+
+  sideBarFun();
 
   // 滚动到顶部按钮的浮现
   $(document).on('scroll', function() {

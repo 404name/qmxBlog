@@ -1050,9 +1050,10 @@
                 $(window).resize(function () {
                     if(!IsMobile()){
                         if ($(window).width() < 920) {
+                            $("body").addClass("sidebar-toggled");
+                            $(".sidebar").addClass("toggled");
                             $('.sidebar .collapse').collapse('hide');
                         }
-
                         // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
                         if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
                             $("body").addClass("sidebar-toggled");

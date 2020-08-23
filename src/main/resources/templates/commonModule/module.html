@@ -21,7 +21,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- 导航栏 -->
-            <li class="nav-item" th:class="${(active == 'mainPage')?'nav-item active':'nav-item'}">
+            <li style="position: relative;z-index: 10000!important;" class="nav-item" th:class="${(active == 'mainPage')?'nav-item active':'nav-item'}">
                 <a class="nav-link" href="/index.html">
                     <!--          Font Awesome图标插件-->
                     <i class="fas fa-fw fa-coffee"></i>
@@ -38,7 +38,7 @@
 
             <!-- 导航栏按钮 - 页面折叠菜单 -->
             <!--      软件组-->
-            <li class="nav-item" th:class="${(active=='webGroupBtn1')||(active=='webGroupBtn2')||(active=='webGroupBtn3')||(active=='webGroupBtn4')?'nav-item active':'nav-item'}">
+            <li style="position: relative;z-index: 10000!important;" class="nav-item" th:class="${(active=='webGroupBtn1')||(active=='webGroupBtn2')||(active=='webGroupBtn3')||(active=='webGroupBtn4')?'nav-item active':'nav-item'}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#webGroupCollapse"
                    aria-expanded="true" aria-controls="webGroupCollapse">
                     <!--          这个图标插件还蛮好用的-->
@@ -57,7 +57,7 @@
                 </div>
             </li>
             <!--      硬件组-->
-            <li class="nav-item">
+            <li style="position: relative;z-index: 10000!important;" class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#hardWareGroupCollapse"
                    aria-expanded="true" aria-controls="hardWareGroupCollapse">
                     <!--          这个图标插件还蛮好用的-->
@@ -84,7 +84,7 @@
                 更多
             </div>
             <!--   后台管理  -->
-            <li class="nav-item" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
+            <li style="position: relative;z-index: 10000!important;" class="nav-item" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminPages"
                    aria-expanded="true" aria-controls="adminPages">
                     <i class="fas fa-fw fa-window-maximize"></i>
@@ -105,7 +105,7 @@
                 </div>
             </li>
             <!-- 折叠菜单 -->
-            <li class="nav-item">
+            <li style="position: relative;z-index: 10000!important;" class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-external-link-alt"></i>
@@ -129,7 +129,7 @@
             </li>
 
             <!-- 表格统计入口 -->
-            <li class="nav-item">
+            <li style="position: relative;z-index: 10000!important;" class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-chart-bar"></i>
                     <span>统计</span></a>

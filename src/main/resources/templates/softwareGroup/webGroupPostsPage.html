@@ -348,6 +348,8 @@
       }else if($('#NowUserClass').text()==="3"){
           $('#postingTitleInput').val("【硬件组】帖子标题");
       }
+      // 移仓侧边栏时候，连开关按钮一并隐藏
+      $('#sidebarToggleTop').hide();
 
       $.ajax({
           type: "GET",
