@@ -37,7 +37,7 @@ public class loadController {
     public String toRegister(Model model){
         List<Userclass> userclasses = userclassService.list();
         model.addAttribute("userclasses",userclasses);
-        return "/loginService/register";
+        return "loginService/register";
     }
     //注册 验证
     @RequestMapping(value = "/registerCheck",method = RequestMethod.POST)
@@ -53,7 +53,7 @@ public class loadController {
         if(user1 == null){
             if(session.getAttribute("email") == null || session.getAttribute("code") == null){
                 model.addAttribute("msg","未发送验证码");
-                return "redirect:/register";
+                return "redirect:register";
             }
             String sessionEmail = (String)session.getAttribute("email");
             int sessionCode = (int)session.getAttribute("code");
@@ -111,7 +111,7 @@ public class loadController {
         User user = userService.getOne(queryWrapper);
         if(user == null){
             session.setAttribute("msg","密码错误,或查询不到该用户");
-            return "/loginService/login";
+            return "loginService/login";
         }else{
             //管理员管理界面
             List<Userclass> userclasses = userclassService.selectAll();

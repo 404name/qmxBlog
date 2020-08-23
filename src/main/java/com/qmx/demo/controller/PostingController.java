@@ -48,7 +48,7 @@ public class PostingController {
             session.setAttribute("msg","你没有权限访问");
             return "redirect:/index";
         }
-        return "/admin/list/posting";
+        return "admin/list/posting";
     }
     @RequestMapping("/deletePosting")
     public String deleteposting(@RequestParam(value = "postingid", required = true)int postingid,
@@ -58,10 +58,10 @@ public class PostingController {
         Boolean res = postingService.removeByMap(hashMap);
         if(type==0){
             //管理员
-            return "/admin/list/posting";
+            return "admin/list/posting";
         }else{
             //用户 （还未设置）
-            return "/admin/list/posting";
+            return "admin/list/posting";
         }
     }
     @RequestMapping("/toupdataPosting")
@@ -74,7 +74,7 @@ public class PostingController {
         System.out.println(posting);
         List<Postingclass> postingclasses = postingclassService.list();
         model.addAttribute("postingclasses",postingclasses);
-        return "/admin/detail/updataPosting";
+        return "admin/detail/updataPosting";
     }
     @PostMapping("/updataPosting")
     public String updataPosting1(Posting posting,
@@ -84,7 +84,7 @@ public class PostingController {
         wrapper.eq("postingid",posting.getPostingid());
         postingService.update(posting,wrapper);
         if(type == 0){
-            return "/admin/list/posting";
+            return "admin/list/posting";
         }else{
             return "redirect:/showPosting?postingid=" + posting.getPostingid();
         }
@@ -103,11 +103,11 @@ public class PostingController {
             User user = userService.getOne(wrapper);
             if(user == null){
                 model.addAttribute("msg","该用户不存在");
-                return "/admin/list/posting";
+                return "admin/list/posting";
             }
             posting.setId(user.getId());
             postingService.save(posting);
-            return "/admin/list/posting";
+            return "admin/list/posting";
         }
         else{
             postingService.save(posting);
@@ -126,11 +126,11 @@ public class PostingController {
             User user = userService.getOne(wrapper);
             if(user == null){
                 model.addAttribute("msg","该用户不存在");
-                return "/admin/list/posting";
+                return "admin/list/posting";
             }
             posting.setId(user.getId());
             postingService.save(posting);
-            return "/admin/list/posting";
+            return "admin/list/posting";
         }
         else{
             postingService.save(posting);
@@ -144,6 +144,6 @@ public class PostingController {
                               Model model){
         Posting posting = postingService.selectByPositngId(postingid);
         model.addAttribute("posting",posting);
-        return "/softwareGroup/postDetail";
+        return "softwareGroup/postDetail";
     }
 }

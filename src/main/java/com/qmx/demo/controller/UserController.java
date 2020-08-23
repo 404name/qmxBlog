@@ -43,7 +43,7 @@ public class UserController {
             session.setAttribute("msg","你没有权限访问");
             return "redirect:/index";
         }
-        return "/admin/list/user";
+        return "admin/list/user";
     }
     @RequestMapping("/updataUser")
     public String updatauser(User user,
@@ -59,7 +59,7 @@ public class UserController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id",id);
         userService.remove(queryWrapper);
-        return "/admin/list/user";
+        return "admin/list/user";
     }
     @RequestMapping(value = "/showUser")
     public String showUser(@RequestParam(value = "id",required = true)int id,
@@ -81,14 +81,14 @@ public class UserController {
             String msg = "已关注";
             model.addAttribute("followMsg",msg);
         }
-        return "/user/profileDetail";
+        return "user/profileDetail";
     }
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public String adduser(User user,
                           Model model){
         System.out.println(user);
         userService.save(user);
-        return "/admin/list/user";
+        return "admin/list/user";
     }
 
 }
