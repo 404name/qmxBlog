@@ -251,7 +251,7 @@
                             <div id="modifyThisPostArea" class="mr-2 d-none mt-6 animated--grow-in" style="padding-top: 10px;">
                                 <form action="/updataPosting" method="post">
                                     <input th:value="${posting.getPostingid()}" name="postingid" style="display:none;">
-                                    <input th:value="${posting.getPostingtitle()}" name="postingtitle">
+                                    <input class="form-control mb-1" th:value="${posting.getPostingtitle()}" name="postingtitle">
                                     <div id="modifyEditDiv" onmouseout="updateCommentText(this);"></div>
                                     <textarea class="form-control   d-none   overflow-hidden" type="text" rows="4" name="postingcontent" placeholder="..."></textarea>
                                     <button class="btn btn-outline-danger mt-1 mb-5 float-right ml-1" type="submit">确定修改</button>

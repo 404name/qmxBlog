@@ -1,3 +1,24 @@
+//判断是否是手机
+function IsMobile() {
+  var isMobile = {
+    Android: function () {
+      return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function () {
+      return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function () {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    Windows: function () {
+      return navigator.userAgent.match(/IEMobile/i) ? true : false;
+    },
+    any: function () {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+    }
+  };
+  return isMobile.any(); //是移动设备
+}
 (function($) {
   "use strict";
 
@@ -12,20 +33,26 @@
 
   // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
   $(window).resize(function() {
-    if ($(window).width() < 768) {
-      $('.sidebar .collapse').collapse('hide');
+    if(!IsMobile()){
+      if ($(window).width() < 768) {
+        $('.sidebar .collapse').collapse('hide');
+      }
+      // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
+      if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+        $("body").addClass("sidebar-toggled");
+        $(".sidebar").addClass("toggled");
+        $('.sidebar .collapse').collapse('hide');
+      }
+      if ($(window).width() < 1000 ) {
+        $(".sidebar").addClass("toggled");
+      }else{
+        $(".sidebar").removeClass("toggled");
+      }
     }
-
-    // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
-    if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+    else{
       $("body").addClass("sidebar-toggled");
       $(".sidebar").addClass("toggled");
       $('.sidebar .collapse').collapse('hide');
-    }
-    if ($(window).width() < 1000 ) {
-      $(".sidebar").addClass("toggled");
-    }else{
-      $(".sidebar").removeClass("toggled");
     }
   });
 

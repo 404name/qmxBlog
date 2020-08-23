@@ -81,11 +81,11 @@
                                             <div class="row no-gutters align-items-center">
 
                                                 <div class="col mr-2">
+                                                    <div class="col-auto float-right">
+                                                        <button onclick="unfoldThisCard(this);" class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button>
+                                                    </div>
                                                     <div class="font-weight-bold text-info text-uppercase mb-1">
                                                         <span id="myFollows">我关注的人</span>
-                                                        <div class="col-auto float-right">
-                                                            <button onclick="unfoldThisCard(this);" class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button>
-                                                        </div>
                                                     </div>
                                                     <div class="mb-0 font-weight-bold text-gray-800 text-info" style="margin-left:-10px;width:190px;">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;">
@@ -110,11 +110,11 @@
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
+                                                    <div class="col-auto float-right">
+                                                        <button onclick="unfoldThisCard(this);" class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button>
+                                                    </div>
                                                     <div class="font-weight-bold text-primary text-uppercase mb-1">
                                                         <span id="followMe">关注我的人</span>
-                                                        <div class="col-auto float-right">
-                                                            <button onclick="unfoldThisCard(this);" class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button>
-                                                        </div>
                                                     </div>
                                                     <div class="mb-0 font-weight-bold text-gray-800" style="margin-left:-10px;width:190px;">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;">
@@ -139,17 +139,17 @@
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
+                                                    <div class="col-auto float-right">
+                                                        <a href="#myposting"><button  class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
+                                                    </div>
                                                     <div class="font-weight-bold text-success text-uppercase mb-1">
                                                         <span id="myPartPosts">我的发帖</span>
-                                                        <div class="col-auto float-right">
-                                                            <a href="#myposting"><button  class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
-                                                        </div>
                                                     </div>
                                                     <div class="mb-0 font-weight-bold text-gray-800">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;width: 190px;">
                                                             <!--                      这个div中填入th:if的值，请不要增删div的个数-->
                                                             <div th:each="myposting: ${user.getMypostingset()}">
-                                                                <a class="text-warning" style="opacity: 75%;" th:href="'/showPosting?type=1&postingid='+${myposting.getPostingid()}">
+                                                                <a class="text-success" style="opacity: 75%;" th:href="'/showPosting?type=1&postingid='+${myposting.getPostingid()}">
                                                                     <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
                                                                     white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">[[${myposting.getPostingtitle()}]]</div>
                                                                 </a>
@@ -168,11 +168,11 @@
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
+                                                    <div class="col-auto float-right">
+                                                        <a href="#mycollection"><button class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
+                                                    </div>
                                                     <div class="font-weight-bold text-warning text-uppercase mb-1">
                                                         <span id="thePostsIlike">我关注的帖子</span>
-                                                        <div class="col-auto float-right">
-                                                            <a href="#mycollection"><button class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
-                                                        </div>
                                                     </div>
 
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 15px;">
@@ -859,7 +859,7 @@
 <!--                                提交用户信息的表单-->
                                 <form method="post" action="/updataUser">
 <!--                                    对接后台后，这个表单的class中填入d-none隐藏掉就好-->
-                                    <div class="">
+                                    <div class="d-none">
                                         <input id="" name="id" th:value="${user.getId()}">
                                         <input id="saveMyEmail" name="email">
                                         <input id="saveMyName" name="username">
@@ -937,11 +937,14 @@
                     $('#updateAvatar').show();
                     $('#followOrNotArea').hide();
                 } else {
-                    $('#saveInfoBtn').hide();
-                    $('#updateAvatar').hide();
-                    $('input').attr("disabled", "disabled");
-                    $('select').attr("disabled", "disabled");
-                    $('textarea').attr("disabled", "disabled");
+                    if($('#NowUserClass').text()!=="5"){
+                        $('#saveInfoBtn').hide();
+                        $('#updateAvatar').hide();
+                        $('input').attr("disabled", "disabled");
+                        $('select').attr("disabled", "disabled");
+                        $('textarea').attr("disabled", "disabled");
+                    }
+
                     $('#accordionSidebar').hide();
                     let thisPageUser = $('#thisPageUserName').text();
                     $('#myPosts').text(thisPageUser+"的发帖");
@@ -966,25 +969,70 @@
         <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
         <!--        。。-->
         <script>
+            let checkedGender1 = $('#thisPageUserGender').children().first();
+            let checkedGender2 = $('#thisPageUserGender').children().first().next().next();
+            let checkedGender3 = $('#thisPageUserGender').children().first().next().next().next().next();
+            $(checkedGender1).click(function (){
+                $(checkedGender1).attr("checked","checked");
+                $(checkedGender2).removeAttr("checked");
+                $(checkedGender3).removeAttr("checked");
+            });
+            $(checkedGender2).click(function (){
+                $(checkedGender1).removeAttr("checked");
+                $(checkedGender2).attr("checked","checked");
+                $(checkedGender3).removeAttr("checked");
+            });
+            $(checkedGender3).click(function (){
+                $(checkedGender1).removeAttr("checked");
+                $(checkedGender2).removeAttr("checked");
+                $(checkedGender3).attr("checked","checked");
+            });
             function getCheckedGender(){
-                let checkedGender1 = $('#thisPageUserGender').children().first();
-                let checkedGender2 = $('#thisPageUserGender').children().first().next().next();
-                let checkedGender3 = $('#thisPageUserGender').children().first().next().next().next().next();
+                // alert("获取性别信息");
                 // alert($(checkedGender1).attr("checked")==="checked");
                 // alert($(checkedGender2).attr("checked")==="checked");
                 // alert($(checkedGender3).attr("checked")==="checked");
-                if($(checkedGender1).attr("checked")==="checked")
+                if($(checkedGender1).attr("checked")==="checked"){
+                    // alert("男");
                     return 0;
-                else if($(checkedGender2).attr("checked")==="checked")
+                }
+                if($(checkedGender2).attr("checked")==="checked"){
+                    // alert("女");
                     return 1;
-                else if($(checkedGender3).attr("checked")==="checked")
+                }
+
+                if($(checkedGender3).attr("checked")==="checked"){
+                    // alert("保密");
                     return 2;
+                }
+                alert("无");
             }
             function getCheckedBirthday(){
                 let year = $('#MyBirthdayYear option:selected').val();
                 let month = $('#MyBirthdayMonth option:selected').val();
                 let day = $('#MyBirthdayDay option:selected').val();
                 return year+"-"+month+"-"+day;
+            }
+            function IsMobile() {
+
+                var isMobile = {
+                    Android: function () {
+                        return navigator.userAgent.match(/Android/i) ? true : false;
+                    },
+                    BlackBerry: function () {
+                        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+                    },
+                    iOS: function () {
+                        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+                    },
+                    Windows: function () {
+                        return navigator.userAgent.match(/IEMobile/i) ? true : false;
+                    },
+                    any: function () {
+                        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+                    }
+                };
+                return isMobile.any(); //是移动设备
             }
             (function ($) {
                 "use strict";
@@ -996,26 +1044,32 @@
                     if ($(".sidebar").hasClass("toggled")) {
                         $('.sidebar .collapse').collapse('hide');
                     }
-                    ;
                 });
 
                 // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
                 $(window).resize(function () {
-                    if ($(window).width() < 920) {
-                        $('.sidebar .collapse').collapse('hide');
-                    }
+                    if(!IsMobile()){
+                        if ($(window).width() < 920) {
+                            $('.sidebar .collapse').collapse('hide');
+                        }
 
-                    // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
-                    if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
+                        // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
+                        if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
+                            $("body").addClass("sidebar-toggled");
+                            $(".sidebar").addClass("toggled");
+                            $('.sidebar .collapse').collapse('hide');
+                        }
+                        if ($(window).width() < 1600) {
+                            $(".sidebar").addClass("toggled");
+                        } else {
+                            $(".sidebar").removeClass("toggled");
+                        }
+                    }else{
                         $("body").addClass("sidebar-toggled");
                         $(".sidebar").addClass("toggled");
                         $('.sidebar .collapse').collapse('hide');
                     }
-                    if ($(window).width() < 1600) {
-                        $(".sidebar").addClass("toggled");
-                    } else {
-                        $(".sidebar").removeClass("toggled");
-                    }
+
                 });
 
                 // 当侧边导航栏被固定的时候，防止滑动页面时出排版bug
@@ -1178,7 +1232,7 @@
                                     '<small class="ml-1">' + dateformat(full.updatadate) + '</small>' +
                                     '</div>' +
                                     '</div>' +
-                                    '<div class="col-auto text-center">' +
+                                    '<div class="col-auto text-center" id="postingTag">' +
                                     '<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' +
                                     '</div>' +
                                     '</div>' +
@@ -1191,6 +1245,9 @@
                         }
                     ]
                 });
+                if(IsMobile()){
+                    $('#postingTag').hide();
+                }
             }
 
             function add0(m) {
@@ -1226,9 +1283,9 @@
                 });
             }
             function unfoldThisCard(obj){
-                let cardAreaDiv=$(obj).parent().parent().next();
+                let cardAreaDiv=$(obj).parent().next().next();
                 let mainCard = $(cardAreaDiv).parent().parent().parent().parent().parent();
-                let unfoldDiv=$(cardAreaDiv).children().first();
+                let unfoldDiv=$(cardAreaDiv).children().first().children().first();
                 if($(unfoldDiv).css("height")!=="450px"){
                     $(unfoldDiv).css({
                         'height': '450px',

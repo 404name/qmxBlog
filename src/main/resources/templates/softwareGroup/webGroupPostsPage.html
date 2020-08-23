@@ -126,7 +126,7 @@
                         </div>
                         <!--一个统计区块-->
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 animated--grow-in" id="postTagsArea">
                         <div class="col text-nowrap" style="margin-top: 85px;">
                             <!-- 这是一个右侧导航的区块-->
                             <div class="shadow">
@@ -172,7 +172,7 @@
                                 <input name="id" th:value="${session.loadUser.id}" style="display: none">
                                 <input name="username" th:value="${session.loadUser.username}" style="display: none">
                                 <div class="col-sm-9">
-                                    <input name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
+                                    <input id="postingTitleInput" name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
                                 </div>
                                 <div class="d-none hidden overflow-hidden">
                                     <input class="hidden" name="username" type="text" th:value="${session.loadUser.username}">
@@ -180,11 +180,11 @@
                                     <textarea class="hidden" name="postingcontent" id="wangEditorContent" type="text"></textarea>
                                 </div>
 
-                                <div class="col-sm-2">
+                                <div class="col-sm-2" style="position: relative!important;z-index: 1000000!important;">
                                     <label class="dropdown">
                                         <button id="postingClassBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" value="0">请选择帖子分类</button>
                                         <div class="dropdown-menu animated--fade-in">
-                                            <small class="text-muted ml-1">开发组:</small>
+<!--                                            <small class="text-muted ml-1">开发组:</small>-->
                                             <button type="button" class="dropdown-item" id="item1" onclick="i1()">常规</button>
                                             <button type="button" class="dropdown-item" id="item2" onclick="i2()">学习总结</button>
                                             <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩作品</button>
@@ -268,20 +268,9 @@
         //alert(wangEditorStr);
         $('#wangEditorContent').val(wangEditorStr);
     }
-    // 点击显示不同帖子的按钮接口
-    function showNewest (){
-        $("#showNewestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
-        $("#showHottestPostBtn,#showMyFavoritePostBtn").removeClass("btn-primary").addClass("btn-secondary");
-    }
-    function showHottest (){
-        $("#showHottestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
-        $("#showNewestPostBtn,#showMyFavoritePostBtn").removeClass("btn-primary").addClass("btn-secondary");
-    }
-    function showMyFavorite(){
-        $("#showMyFavoritePostBtn").removeClass("btn-secondary").addClass("btn-primary");
-        $("#showNewestPostBtn,#showNewestPostBtn").removeClass("btn-primary").addClass("btn-secondary");
-    }
-    let strWG = "开发组:";
+
+    // let strWG = "开发组:";
+    let strWG = "";
     let enterKey = jQuery.Event("keydown");//模拟一个键盘事件
     enterKey.keyCode = 13;//keyCode=13是回车
     function i1(){
@@ -346,6 +335,7 @@
 <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
 <script type="text/javascript" th:inline="none">
+
     $('#searchPostArea').bind("input propertychange",function(event){
          let searchContent = $('#searchPostArea').val();
          $("#dataTable_filter input").trigger("click").trigger("focus").val(searchContent).keyup();
@@ -353,6 +343,11 @@
     //这里【【】】会被认thymeleaf
     let sortFlag=0;
   $(document).ready(function() {
+      if($('#NowUserClass').text()==="2"){
+          $('#postingTitleInput').val("【开发组】帖子标题");
+      }else if($('#NowUserClass').text()==="3"){
+          $('#postingTitleInput').val("【硬件组】帖子标题");
+      }
 
       $.ajax({
           type: "GET",
@@ -374,13 +369,22 @@
     //updatatable("dataTable","updatadate",'"/posting/selectAllPosting"',"data",5);
     function showNewest() {
         updatatable("dataTable","updatadate","/posting/selectAllPosting","data",5);
+        $("#showNewestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
+        $("#showHottestPostBtn,#showMyFavoritePostBtn").removeClass("btn-primary").addClass("btn-secondary");
+        $("#postTagsArea").show();
     }
     function showHottest() {
         updatatable("dataTable","commentnum","/posting/selectAllPosting","data",5);
+        $("#showHottestPostBtn").removeClass("btn-secondary").addClass("btn-primary");
+        $("#showNewestPostBtn,#showMyFavoritePostBtn").removeClass("btn-primary").addClass("btn-secondary");
+        $("#postTagsArea").show();
     }
     function showMyFavorite() {
         var userid = "/user/selectUser?id=" + $('#tempid').val();
         updatatable("dataTable","postingid",userid,"user.collectionset",5);
+        $("#showMyFavoritePostBtn").removeClass("btn-secondary").addClass("btn-primary");
+        $("#showHottestPostBtn,#showNewestPostBtn").removeClass("btn-primary").addClass("btn-secondary");
+        $("#postTagsArea").hide();
     }
     function updatatable(tableid,sortway,ajaxurl,datasrc,size) {
         $('#'+tableid).DataTable({
@@ -473,7 +477,8 @@
         $("#dataTable_filter").hide();
         $("#dataTable_length").addClass("text-nowrap");
         let sortBtn = $("#dataTable").children().first().children().first().children().first();
-        let sortBtnStr =  $(sortBtn).html();
+        // let sortBtnStr =  $(sortBtn).html();
+        let sortBtnStr =  "帖子内容";
         $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为倒序排列</small>');
         $(sortBtn).click(function (){
             // alert("切换排序");

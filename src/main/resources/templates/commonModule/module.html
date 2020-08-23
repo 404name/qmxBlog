@@ -149,10 +149,13 @@
 
         <!-- 顶部头条内容 -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" th:fragment="navBar">
-            <div class="navbar-header" th:if="${IndexBtn==null}"><a class="btn btn-primary" href="index">首页</a></div>
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle">
                 <i class="fa fa-bars"></i>
             </button>
+            <div class="navbar-header text-nowrap" th:if="${IndexBtn==null}">
+                <a class="btn btn-primary text-nowrap" href="index">首页</a>
+                <a class="btn btn-info text-nowrap" href="javascript:history.go(-1);location.reload()">返回</a>
+            </div>
 
             <!-- 搜索功能-->
             <!--          搜索的表单在这里-->
