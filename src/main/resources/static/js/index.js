@@ -1,4 +1,11 @@
 //判断是否是手机
+
+function searchThisContent(){
+  alert("搜索事件");
+  let searchStr = $('#searchPostArea').val();
+  let nowUrl = window.location.href;
+  alert(nowUrl+"?search="+searchSt);
+}
 function IsMobile() {
   var isMobile = {
     Android: function () {

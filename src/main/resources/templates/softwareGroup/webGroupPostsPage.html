@@ -480,7 +480,10 @@
                     }
                 }
             ],
-            order: [[0, "desc"]]
+            order: [[0, "desc"]],
+            "initComplete": function (settings,json){
+                startToSearch();
+            }
         });
         $("#dataTable_filter").hide();
         $("#dataTable_length").addClass("text-nowrap");
@@ -512,7 +515,29 @@
         return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
     }
 </script>
-
+<script>
+    function getUrlParam(name) {
+        // var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        // var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        // if (r != null) {
+        //     return unescape(r[2]);
+        // }
+        // return null; //返回参数值
+        var url = window.location.search;
+        // 正则筛选地址栏
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        // 匹配目标参数
+        var result = url.substr(1).match(reg);
+        //返回参数值
+        return result ? decodeURIComponent(result[2]) : null;
+    }
+    function startToSearch(){
+        let urlSearchInfo = getUrlParam("search","utf-8");
+        // alert(urlSearchInfo);
+        $('#searchPostArea').trigger("click").trigger("focus").val(urlSearchInfo).keyup();
+        $("#dataTable_filter input").trigger("click").trigger("focus").val(urlSearchInfo).keyup();
+    }
+</script>
 </body>
 
 </html>

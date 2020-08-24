@@ -387,6 +387,13 @@
 <script th:src="@{/static/js/graph/chart-pie-demo.js}"></script>
 
 <script>
+    $("#searchPostArea").bind("keypress", function(e){
+        if ((e.keyCode()||e.which()) === 13){
+            let searchStr = $("#searchPostArea").val();
+            let searchUrl = "/webGroupPostsPage";
+            window.location.href = searchUrl+"?search="+searchStr;
+        }
+    })
     (function() {
         if(IsMobile()){
             $("body").addClass("sidebar-toggled");
