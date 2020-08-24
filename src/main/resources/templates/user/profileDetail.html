@@ -1215,26 +1215,29 @@
                                     '<div class="card border-left-primary shadow h-100 py-2">' +
                                     '<div class="card-body">' +
                                     '<div class="row no-gutters align-items-center">' +
+                                    '<div class="col mr-auto">' +
+                                    '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row no-gutters align-items-center">' +
+                                    '<div class="col mr-auto">' +
+                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                    '<small class="ml-1">发帖人：' + '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' + '</small>' +
+                                    '</div>' +
+                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                    '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
+                                    '</div>' +
+                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                    '<small class="ml-1">最新回复：' + dateformat(full.updatadate) + '</small>' +
+                                    '</div>' +
+                                    '</div>' +
                                     '<div class="mr-2">' +
                                     '<div class="list-inline">' +
+                                    '<span class="badge badge-pill bg-light align-text-bottom">' +'<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' + '</span><br/>' +
                                     '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
                                     '<span class="badge badge-pill bg-info align-text-bottom text-light">' + full.commentnum + ' | 回复</span><br/>' +
                                     '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>' +
                                     '</div>' +
-                                    '</div>' +
-                                    '<div class="col mr-auto">' +
-                                    '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
-                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                                    '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' +
-                                    '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
-                                    '</div>' +
-                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                                    '<a class="text-info" href="#">最后回帖人ID</a>' +
-                                    '<small class="ml-1">' + dateformat(full.updatadate) + '</small>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="col-auto text-center" id="postingTag">' +
-                                    '<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' +
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +

@@ -32,11 +32,6 @@ public interface PostingMapper extends BaseMapper<Posting> {
                             fetchType= FetchType.EAGER
                     )
             ),
-            @Result(column="postingid",property="commentnum",
-                    one=@One(
-                            select="com.qmx.demo.mapper.CommentMapper.getCommentnumByPostingid"
-                    )
-            ),
             @Result(column="postingid",property="collectionnum",
                     one=@One(
                             select="com.qmx.demo.mapper.CollectionMapper.getCollectionnumByPostingid"

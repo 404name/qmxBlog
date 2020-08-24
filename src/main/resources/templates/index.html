@@ -93,16 +93,16 @@
                     </div>
                 </nav>
                 <div id="myCarousel" class="carousel slide shadow" data-ride="carousel">
-                    <ol class="carousel-indicators">
+                    <ol class="carousel-indicators" id="homepageli">
                         <!--       该属性保存一部分id         轮播图中第几张图的下标  第一张轮播图-->
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="1" class=""></li>
                         <li data-target="#myCarousel" data-slide-to="2" class=""></li>
                     </ol>
-                    <div class="carousel-inner" style="border-radius: 5px;">
+                    <div class="carousel-inner" style="border-radius: 5px;" id="homepage">
                         <div class="carousel-item active">
                             <!--                裁切图片大小-->
-                            <div class="m-0" style="width: 100%; max-height: 600px;overflow: hidden;">
+                            <div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;">
                                 <img style="width: 100%;"
                                      th:src="@{/static/img/carousel/carousel-3.jpg}" alt="">
                             </div>
@@ -117,8 +117,7 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-
-                            <div style="width: 100%; max-height: 600px;overflow: hidden;">
+                            <div style="width: 100%; max-height: 450px;overflow: hidden;">
                                 <img style=" width: 100%;"
                                      th:src="@{/static/img/carousel/carousel-1.jpg}" alt="">
                             </div>
@@ -133,7 +132,7 @@
                         </div>
                         <div class="carousel-item">
 
-                            <div class="m-0" style="width: 100%; max-height: 600px;overflow: hidden;">
+                            <div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;">
                                 <img style="width: 100%;"
                                      th:src="@{/static/img/carousel/carousel-2.jpg}" alt="">
                             </div>
@@ -162,7 +161,23 @@
 
                 <!--统计卡片-->
                 <div class="row mt-3">
-
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <a href="webGroupPostsPage">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="font-weight-bold text-warning text-uppercase mb-1">讨论帖数量</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="postingnum">登陆以查看</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-warning"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                     <div class="col-xl-4 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
@@ -197,23 +212,7 @@
                     </div>
 
                     <!--统计卡片-->
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <a href="webGroupPostsPage">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="font-weight-bold text-warning text-uppercase mb-1">讨论帖数量</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="postingnum">登陆以查看</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-warning"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+
                 </div>
 
                 <!-- 统计卡片结束-->
@@ -333,6 +332,38 @@
                 success: function(data){
                     var s1 = data.postingnum;
                     $('#postingnum').html(s1);
+                }
+            });
+            //轮播图
+            $.ajax({
+                type: "GET",
+                url: "/homepage/selectAll",
+                success: function(data){
+                    var html;
+                    var htmlli = '';
+                    for(let i = 0; i < data.homepages.length; i++){
+                        if( i < 1){
+                            html += '<div class="carousel-item active">';
+                            htmlli += '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'
+                        }else{
+                            html += '<div class="carousel-item">';
+                            htmlli += '<li data-target="#myCarousel" data-slide-to="0" class=""></li>';
+                        }
+                        html +=
+                            '<div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;">' +
+                            '<img style="width: 100%;" src="'+data.homepages[i].imgsrc+'" alt="">' +
+                            '</div>' +
+                            '<div class="container">' +
+                            '<div class="carousel-caption text-right">' +
+                            '<h4>'+data.homepages[i].title+'</h4>' +
+                            '<p>'+data.homepages[i].content+'</p>' +
+                            '<p><a class="btn btn-lg btn-primary" href="'+data.homepages[i].herf+'" role="button">'+data.homepages[i].button+'</a></p>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    $('#homepage').html(html);
+                    $('#homepageli').html(htmlli);
                 }
             });
         };

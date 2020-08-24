@@ -56,7 +56,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/index.html","/","/index","/login.html","/register","/register.html",
                         "/load","/logout","/registerCheck",
                         "/1","/2",
-                        "/email/sendEmailCode","/email/checkCode",
+                        "/email/sendEmailCode","/email/checkCode","/homepage/selectAll",
                         "/static/**");
     }
 }

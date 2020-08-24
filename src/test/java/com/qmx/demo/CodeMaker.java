@@ -1,75 +1,75 @@
-//package com.qmx.demo;
-//
-//import com.baomidou.mybatisplus.annotation.DbType;
-//import com.baomidou.mybatisplus.annotation.FieldFill;
-//import com.baomidou.mybatisplus.annotation.IdType;
-//import com.baomidou.mybatisplus.generator.AutoGenerator;
-//import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-//import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-//import com.baomidou.mybatisplus.generator.config.PackageConfig;
-//import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-//import com.baomidou.mybatisplus.generator.config.po.TableFill;
-//import com.baomidou.mybatisplus.generator.config.rules.DateType;
-//import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-//
-//import java.util.ArrayList;
-//
-//      //´úÂë×Ô¶¯Éú³ÉÆ÷
-//public class CodeMaker {
-//    public static void main(String[] args) {
-//        //ÐèÒª¹¹½¨Ò»¸ö ´úÂë×Ô¶¯Éú³ÉÆ÷ ¶ÔÏó
-//        AutoGenerator mpg = new AutoGenerator();
-//        //ÅäÖÃ²ßÂÔ
-//        //1¡¢È«¾ÖÅäÖÃ
-//        GlobalConfig gc = new GlobalConfig();
-//        String projectPath = System.getProperty("user.dir");
-//        gc.setOutputDir(projectPath + "/src/main/java");
-//        gc.setAuthor("404name");
-//        gc.setOpen(false);
-//        gc.setFileOverride(false); // ÊÇ·ñ¸²¸Ç
-//        gc.setServiceName("%sService"); // È¥ServiceµÄIÇ°×º
-//        gc.setIdType(IdType.ID_WORKER);
-//        gc.setDateType(DateType.ONLY_DATE);
-//        gc.setSwagger2(true);
-//        mpg.setGlobalConfig(gc);
-//        //2¡¢ÉèÖÃÊý¾ÝÔ´
-//        DataSourceConfig dsc = new DataSourceConfig();
-//        dsc.setUrl("jdbc:mysql://47.106.232.84:3306/qmxtest?useUnicode=true&characterEncoding=UTF-8&userSSL=false&serverTimezone=Asia/Shanghai");
-//        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-//        dsc.setUsername("root");
-//        dsc.setPassword("@CTGUqmx123");
-//        dsc.setDbType(DbType.MYSQL);
-//        mpg.setDataSource(dsc);
-//        //3¡¢°üµÄÅäÖÃ
-//        PackageConfig pc = new PackageConfig();
-//        pc.setModuleName("demo");
-//        pc.setParent("com.qmx");
-//        pc.setEntity("entity");
-//        pc.setMapper("mapper");
-//        pc.setService("service");
-//        pc.setController("controller");
-//        mpg.setPackageInfo(pc);
-//        //4¡¢²ßÂÔÅäÖÃ
-//        StrategyConfig strategy = new StrategyConfig();
-//        strategy.setInclude("follow"); // ÉèÖÃÒªÓ³ÉäµÄ±íÃû
-//        strategy.setNaming(NamingStrategy.underline_to_camel);
-//        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-//        strategy.setEntityLombokModel(true); // ×Ô¶¯lombok£»
-//        //strategy.setLogicDeleteFieldName("deleted"); //Âß¼­É¾³ý×Ö¶Î
-//        //×Ô¶¯Ìî³äÅäÖÃ
-//        TableFill gmtCreate = new TableFill("gmt_create", FieldFill.INSERT);
-//        TableFill gmtModified = new TableFill("gmt_modified",
-//                FieldFill.INSERT_UPDATE);
-//        ArrayList<TableFill> tableFills = new ArrayList<>();
-//        tableFills.add(gmtCreate);
-//        tableFills.add(gmtModified);
-//        strategy.setTableFillList(tableFills);
-//        // ÀÖ¹ÛËø
-//        strategy.setVersionFieldName("version");
-//        strategy.setRestControllerStyle(true);
-//        strategy.setControllerMappingHyphenStyle(true);
-//        //localhost:8080/hello_id_2
-//        mpg.setStrategy(strategy);
-//        mpg.execute(); //Ö´ÐÐ
-//    }
-//}
+package com.qmx.demo;
+
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.util.ArrayList;
+
+      //ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+public class CodeMaker {
+    public static void main(String[] args) {
+        //ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        AutoGenerator mpg = new AutoGenerator();
+        //ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
+        //1ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        GlobalConfig gc = new GlobalConfig();
+        String projectPath = System.getProperty("user.dir");
+        gc.setOutputDir(projectPath + "/src/main/java");
+        gc.setAuthor("404name");
+        gc.setOpen(false);
+        gc.setFileOverride(false); // ï¿½Ç·ñ¸²¸ï¿½
+        gc.setServiceName("%sService"); // È¥Serviceï¿½ï¿½IÇ°×º
+        gc.setIdType(IdType.ID_WORKER);
+        gc.setDateType(DateType.ONLY_DATE);
+        gc.setSwagger2(true);
+        mpg.setGlobalConfig(gc);
+        //2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl("jdbc:mysql://47.106.232.84:3306/qmxtest?useUnicode=true&characterEncoding=UTF-8&userSSL=false&serverTimezone=Asia/Shanghai");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("@CTGUqmx123");
+        dsc.setDbType(DbType.MYSQL);
+        mpg.setDataSource(dsc);
+        //3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        PackageConfig pc = new PackageConfig();
+        pc.setModuleName("demo");
+        pc.setParent("com.qmx");
+        pc.setEntity("entity");
+        pc.setMapper("mapper");
+        pc.setService("service");
+        pc.setController("controller");
+        mpg.setPackageInfo(pc);
+        //4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setInclude("homepage"); // ï¿½ï¿½ï¿½ï¿½ÒªÓ³ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        strategy.setEntityLombokModel(true); // ï¿½Ô¶ï¿½lombokï¿½ï¿½
+        //strategy.setLogicDeleteFieldName("deleted"); //ï¿½ß¼ï¿½É¾ï¿½ï¿½ï¿½Ö¶ï¿½
+        //ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        TableFill gmtCreate = new TableFill("gmt_create", FieldFill.INSERT);
+        TableFill gmtModified = new TableFill("gmt_modified",
+                FieldFill.INSERT_UPDATE);
+        ArrayList<TableFill> tableFills = new ArrayList<>();
+        tableFills.add(gmtCreate);
+        tableFills.add(gmtModified);
+        strategy.setTableFillList(tableFills);
+        // ï¿½Ö¹ï¿½ï¿½ï¿½
+        strategy.setVersionFieldName("version");
+        strategy.setRestControllerStyle(true);
+        strategy.setControllerMappingHyphenStyle(true);
+        //localhost:8080/hello_id_2
+        mpg.setStrategy(strategy);
+        mpg.execute(); //Ö´ï¿½ï¿½
+    }
+}
