@@ -573,7 +573,7 @@
                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
                                     '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">' +
                                     '<div>' +
-                                    '<a class="text-info" href="/showUser?id=' + full.id + '">'+full.username+'</a> ||' +
+                                    '<a class="text-info mr-1" href="/showUser?id=' + full.id + '">'+full.username+'</a>' +
                                     '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                     '</div>' +
                                     '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
@@ -643,9 +643,9 @@
                                         '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;"/>' +
                                         '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
                                         '<div>' +
-                                        '<a class="text-info" href="/showUser?id=' + full.commenttocommentset[i].userid + '">'+full.commenttocommentset[i].username+'</a> ||' +
-                                        '<strong class="ttext-gray-dark text-muted" style="opacity: 75%;">回复：<a href="#">@'+full.commenttocommentset[i].tousername+'</a></strong> || ' +
-                                        '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
+                                        '<a class="text-info mr-1" href="/showUser?id=' + full.commenttocommentset[i].userid + '">'+full.commenttocommentset[i].username+'</a>' +
+                                        '<strong class="text-primary text-muted mr-1" style="opacity: 75%;">回复：<a href="#">@'+full.commenttocommentset[i].tousername+'</a></strong>' +
+                                        '<strong class="text-gray-dark text-muted mr-1" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                         '</div>' +
                                         '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
                                         '<button style="position: relative;right: 6px;" class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</button>';
@@ -751,17 +751,16 @@
                     if ($(".sidebar").hasClass("toggled")) {
                         $('.sidebar .collapse').collapse('hide');
                     }
-                    ;
                 });
 
                 // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
                 $(window).resize(function () {
-                    if ($(window).width() < 920) {
+                    if ($(window).width() < 1380) {
                         $('.sidebar .collapse').collapse('hide');
                     }
 
                     // 窗口尺寸小于480px等等条件时，关闭侧边栏以及下拉菜单或者搜索栏等等
-                    if ($(window).width() < 720 && !$(".sidebar").hasClass("toggled")) {
+                    if ($(window).width() < 1375 && !$(".sidebar").hasClass("toggled")) {
                         $("body").addClass("sidebar-toggled");
                         $(".sidebar").addClass("toggled");
                         $('.sidebar .collapse').collapse('hide');
@@ -811,7 +810,9 @@
                         $('#login-button').hide();
                     }
                 });
+                $('#sidebarToggleTop').hide();
             })(jQuery);
+
 
         </script>
 

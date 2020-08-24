@@ -153,18 +153,18 @@
                 <i class="fa fa-bars"></i>
             </button>
             <div class="navbar-header text-nowrap" th:if="${IndexBtn==null}">
-                <a class="btn btn-primary text-nowrap" href="index">首页</a>
-                <a class="btn btn-info text-nowrap" href="javascript:history.go(-1);location.reload()">返回</a>
+                <a class="btn btn-sm btn-primary text-nowrap" href="index">首页</a>
+                <a class="btn btn-sm btn-info text-nowrap" href="javascript:history.go(-1);location.reload()">返回</a>
             </div>
 
             <!-- 搜索功能-->
             <!--          搜索的表单在这里-->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+            <form id="searchFormArea" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search text-nowrap"
                   action="/webGroupPostsPage">
                 <div class="input-group text-nowrap">
                     <input id="searchPostArea" type="text" class="form-control bg-light border-0 small" placeholder="搜索帖子..."
                           name="search" aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
+                    <div class="input-group-append text-nowrap">
 
                         <button id="searchPostBtn" class="btn btn-primary ml-1" type="button"
                                 onclick='let searchStr = $("#searchPostArea").val();
@@ -181,7 +181,7 @@
             <ul class="navbar-nav ml-auto">
 
                 <!-- 下拉搜索窗口 (当画面宽度过小时显示) -->
-                <li class="nav-item dropdown no-arrow d-sm-none">
+                <li id="littleSearchFormArea" class="nav-item dropdown no-arrow d-sm-none d-none">
                     <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-search fa-fw"></i>
@@ -193,7 +193,7 @@
                         <form class="form-inline mr-auto w-100 navbar-search">
                             <div class="input-group">
                                 <input type="text" class="form-control bg-light border-0 small"
-                                       placeholder="搜索问题，话题或用户..." aria-label="Search"
+                                       placeholder="搜索帖子..." aria-label="Search"
                                        aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
@@ -281,7 +281,7 @@
                     </div>
                 </li>
 
-                <div class="topbar-divider d-none d-sm-block"></div>
+<!--                <div class="topbar-divider d-none d-sm-block"></div>-->
 
 
                 <!--头条物件--登陆的用户信息 -->
@@ -325,11 +325,11 @@
                 </li>
                 <!--              签到的按钮，id在这里-->
                 <li class="nav-item mx-1 mt-3 text-nowrap" id="checkIn"  th:if="${session.loadUser!=null && (session.loadUser.userclass eq 2 || session.loadUser.userclass eq 3 || session.loadUser.userclass eq 5)}">
-                    <button class="btn btn-outline-success text-nowrap">签到</button>
+                    <button class="btn btn-sm btn-outline-success text-nowrap">签到</button>
                 </li>
                 <!--                    进入后台-->
                 <li class="nav-item mx-1 mt-3 text-nowrap" id="enterTheBackstage" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
-                    <button class="btn btn-outline-danger text-nowrap" onclick="window.location.href='/toAllUser'">进入后台</button>
+                    <button class="btn btn-sm btn-outline-danger text-nowrap" onclick="window.location.href='/toAllUser'">进入后台</button>
                 </li>
 <!--                <a href="/ajax"> ajax测试入口</a>-->
             </ul>

@@ -41,6 +41,9 @@ function sideBarFun(){
   $(window).resize(function() {
 
     if(IsMobile()==null){
+      if($(window).width()<534){
+        $('#searchFormArea').hide();
+      }
       if ($(window).width() < 768) {
         $("body").addClass("sidebar-toggled");
         $(".sidebar").addClass("toggled");

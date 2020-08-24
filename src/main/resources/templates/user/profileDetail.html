@@ -75,7 +75,7 @@
                             <!--统计卡片-->
                             <div class="row mt-4">
 
-                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 257.45px !important; transition: height 0.3s;">
+                                <div class="col-xl-3 mb-4 animated--grow-in overflow-hidden" style="height: 277.45px !important; transition: height 0.3s;">
                                     <div class="card border-left-info shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -90,10 +90,9 @@
                                                     <div class="mb-0 font-weight-bold text-gray-800 text-info" style="margin-left:-10px;width:190px;">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;">
                                                             <div th:if="${user.getFollownum() > 0}" th:each="name,nameStat: ${user.getFollownameset()}">
-                                                                <a th:href="'/showUser?id='+${user.getFollowidset()[nameStat.index]}" class="row ml-2 text-info" style="width: 180px;">
-                                                                    <img  src="../../static/img/avatar/icon11.png" alt="" width="32" height="32">
-                                                                    <div class="col-lg-8 mt-1" style="overflow: hidden;text-overflow: ellipsis;
-                                                                        white-space: nowrap;max-width: 200px;width: 200px;">[[${name}]]</div>
+                                                                <a th:href="'/showUser?id='+${user.getFollowidset()[nameStat.index]}" class="row ml-2 text-info text-nowrap" style="width: 180px;">
+                                                                    <div class="col-lg-8 mt-1 mb-1" style="overflow: hidden;text-overflow: ellipsis;
+                                                                        white-space: nowrap;max-width: 200px;width: 200px;"><img  src="../../static/img/avatar/icon11.png" alt="" width="32" height="32">[[${name}]]</div>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -105,7 +104,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 257.45px !important; transition: height 0.3s;">
+                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 277.45px !important; transition: height 0.3s;">
                                     <div class="card border-left-primary shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -134,22 +133,23 @@
                                 </div>
 
                                 <!--统计卡片-->
-                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 257.45px !important; transition: height 0.3s;">
+                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 277.45px !important; transition: height 0.3s;">
                                     <div class="card border-left-success shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="col-auto float-right">
-                                                        <a href="#myposting"><button  class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
+                                                        <a class="toMyPosting" href="#myposting"><button  class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
                                                     </div>
                                                     <div class="font-weight-bold text-success text-uppercase mb-1">
                                                         <span id="myPartPosts">我的发帖</span>
                                                     </div>
+
                                                     <div class="mb-0 font-weight-bold text-gray-800">
-                                                        <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;width: 190px;">
+                                                        <div style="height: 170px;overflow-y:hidden;transition: all 0.3s;width: 190px;">
                                                             <!--                      这个div中填入th:if的值，请不要增删div的个数-->
-                                                            <div th:each="myposting: ${user.getMypostingset()}">
-                                                                <a class="text-success" style="opacity: 75%;" th:href="'/showPosting?type=1&postingid='+${myposting.getPostingid()}">
+                                                            <div class="mb-1" th:each="myposting: ${user.getMypostingset()}">
+                                                                <a class="text-success" style="opacity: 60%;" th:href="'/showPosting?type=1&postingid='+${myposting.getPostingid()}">
                                                                     <div class="col-lg-9 mt-1" style="overflow: hidden;text-overflow: ellipsis;
                                                                     white-space: nowrap;max-width: 190px;width: 190px;margin-left: -10px;">[[${myposting.getPostingtitle()}]]</div>
                                                                 </a>
@@ -163,19 +163,19 @@
                                 </div>
 
                                 <!--统计卡片-->
-                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 257.45px !important; transition: height 0.3s;">
+                                <div class="col-xl-3 mb-4 animated--grow-in" style="height: 277.45px !important; transition: height 0.3s;">
                                     <div class="card border-left-warning shadow h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="col-auto float-right">
-                                                        <a href="#mycollection"><button class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
+                                                        <a class="toMyCollections" href="#mycollection"><button class="btn btn-sm btn-outline-info" style="margin-top: -18px;margin-right: -20px;">更多</button></a>
                                                     </div>
                                                     <div class="font-weight-bold text-warning text-uppercase mb-1">
                                                         <span id="thePostsIlike">我关注的帖子</span>
                                                     </div>
 
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 15px;">
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800 overflow-hidden" style="font-size: 15px;">
                                                         <div style="height: 160px;overflow-y:hidden;transition: all 0.3s;width: 190px;">
                                                             <!--                      这个div中填入th:if的值，请不要增删div的个数-->
                                                             <div th:each="collection: ${user.getCollectionset()}">
@@ -256,7 +256,7 @@
                                 <div class="col-xl-12 col-lg-8 mb-5  animated--grow-in">
                                     <div class="card shadow mb-4" id="myposting">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 id="myPosts" class="m-0 font-weight-bold text-warning">我的发帖</h6>
+                                            <h6 id="myPosts" class="m-0 font-weight-bold text-primary myPosts">我的发帖</h6>
                                             <!--                  下拉菜单-->
                                             <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink3"
@@ -286,7 +286,7 @@
                                     <!--这个表格区域结束-->
                                     <div class="card shadow mb-4" id="mycollection">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 id="myCollections" class="m-0 font-weight-bold text-warning">我的收藏</h6>
+                                            <h6 id="myCollections" class="m-0 font-weight-bold text-primary myCollections">我的收藏</h6>
                                             <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button"
                                                    id="dropdownMenuLink4"
@@ -320,7 +320,7 @@
                         </div>
                         <div class="col-lg-3 mb-3">
                             <div class="row mt-4">
-                                <div class="col-xl-11 col-lg-8 ml-4 mr  animated--grow-in">
+                                <div class="col-xl-11 col-lg-8 ml-4 mr  animated--grow-in overflow-hidden">
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                             <h6 class="m-0 font-weight-bold text-info"><i
@@ -347,7 +347,7 @@
                                         <div class="d-none overflow-hidden">
                                             <small id="thisPageUserID" th:text="${user.getId()}"></small>
                                         </div>
-                                        <div class="card-body row" id="accountBasicInfo">
+                                        <div class="card-body overflow-hidden" id="accountBasicInfo">
                                             <table class="col-lg-4 ml-5 text-nowrap">
                                                 <tr>
                                                     <th></th>
@@ -641,7 +641,7 @@
                                         </div>
 
                                         <!-- 表格主体 -->
-                                        <div class="card-body row" id="accountContactInfo">
+                                        <div class="card-body overflow-hidden" id="accountContactInfo">
                                             <table class="col-lg-10">
                                                 <tr>
                                                     <th></th>
@@ -649,7 +649,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="float-right">学号：</td>
-                                                    <td><input id="thisPageUserSchooleID" class="form-control form-control-user w-100"
+                                                    <td><input id="thisPageUserSchoolID" class="form-control form-control-user w-100"
                                                                placeholder="未填写" th:value="${user.getSchoolid()}">
                                                     </td>
                                                 </tr>
@@ -698,7 +698,7 @@
                                         </div>
 
                                         <!-- 表格主体 -->
-                                        <div class="card-body row" id="accountEducationInfo">
+                                        <div class="card-body overflow-hidden" id="accountEducationInfo">
                                             <table class="col-lg-10">
                                                 <tr>
                                                     <th></th>
@@ -1048,7 +1048,12 @@
 
                 // 当窗口尺寸小于768px等等条件时，缩小侧边栏以及下拉菜单或者搜索栏等等
                 $(window).resize(function () {
+                    if($(window).width()<534){
+                        $('#searchFormArea').hide();
+                    }
+
                     if(!IsMobile()){
+
                         if ($(window).width() < 920) {
                             $("body").addClass("sidebar-toggled");
                             $(".sidebar").addClass("toggled");
@@ -1113,6 +1118,27 @@
                         $('#login-button').hide();
                     }
                 });
+
+                // 顺滑移动我的发帖跳转
+                $(document).on('click', 'a.toMyPosting', function(e) {
+                    var $anchor = $(this);
+                    $('html, body').stop().animate({
+                        scrollTop: ($($anchor.attr('href')).offset().top)
+                    }, 1000, 'easeInOutExpo');
+                    e.preventDefault();
+                });
+
+                // 顺滑移动我的收藏跳转
+                $(document).on('click', 'a.toMyCollections', function(e) {
+                    var $anchor = $(this);
+                    $('html, body').stop().animate({
+                        scrollTop: ($($anchor.attr('href')).offset().top)
+                    }, 1000, 'easeInOutExpo');
+                    e.preventDefault();
+                });
+
+
+
             })(jQuery);
             //获取url
             function getUrlParam(name) {
@@ -1133,7 +1159,7 @@
                 //alert(genderFormData);
                 let birthdayYearFormData = getCheckedBirthday();
                 let introductionFormData = $('#thisPageUserIntroduction').val();
-                let schoolIDFormData = $('#thisPageUserSchooleID').val();
+                let schoolIDFormData = $('#thisPageUserSchoolID').val();
                 let phoneFormData = $('#thisPageUserPhone').val();
                 let gitPageFormData = $('#thisPageUserGitPage').val();
                 let instituteFormData = $('#thisPageUserInstitute').val();
@@ -1289,7 +1315,7 @@
             function unfoldThisCard(obj){
                 let cardAreaDiv=$(obj).parent().next().next();
                 let mainCard = $(cardAreaDiv).parent().parent().parent().parent().parent();
-                let unfoldDiv=$(cardAreaDiv).children().first().children().first();
+                let unfoldDiv=$(cardAreaDiv).children().first();
                 if($(unfoldDiv).css("height")!=="450px"){
                     $(unfoldDiv).css({
                         'height': '450px',
@@ -1304,10 +1330,21 @@
                         'overflow-y': 'hidden'
                     });
                     $(mainCard).css({
-                        'height':'257.443px'
+                        'height':'277.45px'
                     });
                 }
             }
+
+            (function() {
+                if(IsMobile()){
+                    alert("手机界面");
+                    $("body").addClass("sidebar-toggled");
+                    $(".sidebar").addClass("toggled");
+                    $('.sidebar .collapse').collapse('hide');
+                    $('#searchFormArea').hide();
+                    $('#littleSearchFormArea').hide();
+                }
+            })(jQuery)
         </script>
 
     </body>

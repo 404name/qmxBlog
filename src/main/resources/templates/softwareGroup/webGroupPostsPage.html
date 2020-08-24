@@ -133,7 +133,7 @@
                                 <div class="card-header border-bottom-info bg-white">
                                     <i class="fas fa-list-ul"></i>
                                     <small class="h5"> 帖子分类</small>
-                                    <a class="btn btn-sm btn-outline-info float-right" href="#"> 更多>> </a>
+<!--                                    <a class="btn btn-sm btn-outline-info float-right" href="#"> 更多>> </a>-->
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
@@ -142,13 +142,13 @@
                                             <tr></tr>
                                             </thead>
                                             <tbody>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum0">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum1">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum2">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum3">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum4">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum5">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right" href="#" id="postingclassnum6">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum0">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum1">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum2">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum3">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum4">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum5">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum6">0</a></button></td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -175,7 +175,7 @@
                                     <input id="postingTitleInput" name="postingtitle" class="form-control form-control-user col-auto" type="text" placeholder="帖子标题">
                                 </div>
                                 <div class="d-none hidden overflow-hidden">
-                                    <input class="hidden" name="username" type="text" th:value="${session.loadUser.username}">
+<!--                                    <input class="hidden" name="username" type="text" th:value="${session.loadUser.username}">-->
                                     <input class="hidden" name="postingclass" type="text" id="postingClass" value="0">
                                     <textarea class="hidden" name="postingcontent" id="wangEditorContent" type="text"></textarea>
                                 </div>
@@ -460,7 +460,7 @@
                             '<small class="ml-1">最新回复：' + dateformat(full.updatadate) + '</small>' +
                             '</div>' +
                             '</div>' +
-                            '<div class="mr-2">' +
+                            '<div class="mr-2" style="margin-top:-30px;">' +
                             '<div class="list-inline">' +
                             '<span class="badge badge-pill bg-light align-text-bottom">' +'<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' + '</span><br/>' +
                             '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
