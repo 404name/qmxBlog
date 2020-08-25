@@ -102,8 +102,9 @@
                     <div class="carousel-inner" style="border-radius: 5px;" id="homepage">
                         <div class="carousel-item active">
                             <!--                裁切图片大小-->
-                            <div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;">
-                                <img style="width: 100%;"
+                            <div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;
+                                display: flex;align-items: center;">
+                                <img style="width: 100%;align-items: center;"
                                      th:src="@{/static/img/carousel/carousel-3.jpg}" alt="">
                             </div>
 
@@ -344,14 +345,14 @@
                     for(let i = 0; i < data.homepages.length; i++){
                         if( i < 1){
                             html += '<div class="carousel-item active">';
-                            htmlli += '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'
+                            htmlli += '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>'
                         }else{
                             html += '<div class="carousel-item">';
-                            htmlli += '<li data-target="#myCarousel" data-slide-to="0" class=""></li>';
+                            htmlli += '<li data-target="#myCarousel" data-slide-to="'+i+'" class=""></li>';
                         }
                         html +=
-                            '<div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;">' +
-                            '<img style="width: 100%;" src="'+data.homepages[i].imgsrc+'" alt="">' +
+                            '<div class="m-0" style="width: 100%; max-height: 450px;overflow: hidden;display: flex;align-items: center;">' +
+                            '<img style="width: 100%;align-items: center;" src="'+data.homepages[i].imgsrc+'" alt="">' +
                             '</div>' +
                             '<div class="container">' +
                             '<div class="carousel-caption text-right">' +

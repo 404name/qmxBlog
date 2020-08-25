@@ -173,32 +173,34 @@
                                     <small id="postID" th:text="${posting.getPostingid()}"></small>
                                     <small id="thisPageUserID" th:text="${posting.getId()}"></small>
                                 </div>
-                                <small class="mr-2"><img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32"
-                                                         width="32">
-                                    <small class="text-success" style="font-size: 16px;">
+                                <small class="mr-2">
+                                    <img th:src="@{/static/img/avatar/icon5.png}" alt="" height="32" width="32">
+                                    <span class="text-success" style="font-size: 16px;">
                                         <a th:href="'/showUser?id=' + ${posting.getId()}" th:text="${posting.getUsername()}"></a>
-                                    </small>
-                                    <small class="text-muted">发布于:<small class="text-muted"
-                                                                         th:text="${posting.getPostingdate()}"></small></small>
-                                    <small class="d-block">最后更新于:<small class="text-muted"
-                                                                        th:text="${posting.getUpdatadate()}"></small>
-                                    </small>
-                                    <small>本帖标签:
-                                        <small th:switch="${posting.getPostingclass()}">
-                                            <small th:case="0" class="text-muted">常规帖</small>
-                                            <small th:case="1" class="text-muted">学习总结</small>
-                                            <small th:case="2" class="text-muted">答辩作品</small>
-                                            <small th:case="3" class="text-muted">电脑带离</small>
-                                            <small th:case="4" class="text-muted">聊天水贴</small>
-                                            <small th:case="5" class="text-muted">实习工作</small>
-                                            <small th:case="6" class="text-muted">算法总结</small>
-                                        </small>
-                                        <i class="fas fa-tags"></i> </small>
+                                    </span><br/>
+                                    <span class="text-muted">发布于:
+                                        <span class="text-muted" th:text="${posting.getPostingdate()}"></span>
+                                    </span>
+                                    <span class="d-block">最后更新于:
+                                        <span class="text-muted" th:text="${posting.getUpdatadate()}"></span>
+                                    </span>
+                                    <span>本帖标签:
+                                        <span th:switch="${posting.getPostingclass()}">
+                                            <span th:case="0" class="text-muted">常规帖</span>
+                                            <span th:case="1" class="text-muted">学习总结</span>
+                                            <span th:case="2" class="text-muted">答辩作品</span>
+                                            <span th:case="3" class="text-muted">电脑带离</span>
+                                            <span th:case="4" class="text-muted">聊天水贴</span>
+                                            <span th:case="5" class="text-muted">实习工作</span>
+                                            <span th:case="6" class="text-muted">算法总结</span>
+                                        </span>
+                                        <i class="fas fa-tags"></i>
+                                    </span>
                                     <a class="text-muted" href="#">邀请 <i class="fas fa-envelope"></i> </a>
                                     <a class="text-muted" href="#">举报 <i class="fas fa-exclamation-circle"></i> </a>
                                 </small>
                             </div>
-                            <button id="postsLikesBtn" class="btn btn-success my-2 my-sm-0 float-right mr-1 text-nowrap"
+                            <button id="postsLikesBtn" class="btn btn-sm btn-success my-2 my-sm-0 float-right mr-1 text-nowrap"
                                     onclick="likesThisPost();" >关注本帖 |
                                 <span class="badge align-text-bottom" style="font-size: 14px;"
                                       th:text="${posting.getCollectionnum()}"></span>
