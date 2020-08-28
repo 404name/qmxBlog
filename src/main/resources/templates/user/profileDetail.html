@@ -13,6 +13,7 @@
         <title>我的账号</title>
 
         <link th:href="@{/static/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+        <link th:href="@{/static/css/uploadAvatar.css}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
               rel="stylesheet">
 
@@ -381,7 +382,9 @@
                                             <div class="col-lg-5 text-center">
                                                 <img src="../../static/img/avatar/icon19.png" alt="">
                                                 <button id="updateAvatar"
-                                                        class="btn btn-sm btn-success ml-2 text-nowrap">上传头像
+                                                        class="btn btn-sm btn-success ml-2 text-nowrap"
+                                                        onclick="loadMyAvatar(this)"
+                                                        data-toggle="modal" data-target="#changeAvatar">修改头像
                                                 </button>
                                             </div>
                                             <table class="col-lg-11 mt-2">
@@ -925,6 +928,42 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="changeAvatar" tabindex="-1" role="dialog" aria-labelledby="changeAvatar" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changeAvatarHead">修改头像</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <div class="container" style="max-width: 520px;margin: 30px auto;padding: 20px;">
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input class="d-none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                <label id="imageUploadLabel" for="imageUpload" class="text-center"><i class="fas fa-upload" style="margin-top: 10px;"></i></label>
+                            </div>
+                            <div class="avatar-preview">
+                                <div id="imagePreview" style="background-image: url(img/avatar/icon11.png);"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--                                                          这个命令可以开关这个div-->
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                        <a class="btn btn-primary" href="#">保存</a>
+                    </div>
+
+                </div>
+            </div>
+            <input th:value="${session.loadUser.id}" style="display: none" id="tempid">
+        </div>
+
+
         <script>
             function saveInfomation() {
 
@@ -967,6 +1006,7 @@
         <!--这里是jQuery的分页插件，反正就……挺好用的，在前端就可以排序，还可以搜索了-->
         <script th:src="@{/static/vendor/datatables/jquery.dataTables.min.js}"></script>
         <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+        <script th:src="@{/static/js/uploadAvatar.js}"></script>
         <!--        。。-->
         <script>
             let checkedGender1 = $('#thisPageUserGender').children().first();
