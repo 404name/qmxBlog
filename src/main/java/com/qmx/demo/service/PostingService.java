@@ -28,4 +28,8 @@ public interface PostingService extends IService<Posting> {
     Integer getUserPostingNum(Integer id);
     List<Posting> selectByid(Integer id);
     List<Posting>  selectCollectionByUserid(Integer id);
+    Posting select1();
+    Posting select2();
+    Posting select3();
+    Posting select4();
 }

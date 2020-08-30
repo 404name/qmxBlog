@@ -126,7 +126,7 @@
                                 <tbody id="listcontent"></tbody>
 
                                 <tbody class="table table-bordered">
-                                <form class="form-group text-center" th:action="@{/addPosting}" method="post">
+                                <form class="form-group text-center" th:action="@{/addPosting?type=0}" method="post">
                                     <th><input class="form-control form-control-user" type="text"
                                                name="postingtitle"></th>
                                     <th><input class="form-control form-control-user" type="text"
@@ -255,81 +255,73 @@
     }
 
     $(document).ready(function () {
-        $('#dataTable').DataTable({
-            "ajax": "/posting/selectAllPosting?logic=0",
-            "columns": [
-                {"data": "postingtitle"},
-                {"data": "username"},
-                {
-                    "data": "postingcontent",
-                    // "render": function (data) {
-                    //     let str = data.toString();
-                    //     while(str.indexOf("img")!==-1){
-                    //         alert("发现img标签");
-                    //         // str.replace("img","图片");
-                    //         str="发现图片标签";
-                    //     }
-                    //     while(str.indexOf("iframe")!==-1){
-                    //         alert("发现iframe标签");
-                    //         // str.replace("iframe ","视频");
-                    //         str="视频";
-                    //     }
-                    //     return str;
-                    // }
-                },
-                {
-                    "data": "postingclass",
-                    "render": function (data, type, full) {
-                        if (data == 0) {
-                            return "常规贴"
-                        } else if (data == 1) {
-                            return "学习总结";
-                        } else if (data == 2) {
-                            return "答辩作品";
-                        } else if(data == 3){
-                            return "电脑带离";
-                        }else if (data == 4) {
-                            return "聊天水贴"
-                        } else if (data == 5) {
-                            return "实习工作";
-                        } else if (data == 6) {
-                            return "算法总结";
-                        } else {
-                            return "未归类";
+        $.ajax({
+            async: "false",   //执行完再下一步
+            type: "GET",
+            url: "/postingmessage",
+            success: function(data0){
+                $('#dataTable').DataTable({
+                    "ajax": "/posting/selectAllPosting?logic=0",
+                    "columns": [
+                        {"data": "postingtitle"},
+                        {"data": "username"},
+                        {
+                            "data": "postingcontent",
+                            // "render": function (data) {
+                            //     let str = data.toString();
+                            //     while(str.indexOf("img")!==-1){
+                            //         alert("发现img标签");
+                            //         // str.replace("img","图片");
+                            //         str="发现图片标签";
+                            //     }
+                            //     while(str.indexOf("iframe")!==-1){
+                            //         alert("发现iframe标签");
+                            //         // str.replace("iframe ","视频");
+                            //         str="视频";
+                            //     }
+                            //     return str;
+                            // }
+                        },
+                        {
+                            "data": "postingclass",
+                            "render": function (data, type, full) {
+                                return data0.postingclasses[data].postingclassname;
+                            }
+                        },
+                        {
+                            "data": "commentnum"
+                        },
+                        {
+                            "data": "deleted",
+                            "render": function (data, type, full) {
+                                if (data == 0) {
+                                    return "可显示"
+                                }
+                                return "不可见";
+                            }
+                        },
+                        {
+                            "data": "postingdate",
+                            "render": function (data, type, full) {
+                                return dateformat(data);
+                            }
+                        },
+                        {
+                            "data": "postingid",
+                            "render": function (data, type, full) {
+                                var html = "";
+                                html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?type=0&postingid=' + data + '">详细</a>' +
+                                    '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/toupdataPosting?postingid=' + data + '">修改</a>' +
+                                    '<a class="btn btn-sm btn-danger text-nowrap" href="/deletePosting?postingid=' + data + '">删除</a>';
+                                return html;
+                            }
                         }
-                    }
-                },
-                {
-                    "data": "commentnum"
-                },
-                {
-                    "data": "deleted",
-                    "render": function (data, type, full) {
-                        if (data == 0) {
-                            return "可显示"
-                        }
-                        return "不可见";
-                    }
-                },
-                {
-                    "data": "postingdate",
-                    "render": function (data, type, full) {
-                        return dateformat(data);
-                    }
-                },
-                {
-                    "data": "postingid",
-                    "render": function (data, type, full) {
-                        var html = "";
-                        html += '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/showPosting?type=0&postingid=' + data + '">详细</a>' +
-                            '<a class="btn btn-sm btn-primary text-nowrap mr-1" href="/toupdataPosting?postingid=' + data + '">修改</a>' +
-                            '<a class="btn btn-sm btn-danger text-nowrap" href="/deletePosting?postingid=' + data + '">删除</a>';
-                        return html;
-                    }
-                }
-            ]
+                    ]
+                });
+                hideIMG();
+            }
         });
-        hideIMG();
+
     });
 </script>
 

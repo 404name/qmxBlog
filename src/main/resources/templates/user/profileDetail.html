@@ -1282,91 +1282,72 @@
             });
 
             function updatatable( tableid, sortway,datasrc, size) {
-                $('#' + tableid).DataTable({
-                    "bInfo" : false,//关闭页脚
-                    "bFilter" : false,    //关闭搜索
-                    "bLengthChange" : false, //关闭长度选择
-                    "scrollX": false,
-                    'iDisplayLength': size,
-                    "ajax":{
-                        "url":ajaxurl,
-                        "dataSrc": datasrc,
-                    },
-                    "columns": [
-                        {
-                            "data": sortway,
-                            "render": function (data, type, full) {
-                                let postingclassNum = full.postingclass;
-                                let strPC = "";
-                                switch (postingclassNum) {
-                                    case 0:
-                                        strPC = "常规帖";
-                                        break;
-                                    case 1:
-                                        strPC = "学习总结";
-                                        break;
-                                    case 2:
-                                        strPC = "答辩作品";
-                                        break;
-                                    case 3:
-                                        strPC = "电脑带离";
-                                        break;
-                                    case 4:
-                                        strPC = "聊天水贴";
-                                        break;
-                                    case 5:
-                                        strPC = "实习工作";
-                                        break;
-                                    case 6:
-                                        strPC = "算法总结";
-                                        break;
-                                    default:
-                                        strPC = "常规帖";
-                                        break;
+                $.ajax({
+                    async: "false",   //执行完再下一步
+                    type: "GET",
+                    url: "/postingmessage",
+                    success: function(data0){
+                        $('#' + tableid).DataTable({
+                            "bInfo" : false,//关闭页脚
+                            "bFilter" : false,    //关闭搜索
+                            "bLengthChange" : false, //关闭长度选择
+                            "scrollX": false,
+                            'iDisplayLength': size,
+                            "ajax":{
+                                "url":ajaxurl,
+                                "dataSrc": datasrc,
+                            },
+                            "columns": [
+                                {
+                                    "data": sortway,
+                                    "render": function (data, type, full) {
+                                        let postingclassNum = full.postingclass;
+                                        let strPC = data0.postingclasses[postingclassNum].postingclassname;
+                                        var html =
+                                            '<div class="">' +
+                                            '<div class="col-xl-12 col-md-12 mb-1">' +
+                                            '<div class="card border-left-primary shadow h-100 py-2">' +
+                                            '<div class="card-body">' +
+                                            '<div class="row no-gutters align-items-center">' +
+                                            '<div class="col mr-auto">' +
+                                            '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="row no-gutters align-items-center">' +
+                                            '<div class="col mr-auto">' +
+                                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                            '<small class="ml-1">发帖人：' + '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' + '</small>' +
+                                            '</div>' +
+                                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                            '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
+                                            '</div>' +
+                                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                            '<small class="ml-1">最新回复：' + dateformat(full.updatadate) + '</small>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="mr-2">' +
+                                            '<div class="list-inline">' +
+                                            '<span class="badge badge-pill bg-light align-text-bottom">' +'<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' + '</span><br/>' +
+                                            '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
+                                            '<span class="badge badge-pill bg-info align-text-bottom text-light">' + full.commentnum + ' | 回复</span><br/>' +
+                                            '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>';
+                                        return html;
+                                    }
                                 }
-                                var html =
-                                    '<div class="">' +
-                                    '<div class="col-xl-12 col-md-12 mb-1">' +
-                                    '<div class="card border-left-primary shadow h-100 py-2">' +
-                                    '<div class="card-body">' +
-                                    '<div class="row no-gutters align-items-center">' +
-                                    '<div class="col mr-auto">' +
-                                    '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="row no-gutters align-items-center">' +
-                                    '<div class="col mr-auto">' +
-                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                                    '<small class="ml-1">发帖人：' + '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' + '</small>' +
-                                    '</div>' +
-                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                                    '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
-                                    '</div>' +
-                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                                    '<small class="ml-1">最新回复：' + dateformat(full.updatadate) + '</small>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="mr-2">' +
-                                    '<div class="list-inline">' +
-                                    '<span class="badge badge-pill bg-light align-text-bottom">' +'<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' + '</span><br/>' +
-                                    '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
-                                    '<span class="badge badge-pill bg-info align-text-bottom text-light">' + full.commentnum + ' | 回复</span><br/>' +
-                                    '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>';
-                                return html;
-                            }
+                            ]
+                        });
+                        if(IsMobile()){
+                            $('#postingTag').hide();
                         }
-                    ]
+                    }
                 });
-                if(IsMobile()){
-                    $('#postingTag').hide();
-                }
             }
 
             function add0(m) {

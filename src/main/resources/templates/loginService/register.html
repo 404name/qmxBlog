@@ -95,7 +95,8 @@
                                 <div class="form-group row">
                                     <div class="col-sm-8">
                                         <select class="form-control" name="userclass" style="border-radius: 50px;">
-                                            <option th:each="userclass :${userclasses}"
+                                            <option th:if="${userclass.getUserclassname()} != '管理员'"
+                                                    th:each="userclass :${userclasses}"
                                                     th:value="${userclass.getUserclass()}"
                                                     th:text="${userclass.getUserclassname()}"
                                                     th:selected="${userclass.getUserclass() eq 1}"></option>

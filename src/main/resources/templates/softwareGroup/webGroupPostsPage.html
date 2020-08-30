@@ -141,14 +141,14 @@
                                             <thead>
                                             <tr></tr>
                                             </thead>
-                                            <tbody>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i> 常规帖<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum0">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i> 学习总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum1">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i> 答辩作品<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum2">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i> 电脑带离<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum3">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i> 聊天水贴<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum4">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i> 实习工作<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum5">0</a></button></td></tr>
-                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i> 算法总结<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum6">0</a></button></td></tr>
+                                            <tbody id="postingmessage1">
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(0)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum0">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(1)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum1">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(2)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum2">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(3)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum3">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(4)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum4">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(5)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum5">0</a></button></td></tr>
+                                            <tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag(6)"><i class="fas fa-tag"></i><a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum6">0</a></button></td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -183,15 +183,15 @@
                                 <div class="col-sm-2" style="position: relative!important;z-index: 1000000!important;">
                                     <label class="dropdown">
                                         <button id="postingClassBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" value="0">请选择帖子分类</button>
-                                        <div class="dropdown-menu animated--fade-in">
+                                        <div class="dropdown-menu animated--fade-in" id="postingmessage2">
 <!--                                            <small class="text-muted ml-1">开发组:</small>-->
-                                            <button type="button" class="dropdown-item" id="item1" onclick="i1()">常规</button>
-                                            <button type="button" class="dropdown-item" id="item2" onclick="i2()">学习总结</button>
-                                            <button type="button" class="dropdown-item" id="item3" onclick="i3()">答辩作品</button>
-                                            <button type="button" class="dropdown-item" id="item4" onclick="i4()">电脑带离</button>
-                                            <button type="button" class="dropdown-item" id="item5" onclick="i5()">聊天水贴</button>
-                                            <button type="button" class="dropdown-item" id="item6" onclick="i6()">实习工作</button>
-                                            <button type="button" class="dropdown-item" id="item7" onclick="i7()">算法总结</button>
+                                            <button type="button" class="dropdown-item" id="item1" onclick="i(1)">常规</button>
+                                            <button type="button" class="dropdown-item" id="item2" onclick="i(2)">学习总结</button>
+                                            <button type="button" class="dropdown-item" id="item3" onclick="i(3)">答辩作品</button>
+                                            <button type="button" class="dropdown-item" id="item4" onclick="i(4)">电脑带离</button>
+                                            <button type="button" class="dropdown-item" id="item5" onclick="i(5)">聊天水贴</button>
+                                            <button type="button" class="dropdown-item" id="item6" onclick="i(6)">实习工作</button>
+                                            <button type="button" class="dropdown-item" id="item7" onclick="i(7)">算法总结</button>
     <!--                                        <button type="button" class="dropdown-item" id="item7" onclick="i7()">周任务</button>-->
     <!--                                        <button type="button" class="dropdown-item" id="item8" onclick="i8()">公告</button>-->
                                         </div>
@@ -262,62 +262,6 @@
 
 <script type="text/javascript">
 
-    function getWangEditorContent() {
-        // let wangEditorStr = $('#editDiv[class="w-e-text"]').html();
-        let wangEditorStr = $('.w-e-text').html();
-        //alert(wangEditorStr);
-        $('#wangEditorContent').val(wangEditorStr);
-    }
-
-    // let strWG = "开发组:";
-    let strWG = "";
-    let enterKey = jQuery.Event("keydown");//模拟一个键盘事件
-    enterKey.keyCode = 13;//keyCode=13是回车
-    function i1(){
-        $("#postingClassBtn").html(strWG+$("#item1").text());
-        $("#postingClass").val(0);
-    }
-    function i2(){
-        $("#postingClassBtn").html(strWG+$("#item2").text());
-        $("#postingClass").val(1);
-    }
-    function i3(){
-        $("#postingClassBtn").html(strWG+$("#item3").text());
-        $("#postingClass").val(2);
-    }
-    function i4(){
-        $("#postingClassBtn").html(strWG+$("#item4").text());
-        $("#postingClass").val(3);
-    }
-    function i5(){
-        $("#postingClassBtn").html(strWG+$("#item5").text());
-        $("#postingClass").val(4);
-    }
-    function i6(){
-        $("#postingClassBtn").html(strWG+$("#item6").text());
-        $("#postingClass").val(5);
-    }
-    function i7(){
-        $("#postingClassBtn").html(strWG+$("#item7").text());
-        $("#postingClass").val(6);
-    }
-    function i8(){
-        $("#postingClassBtn").html(strWG+$("#item8").text());
-        $("#postingClass").val(7);
-    }
-    function searchByTag(tagClass) {
-        switch (tagClass) {
-            case 0:$("#dataTable_filter input").trigger("click").trigger("focus").val("常规帖").keyup();break;
-            case 1:$("#dataTable_filter input").trigger("click").trigger("focus").val("学习总结").keyup();break;
-            case 2:$("#dataTable_filter input").trigger("click").trigger("focus").val("答辩作品").keyup();break;
-            case 3:$("#dataTable_filter input").trigger("click").trigger("focus").val("电脑带离").keyup();break;
-            case 4:$("#dataTable_filter input").trigger("click").trigger("focus").val("聊天水贴").keyup();break;
-            case 5:$("#dataTable_filter input").trigger("click").trigger("focus").val("实习工作").keyup();break;
-            case 6:$("#dataTable_filter input").trigger("click").trigger("focus").val("算法总结").keyup();break;
-            default:
-                break;
-        }
-    }
 </script>
 
 
@@ -335,6 +279,24 @@
 <script th:src="@{/static/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 
 <script type="text/javascript" th:inline="none">
+    var postingClassName = new Array("正在加载","正在加载","正在加载","正在加载","正在加载","正在加载","正在加载","正在加载","正在加载","正在加载");
+    function getWangEditorContent() {
+        // let wangEditorStr = $('#editDiv[class="w-e-text"]').html();
+        let wangEditorStr = $('.w-e-text').html();
+        //alert(wangEditorStr);
+        $('#wangEditorContent').val(wangEditorStr);
+    }
+    // let strWG = "开发组:";
+    let strWG = "";
+    let enterKey = jQuery.Event("keydown");//模拟一个键盘事件
+    enterKey.keyCode = 13;//keyCode=13是回车
+    function i(index){
+        $("#postingClassBtn").html(strWG+$("#item"+index).text());
+        $("#postingClass").val(index);
+    }
+    function searchByTag(tagClass) {
+        $("#dataTable_filter input").trigger("click").trigger("focus").val(postingClassName[tagClass]).keyup();
+    }
 
     $('#searchPostArea').bind("input propertychange",function(event){
          let searchContent = $('#searchPostArea').val();
@@ -342,7 +304,8 @@
     });
     //这里【【】】会被认thymeleaf
     let sortFlag=0;
-  $(document).ready(function() {
+
+    $(document).ready(function() {
       if($('#NowUserClass').text()==="2"){
           $('#postingTitleInput').val("【开发组】帖子标题");
       }else if($('#NowUserClass').text()==="3"){
@@ -350,17 +313,6 @@
       }
       // 移仓侧边栏时候，连开关按钮一并隐藏
       $('#sidebarToggleTop').hide();
-
-      $.ajax({
-          type: "GET",
-          url: "/postingmessage",
-          success: function(data){
-              for(var i = 0; i <  data.postingclasses.length; i++){
-                  var s1 = data.postingclasses[i].postingclassnum;
-                  $('#postingclassnum'+i).text(s1);
-              }
-          }
-      });
         // fun();
         let Edit = window.wangEditor;
         let editorDiv = new Edit('#editDiv');
@@ -389,116 +341,105 @@
         $("#postTagsArea").hide();
     }
     function updatatable(tableid,sortway,ajaxurl,datasrc,size) {
-        $('#'+tableid).DataTable({
-            "Processing": true,
-             "destroy" : true,
-            'iDisplayLength': size,
-
-
-            "bDeferRender": true,  //提高速度
-
-            "ajax":{
-                "url":ajaxurl,
-                "dataSrc": datasrc,
-            },
-            "columnDefs": [{
-                "targets": [0], //隐藏第0列，从du第0列开始zhi
-                "visible": false
-            }],
-            "columns": [
-                {"data": sortway, "orderable": false},
-                {
-                    "data": "postingid",
-                    "render": function (data, type, full) {
-                        let postingclassNum = full.postingclass;
-                        let strPC = "";
-                        switch (postingclassNum) {
-                            case 0:
-                                strPC = "常规帖";
-                                break;
-                            case 1:
-                                strPC = "学习总结";
-                                break;
-                            case 2:
-                                strPC = "答辩作品";
-                                break;
-                            case 3:
-                                strPC = "电脑带离";
-                                break;
-                            case 4:
-                                strPC = "聊天水贴";
-                                break;
-                            case 5:
-                                strPC = "实习工作";
-                                break;
-                            case 6:
-                                strPC = "算法总结";
-                                break;
-                            default:
-                                strPC = "常规帖";
-                                break;
-                        }
-                        var html =
-                            '<div class="row mt-0 card-body animated--grow-in">' +
-                            '<div class="col-xl-12 col-md-12 mb-1">' +
-                            '<div class="card border-left-primary shadow h-100 py-2">' +
-                            '<div class="card-body">' +
-                            '<div class="row no-gutters align-items-center">' +
-                            '<div class="col mr-auto">' +
-                            '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="row no-gutters align-items-center">' +
-                            '<div class="col mr-auto">' +
-                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                            '<small class="ml-1">发帖人：' + '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' + '</small>' +
-                            '</div>' +
-                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                            '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
-                            '</div>' +
-                            '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
-                            '<small class="ml-1">最新回复：' + dateformat(full.updatadate) + '</small>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="mr-2" style="margin-top:-30px;">' +
-                            '<div class="list-inline">' +
-                            '<span class="badge badge-pill bg-light align-text-bottom">' +'<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + strPC + '</small>' + '</span><br/>' +
-                            '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
-                            '<span class="badge badge-pill bg-info align-text-bottom text-light">' + full.commentnum + ' | 回复</span><br/>' +
-                            '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-auto text-center">' +
-
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>';
-                        return html;
-                    }
+        $.ajax({
+            async: "false",   //执行完再下一步
+            type: "GET",
+            url: "/postingmessage",
+            success: function(data0){
+                var html1 = "";
+                var html2 = "";
+                for(var i = 0; i <  data0.postingclasses.length; i++){
+                    var s1 = data0.postingclasses[i].postingclassnum;
+                    var s2 = " "+ data0.postingclasses[i].postingclassname;
+                    postingClassName[i] = data0.postingclasses[i].postingclassname;
+                    html1 +='<tr><td><button class="btn btn-outline-light w-100 text-primary" onclick="searchByTag('+i+')"><i class="fas fa-tag"></i>'+s2+'<a style="opacity: 80%;" class="btn btn-sm btn-success btn-arrow-left float-right ml-3" href="#" id="postingclassnum'+i+'">'+s1+'</a></button></td></tr>';
+                    html2 +='<button type="button" class="dropdown-item" id="item'+i+'" onclick="i('+i+')">'+s2+'</button>'
                 }
-            ],
-            order: [[0, "desc"]],
-            "initComplete": function (settings,json){
-                startToSearch();
-            }
-        });
-        $("#dataTable_filter").hide();
-        $("#dataTable_length").addClass("text-nowrap");
-        let sortBtn = $("#dataTable").children().first().children().first().children().first();
-        // let sortBtnStr =  $(sortBtn).html();
-        let sortBtnStr =  "帖子内容";
-        $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为倒序排列</small>');
-        $(sortBtn).click(function (){
-            // alert("切换排序");
-            if(sortFlag===0){
-                sortFlag=1;
-                $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为正序排列</small>');
-            }else{
-                sortFlag=0;
+                $('#postingmessage1').html(html1);
+                $('#postingmessage2').html(html2);
+                $('#'+tableid).DataTable({
+                    "Processing": true,
+                    "destroy" : true,
+                    'iDisplayLength': size,
+                    "bDeferRender": true,  //提高速度
+                    "ajax":{
+                        "url":ajaxurl,
+                        "dataSrc": datasrc,
+                    },
+                    "columnDefs": [{
+                        "targets": [0], //隐藏第0列，从du第0列开始zhi
+                        "visible": false
+                    }],
+                    "columns": [
+                        {"data": sortway, "orderable": false},
+                        {
+                            "data": "postingid",
+                            "render": function (data, type, full) {
+                                var index = full.postingclass;
+                                var str = data0.postingclasses[index].postingclassname;
+                                console.log(index +" " +  str);
+                                var html =
+                                    '<div class="row mt-0 card-body animated--grow-in">' +
+                                    '<div class="col-xl-12 col-md-12 mb-1">' +
+                                    '<div class="card border-left-primary shadow h-100 py-2">' +
+                                    '<div class="card-body">' +
+                                    '<div class="row no-gutters align-items-center">' +
+                                    '<div class="col mr-auto">' +
+                                    '<a href="/showPosting?type=1&postingid=' + full.postingid + '" class="font-weight-bold text-primary h5 mb-1 ml-2">' + full.postingtitle + '</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row no-gutters align-items-center">' +
+                                    '<div class="col mr-auto">' +
+                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                    '<small class="ml-1">发帖人：' + '<a class="text-info" href="/showUser?id=' + full.id + '" >' + full.username + '</a>' + '</small>' +
+                                    '</div>' +
+                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                    '<small class="ml-1">发帖时间：' + dateformat(full.postingdate) + '</small>' +
+                                    '</div>' +
+                                    '<div class="mb-0 font-weight-bold text-gray-800 ml-2">' +
+                                    '<small class="ml-1">最新回复：' + dateformat(full.updatadate) + '</small>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="mr-2" style="margin-top:-30px;">' +
+                                    '<div class="list-inline">' +
+                                    '<span class="badge badge-pill bg-light align-text-bottom">' +'<i class="fas fa-comment-dots fa-2x text-primary d-block"></i>' + '<small class="text-primary mt-2">' + str + '</small>' + '</span><br/>' +
+                                    '<span class="badge badge-pill bg-light align-text-bottom">' + full.collectionnum + ' | 关注</span><br/>' +
+                                    '<span class="badge badge-pill bg-info align-text-bottom text-light">' + full.commentnum + ' | 回复</span><br/>' +
+                                    '<span class="badge badge-pill bg-light align-text-bottom">0 | 阅读</span><br/>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="col-auto text-center">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+                                return html;
+                            }
+                        }
+                    ],
+                    order: [[0, "desc"]],
+                    "initComplete": function (settings,json){
+                        startToSearch();
+                    }
+                });
+                $("#dataTable_filter").hide();
+                $("#dataTable_length").addClass("text-nowrap");
+                let sortBtn = $("#dataTable").children().first().children().first().children().first();
+                // let sortBtnStr =  $(sortBtn).html();
+                let sortBtnStr =  "帖子内容";
                 $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为倒序排列</small>');
+                $(sortBtn).click(function (){
+                    // alert("切换排序");
+                    if(sortFlag===0){
+                        sortFlag=1;
+                        $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为正序排列</small>');
+                    }else{
+                        sortFlag=0;
+                        $(sortBtn).html(sortBtnStr + '<small class="float-right btn btn-sm btn-outline-secondary" style="cursor: pointer;">切换为倒序排列</small>');
+                    }
+                });
             }
         });
     }

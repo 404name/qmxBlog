@@ -97,4 +97,16 @@ public interface PostingMapper extends BaseMapper<Posting> {
             //)
     })
     List<Posting> selectCollectionByUserid(Integer id);
+    //最新的开发组周总结
+    @Select("select * FROM posting WHERE id in(select id from user where userclass = 2) And postingclass = 2 ORDER BY postingdate DESC LIMIT 1")
+    Posting select1();
+    //最新的智能组周总结
+    @Select("select * FROM posting WHERE id in(select id from user where userclass = 3) And postingclass = 2 ORDER BY postingdate DESC LIMIT 1")
+    Posting select2();
+    //最新的开发组周任务
+    @Select("select * FROM posting WHERE id in(select id from user where userclass = 2) And postingclass = 1 ORDER BY postingdate DESC LIMIT 1")
+    Posting select3();
+    //最新的硬件组周任务
+    @Select("select * FROM posting WHERE id in(select id from user where userclass = 3) And postingclass = 1 ORDER BY postingdate DESC LIMIT 1")
+    Posting select4();
 }

@@ -61,4 +61,24 @@ public class PostingServiceImpl extends ServiceImpl<PostingMapper, Posting> impl
     public List<Posting> selectCollectionByUserid(Integer id) {
         return postingMapper.selectCollectionByUserid(id);
     }
+
+    @Override
+    public Posting select1() {
+        return postingMapper.select1();
+    }
+
+    @Override
+    public Posting select2() {
+        return postingMapper.select2();
+    }
+
+    @Override
+    public Posting select3() {
+        return postingMapper.select3();
+    }
+
+    @Override
+    public Posting select4() {
+        return postingMapper.select4();
+    }
 }
