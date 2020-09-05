@@ -578,7 +578,12 @@
                                     '<a class="text-info mr-1" href="/showUser?id=' + full.id + '">'+full.username+'</a>' +
                                     '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                     '</div>' +
-                                    '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
+
+                                    '<div class="d-flex float-right mr-1 align-content-center align-self-center mx-auto justify-content-center animated--grow-in">'+
+                                    '<span class="ml-1 mb-1 btn btn-sm btn-outline-secondary" onclick="openOptBtn(this);"><i class="fas fa-toggle-off"></i></span>'+
+                                    '</div>'+
+
+                                    '<div class="d-none float-right align-content-center align-self-center mx-auto justify-content-center animated--grow-in">' +
                                     '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto mr-1" style="position: relative;right: 6px;" ' +
                                     ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>';
                                     var followset = full.followset;
@@ -598,8 +603,9 @@
                                 html+='<button id="adminBtn1'+index+'" class="d-none ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
                                     '<button  id="adminBtn2'+index+'" class="ml-1 btn btn-sm btn-danger delete float-right" onclick="deleteInfoFun(this);"  data-toggle="modal" data-target="#deleteInfo">删除</button>' +
                                     '<a class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
+                                    '<a class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'"><i class="fa fa-close"></i></a>' +
                                     '</div>' +
-                                    '<span class="d-block text-dark mt-1 comment w-75" id="comment">'+full.commentcontent+'</span>' +
+                                    '<span class="d-block text-dark comment w-75" id="comment" style="margin-top: 35px;">'+full.commentcontent+'</span>' +
 
                                     '<span class="d-none mb-2">'+
                                     // 表单在这里
@@ -649,7 +655,12 @@
                                         '<strong class="text-primary text-muted mr-1" style="opacity: 75%;">回复：<a href="#">@'+full.commenttocommentset[i].tousername+'</a></strong>' +
                                         '<strong class="text-gray-dark text-muted mr-1" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
                                         '</div>' +
-                                        '<div class="d-flex float-right align-content-center align-self-center mx-auto justify-content-center">' +
+
+                                        '<div class="d-flex float-right mr-1 align-content-center align-self-center mx-auto justify-content-center animated--grow-in">'+
+                                        '<span class="ml-1 mb-1 btn btn-sm btn-outline-secondary" onclick="openOptBtn(this);"><i class="fas fa-toggle-off"></i></span>'+
+                                        '</div>'+
+
+                                        '<div class="d-none float-right align-content-center align-self-center mx-auto justify-content-center">' +
                                         '<button style="position: relative;right: 6px;" class="btn btn-sm btn-success float-right align-self-center mx-auto text-light" onclick="f('+index+','+full.commenttocommentset[i].userid+',\''+full.commenttocommentset[i].username+'\')">回复TA</button>';
                                         var followset0 = full.commenttocommentset[i].followset;
                                         var flag0 = 0;
@@ -669,7 +680,7 @@
                                         // '<button class="ml-1 btn btn-sm btn-info change float-right w-auto" href="/updataCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">修改</button>' +
                                         '<a id="adminBtn4'+CCindex+'" class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteCommenttocomment?commentid='+full.commenttocommentset[i].commentid+'&postingid='+postingid+'">删除</a>' +
                                         '</div>' +
-                                        '<span class="d-block text-dark mt-1 comment w-75" style="font-size: 14px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
+                                        '<span class="d-block text-dark comment w-75" style="font-size: 14px; margin-top: 35px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
                                         '<span class="d-none">'+
                                         // 表单在这里
                                         '<form action="/updataCommenttocomment" method="post">'+
@@ -743,6 +754,17 @@
         </script>
 
         <script>
+            function openOptBtn(obj){
+                if($(obj).hasClass('btn-outline-secondary')){
+                    $(obj).removeClass('btn-outline-secondary').addClass('btn-outline-success');
+                    $(obj).children().first().removeClass('fa-toggle-off').addClass('fa-toggle-on');
+                    $(obj).parent().next().removeClass('d-none').addClass('d-flex');
+                }else{
+                    $(obj).addClass('btn-outline-secondary').removeClass('btn-outline-success');
+                    $(obj).children().first().addClass('fa-toggle-off').removeClass('fa-toggle-on');
+                    $(obj).parent().next().addClass('d-none').removeClass('d-flex');
+                }
+            }
             (function ($) {
                 "use strict";
 

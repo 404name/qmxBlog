@@ -396,14 +396,19 @@
             let searchUrl = "/webGroupPostsPage";
             window.location.href = searchUrl+"?search="+searchStr;
         }
-    })
+    });
+</script>
+<script>
     (function() {
-        if(IsMobile()){
+        //alert("检测手机界面");
+        //alert(IsMobile());
+        if(IsMobile()!=null){
+            //alert("是手机界面");
             $("body").addClass("sidebar-toggled");
             $(".sidebar").addClass("toggled");
             $('.sidebar .collapse').collapse('hide');
         }
-    })(jQuery)
+    })(jQuery);
 </script>
 </body>
 
