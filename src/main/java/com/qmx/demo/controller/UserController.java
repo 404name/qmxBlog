@@ -90,5 +90,18 @@ public class UserController {
         userService.save(user);
         return "admin/list/user";
     }
-
+    @RequestMapping("/changePassword")
+    public String changePassword(Integer userid,String password,String repassword,Model model){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",userid);
+        User user = userService.getOne(wrapper);
+        if (user.getPassword().equals(password)){
+            user.setPassword(repassword);
+            userService.update(user,wrapper);
+            return "loginService/login";
+        }
+        else {
+            return "user/security_setting";
+        }
+    }
 }

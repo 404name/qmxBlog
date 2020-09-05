@@ -89,25 +89,33 @@
                         </div>
 
                         <div class="card-body row" id="accountBasicInfo">
-                            <table class="col-lg-8">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">请输入旧密码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">请输入新密码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td class="float-right">请重复新密码：</td>
-                                    <td><input class="form-control form-control-user  w-75" placeholder="" value=""></td>
-                                </tr>
-
-                            </table>
+                            <form action="/changePassword" method="post">
+                                <input  th:value="${session.loadUser.id}" name="userid">
+                                <table class="col-lg-8">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td class="float-right">请输入旧密码：</td>
+                                        <td><input name="password" class="form-control form-control-user  w-75" placeholder="" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="float-right">请输入新密码：</td>
+                                        <td><input name="repassword" class="form-control form-control-user  w-75" placeholder="" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="float-right">请重复新密码：</td>
+                                        <td><input class="form-control form-control-user  w-75" placeholder="" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="submit">确定提交</button></td>
+                                    </tr>
+                                </table>
+                            </form>
                         </div>
 
                     </div>

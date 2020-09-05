@@ -54,7 +54,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginHandkerInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/index.html","/","/index","/login.html","/register","/register.html",
-                        "/load","/logout","/registerCheck",
+                        "/load","/logout","/registerCheck","/forgotPassword","/sendEmail",
                         "/1","/2",
                         "/email/sendEmailCode","/email/checkCode","/homepage/selectAll",
                         "/static/**");

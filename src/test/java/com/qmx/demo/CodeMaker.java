@@ -51,7 +51,7 @@ public class CodeMaker {
         mpg.setPackageInfo(pc);
         //4����������
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("homepage"); // ����Ҫӳ��ı���
+        strategy.setInclude("message"); // ����Ҫӳ��ı���
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true); // �Զ�lombok��

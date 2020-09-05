@@ -2,11 +2,15 @@ package com.qmx.demo.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
+import com.qmx.demo.config.ServerConfig;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Commenttocomment;
+import com.qmx.demo.entity.Message;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.service.CommentService;
 import com.qmx.demo.service.CommenttocommentService;
+import com.qmx.demo.service.MessageService;
 import com.qmx.demo.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +39,11 @@ public class CommenttocommentController {
     private PostingService postingService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private ServerConfig serverConfig;
+
     @PostMapping("/addCommenttocomment")
     public String addPosting(Commenttocomment commenttocomment,
                              @RequestParam(value = "postingid",required = true)Integer postingid,
@@ -53,6 +62,13 @@ public class CommenttocommentController {
         Comment comment = commentService.getOne(wrapper0);
         comment.setCommenttocommentnum(comment.getCommenttocommentnum()+1);
         commentService.update(comment,wrapper0);
+        //通知回复人
+        String path0 = serverConfig.getUrl();
+        Message message= new Message(commenttocomment.getTouserid(),commenttocomment.getUsername()+"回复了你",path0+"/showPosting?postingid=" + postingid + "&commentid=" + comment.getId());
+        messageService.save(message);
+        //通知发帖人
+        message= new Message(comment.getId(),"文章有新的回复",path0+"/showPosting?postingid=" + postingid + "&commentid=" + comment.getId());
+        messageService.save(message);
         String path = "redirect:/showPosting?postingid=" + postingid;
             return path;
         }
