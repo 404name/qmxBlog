@@ -333,7 +333,7 @@
 
                     <div class="modal-footer" id="deleteInfoFooter">
                         <!--                                                          这个命令可以开关这个div-->
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+
 
                     </div>
 
@@ -488,7 +488,7 @@
                 let deleteATag = $(obj).next();
                 let deleteUrl = $(deleteATag).attr('href');
                 let deleteFooter = $('#deleteInfoFooter').html();
-                deleteFooter+='<a class="btn btn-danger" href="'+deleteUrl+'">确定删除</a>';
+                deleteFooter='<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button><a class="btn btn-danger" href="'+deleteUrl+'">确定删除</a>';
                 $('#deleteInfoFooter').html(deleteFooter);
             }
             function commentThisPosting(){
@@ -650,7 +650,7 @@
                                         '<div class="media text-muted pt-3">' +
                                         '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;margin-top:-16px;"/>' +
                                         '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
-                                        '<div>' +
+                                        '<div style="font-size:12px;">' +
                                         '<a class="text-info mr-1" href="/showUser?id=' + full.commenttocommentset[i].userid + '">'+full.commenttocommentset[i].username+'</a>' +
                                         '<strong class="text-primary text-muted mr-1" style="opacity: 75%;">回复：<a href="#">@'+full.commenttocommentset[i].tousername+'</a></strong>' +
                                         '<strong class="text-gray-dark text-muted mr-1" style="opacity: 50%;">'+dateformat(full.commenttocommentset[i].commentdate)+'</strong>' +
