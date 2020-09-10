@@ -441,7 +441,7 @@
                 }
             }
             function changeCommentBtn(obj){
-                let commentArea = $(obj).parent().next();
+                let commentArea = $(obj).parent().parent().prev().prev();
                 let changeCommentArea = $(commentArea).next();
                 let commentStr = $(commentArea).html();
                 let inputArea =  $(changeCommentArea).children().first().children().first();
