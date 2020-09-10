@@ -571,7 +571,7 @@
                             "render": function (data, type, full) {
 
                                 var html =
-                                    '<div class="media text-muted pt-3">' +
+                                    '<div class="media text-muted pt-3" id="'+full.commentid+'">' +
                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;margin-top:-16px;"/>' +
                                     '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">' +
                                     '<div>' +
@@ -656,7 +656,7 @@
                                 var commentnum = full.commenttocommentnum;
                                 for(var i = 0; i < commentnum; i++){
                                     html+='<!--      另一个评论区块-->' +
-                                        '<div class="media text-muted pt-3">' +
+                                        '<div class="media text-muted pt-3" id="l'+full.commenttocommentset[i].commentid+'">' +
                                         '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;margin-top:-16px;"/>' +
                                         '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
                                         '<div style="font-size:12px;">' +
@@ -761,8 +761,54 @@
                 $('#'+texturl).attr("placeholder","@"+name);
             }
         </script>
-
         <script>
+            function updateMessage(){
+                $.ajax({
+                    type: "GET",
+                    url: "/message/selectAll",
+                    success: function (data) {
+                        var s1 = data.messageList;
+                        $('#messageNum').html(s1.length);
+                        var html = "";
+                        for (let i = 0; i < s1.length; i++) {
+                            html +=
+                                '<a  class="dropdown-item d-flex align-items-center"  onclick="return deletemessage('+s1[i].id+')" href="' + s1[i].herf + '" >' +
+                                '<div class="mr-3" >' +
+                                '<div class="icon-circle bg-primary">' +
+                                '<i class="fas fa-file-alt text-white"></i>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div>' +
+                                '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
+                                ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
+                                '</div>' +
+                                '</a>';
+                        }
+                        $('#messageContent').html(html);
+                    }
+                });
+            }
+            function deletemessage(messageid){
+                console.log("??????????");
+                console.log(messageid);
+                $.ajax({
+                    type: "GET",
+                    url: "/message/deleteById?id="+messageid,
+                    success: function (data) {
+                        updateMessage();
+                        return true;
+                    }
+                });
+            }
+            function deleteAll(){
+                $.ajax({
+                    type: "GET",
+                    url: "/message/deleteByUserId",
+                    success: function (data) {
+                        updateMessage();
+                    }
+                });
+            }
             function add0(m) {
                 return m < 10 ? '0' + m : m
             }
@@ -789,9 +835,22 @@
                     $(obj).parent().next().addClass('d-none');
                 }
             }
+            function scrollToId(id) {
+                console.log(id);
+                // $("html,body").animate({scrollTop:$("#" + id).offset().top}, 800);
+                //800是滑动动画持续时间
+                $('html, body').stop().animate({
+                    scrollTop: ($($id.attr(id)).offset().top)
+                }, 1000, 'easeInOutExpo');
+            }
+            function getQueryString(name){
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r!=null) return r[2]; return '';
+            }
             (function ($) {
                 "use strict";
-
+                updateMessage();
                 // 侧边栏导航的开合
                 $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
                     $("body").toggleClass("sidebar-toggled");
@@ -859,32 +918,9 @@
                     }
                 });
                 $('#sidebarToggleTop').hide();
-
-                $.ajax({
-                    type: "GET",
-                    url: "/message/selectAll",
-                    success: function (data) {
-                        var s1 = data.messageList;
-                        $('#messageNum').html(s1.length);
-                        var html = "";
-                        for (let i = 0; i < s1.length; i++) {
-                            html +=
-                                '<a class="dropdown-item d-flex align-items-center" href="' + s1[i].herf + '">' +
-                                '<div class="mr-3">' +
-                                '<div class="icon-circle bg-primary">' +
-                                '<i class="fas fa-file-alt text-white"></i>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div>' +
-                                '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
-                                ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
-                                '</div>' +
-                                '</a>';
-                        }
-                        $('#messageContent').html(html);
-                    }
-                });
-
+                var myid = getQueryString("commentid");
+                console.log(myid);
+                scrollToId(myid);
             })(jQuery);
 
 
@@ -949,3 +985,4 @@
 <!--        '&lt;!&ndash;          楼中楼评论&ndash;&gt;' +-->
 <!--        '</div>' +-->
 <!--    '</div>' +-->
+<!-- 自己的js文件-->

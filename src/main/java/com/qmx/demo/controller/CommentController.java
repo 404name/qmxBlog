@@ -1,11 +1,14 @@
 package com.qmx.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qmx.demo.config.ServerConfig;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Commenttocomment;
+import com.qmx.demo.entity.Message;
 import com.qmx.demo.entity.Posting;
 import com.qmx.demo.service.CommentService;
 import com.qmx.demo.service.CommenttocommentService;
+import com.qmx.demo.service.MessageService;
 import com.qmx.demo.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +33,10 @@ public class CommentController {
 
     @Autowired
     private CommenttocommentService commenttocommentService;
-
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private ServerConfig serverConfig;
     @RequestMapping("/addComment")
     public String addComment(Comment comment,
                              @RequestParam(value = "type",required = false,defaultValue = "1")int type){
@@ -43,6 +49,10 @@ public class CommentController {
         posting.setCommentnum(posting.getCommentnum()+1);
         posting.setUpdatadate(new Date());
         postingService.update(posting,wrapper);
+        //通知发帖人
+        String path0 = serverConfig.getUrl();
+        Message message = new Message(posting.getId(),"文章有新的回复",path0+"/showPosting?postingid=" + comment.getTopostingid() + "&commentid=" + comment.getCommentid(),0);
+        messageService.save(message);
         String path = path = "redirect:/showPosting?postingid=" + comment.getTopostingid();
         return path;
     }

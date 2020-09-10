@@ -1,6 +1,7 @@
 package com.qmx.demo.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qmx.demo.entity.Homepage;
 import com.qmx.demo.entity.Message;
 import com.qmx.demo.entity.User;
@@ -37,6 +38,20 @@ public class MessageInterface {
             map.put("messageList",messageList);
             return map;
         }
+        return null;
+    }
+    @RequestMapping("/deleteById")
+    public Object deletebyid(Integer id){
+        Boolean bool = messageService.removeById(id);
+        return null;
+    }
+
+    @RequestMapping("/deleteByUserId")
+    public Object deletebyid(HttpSession session){
+        User user = (User) session.getAttribute("loadUser");
+        QueryWrapper<Message>  wrapper = new QueryWrapper<>();
+        wrapper.eq("touserid",user.getId());
+        Boolean bool = messageService.remove(wrapper);
         return null;
     }
 }

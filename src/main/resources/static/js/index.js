@@ -41,7 +41,51 @@ function dateformat(timestamp) {
   var seconds = time.getSeconds();
   return year + '-' + add0(month) + '-' + add0(date) + ' ' + add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
 }
-
+function updateMessage(){
+  $.ajax({
+    type: "GET",
+    url: "/message/selectAll",
+    success: function (data) {
+      var s1 = data.messageList;
+      $('#messageNum').html(s1.length);
+      var html = "";
+      for (let i = 0; i < s1.length; i++) {
+        html +=
+            '<a  class="dropdown-item d-flex align-items-center"  onclick="return deletemessage('+s1[i].id+')" href="' + s1[i].herf + '" >' +
+            '<div class="mr-3" >' +
+            '<div class="icon-circle bg-primary">' +
+            '<i class="fas fa-file-alt text-white"></i>' +
+            '</div>' +
+            '</div>' +
+            '<div>' +
+            '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
+            ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
+            '</div>' +
+            '</a>';
+      }
+      $('#messageContent').html(html);
+    }
+  });
+}
+function deletemessage(messageid){
+  $.ajax({
+    type: "GET",
+    url: "/message/deleteById?id="+messageid,
+    success: function (data) {
+      updateMessage();
+      return true;
+    }
+  });
+}
+function deleteAll(){
+  $.ajax({
+    type: "GET",
+    url: "/message/deleteByUserId",
+    success: function (data) {
+      updateMessage();
+    }
+  });
+}
 function sideBarFun(){
   // 侧边栏导航的开合
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
@@ -96,7 +140,7 @@ function sideBarFun(){
 
 (function($) {
   "use strict";
-
+  updateMessage();
   sideBarFun();
 
   // 滚动到顶部按钮的浮现
@@ -138,30 +182,8 @@ function sideBarFun(){
     e.preventDefault();
   });
 
-  $.ajax({
-    type: "GET",
-    url: "/message/selectAll",
-    success: function (data) {
-      var s1 = data.messageList;
-      $('#messageNum').html(s1.length);
-      var html = "";
-      for (let i = 0; i < s1.length; i++) {
-        html +=
-            '<a class="dropdown-item d-flex align-items-center" href="' + s1[i].herf + '">' +
-            '<div class="mr-3">' +
-            '<div class="icon-circle bg-primary">' +
-            '<i class="fas fa-file-alt text-white"></i>' +
-            '</div>' +
-            '</div>' +
-            '<div>' +
-            '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
-            ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
-            '</div>' +
-            '</a>';
-      }
-      $('#messageContent').html(html);
-    }
-  });
+
+
 
 })(jQuery);
 

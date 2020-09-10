@@ -18,6 +18,6 @@ import java.util.List;
  */
 @Repository
 public interface MessageMapper extends BaseMapper<Message> {
-    @Select("select * from message where touserid=#{id}")
+    @Select("select * from message where touserid=#{id} order by date DESC")
     List<Message> selectByUserid(Integer id);
 }

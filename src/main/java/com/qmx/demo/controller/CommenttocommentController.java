@@ -64,10 +64,10 @@ public class CommenttocommentController {
         commentService.update(comment,wrapper0);
         //通知回复人
         String path0 = serverConfig.getUrl();
-        Message message= new Message(commenttocomment.getTouserid(),commenttocomment.getUsername()+"回复了你",path0+"/showPosting?postingid=" + postingid + "&commentid=" + comment.getId());
+        Message message= new Message(commenttocomment.getTouserid(),commenttocomment.getUsername()+"回复了你",path0+"/showPosting?postingid=" + postingid + "&commentid=l" + commenttocomment.getCommentid(),1);
         messageService.save(message);
         //通知发帖人
-        message= new Message(comment.getId(),"文章有新的回复",path0+"/showPosting?postingid=" + postingid + "&commentid=" + comment.getId());
+        message= new Message(comment.getId(),"文章有新的回复",path0+"/showPosting?postingid=" + postingid + "&commentid=l" + commenttocomment.getCommentid(),0);
         messageService.save(message);
         String path = "redirect:/showPosting?postingid=" + postingid;
             return path;
