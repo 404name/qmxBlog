@@ -214,14 +214,15 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bell fa-fw"></i>
                         <!--                消息数量的接口在这里-->
-                        <span class="badge badge-danger badge-counter" id="messageNum">2</span>
+                        <span class="badge badge-danger badge-counter" id="messageNum"></span>
                     </a>
 
                     <!--             普通消息提示的弹出界面                                               弹出动画-->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                          aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">
-                            您收到的消息
+                        <h6 class="media dropdown-header justify-content-center" style="height:54px;">
+                            <span class="h6 align-self-center mx-auto mt-2">您收到的消息</span>
+                            <span class="float-right btn btn-sm btn-outline-light align-self-center mx-auto" id="cleanAllOfTheInfo">清除所有</span>
                         </h6>
                         <div id="messageContent">
                             <a class="dropdown-item d-flex align-items-center" href="#">
@@ -231,8 +232,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="small text-gray-500">{{时间接口}}</div>
-                                    <span class="font-weight-bold">您发布的文章{{名称接口}}有新回复了，快去查看吧</span>
+                                    <div class="small text-gray-500"></div>
+                                    <span class="font-weight-bold">您发布的文章有新回复了，快去查看吧</span>
                                 </div>
                             </a>
 
@@ -243,44 +244,44 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="small text-gray-500">{{时间接口}}</div>
-                                    <span class="font-weight-bold">您内容{{内容接口}}已被删除，请了解相关规则</span>
+                                    <div class="small text-gray-500"></div>
+                                    <span class="font-weight-bold">您内容已被删除，请了解相关规则</span>
                                 </div>
                             </a>
                         </div>
-                        <a class="dropdown-item text-center small text-gray-500" href="#">显示更多消息</a>
+                        <a id="showMoreInformation" class="dropdown-item text-center small text-gray-500" th:href="'showUser?id=' + ${session.loadUser.getId()}">显示更多消息</a>
                     </div>
                 </li>
 
                 <!-- 新私信按钮 -->
-                <li class="nav-item dropdown no-arrow mx-1" id="newEmailButton"  th:if="${session.loadUser!=null}">
-                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-envelope fa-fw"></i>
-                        <!-- 私信数量 -->
-                        <span class="badge badge-danger badge-counter">1</span>
-                    </a>
-                    <!-- 私信的下拉菜单 -->
-                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                         aria-labelledby="messagesDropdown">
-                        <h6 class="dropdown-header">
-                            您收到的私信
-                        </h6>
+<!--                <li class="nav-item dropdown no-arrow mx-1" id="newEmailButton"  th:if="${session.loadUser!=null}">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"-->
+<!--                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        <i class="fas fa-envelope fa-fw"></i>-->
+<!--                        &lt;!&ndash; 私信数量 &ndash;&gt;-->
+<!--                        <span class="badge badge-danger badge-counter">0</span>-->
+<!--                    </a>-->
+<!--                    &lt;!&ndash; 私信的下拉菜单 &ndash;&gt;-->
+<!--                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"-->
+<!--                         aria-labelledby="messagesDropdown">-->
+<!--                        <h6 class="dropdown-header">-->
+<!--                            您收到的私信-->
+<!--                        </h6>-->
 
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="dropdown-list-image mr-3">
-                                <!--                      私信头像-->
-                                <img class="rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt="">
-                            </div>
-                            <div class="font-weight-bold">
-                                <div class="small text-gray-500">{{时间接口}}</div>
-                                <div class="text-truncate">周六下午一起去图书馆吗？</div>
-                            </div>
-                        </a>
+<!--                        <a class="dropdown-item d-flex align-items-center" href="#">-->
+<!--                            <div class="dropdown-list-image mr-3">-->
+<!--                                &lt;!&ndash;                      私信头像&ndash;&gt;-->
+<!--                                <img class="rounded-circle" th:src="@{/static/img/avatar/icon3.png}" alt="">-->
+<!--                            </div>-->
+<!--                            <div class="font-weight-bold">-->
+<!--                                <div class="small text-gray-500">{{时间接口}}</div>-->
+<!--                                <div class="text-truncate">周六下午一起去图书馆吗？</div>-->
+<!--                            </div>-->
+<!--                        </a>-->
 
-                        <a class="dropdown-item text-center small text-gray-500" href="#">显示更多私信</a>
-                    </div>
-                </li>
+<!--                        <a class="dropdown-item text-center small text-gray-500" href="#">显示更多私信</a>-->
+<!--                    </div>-->
+<!--                </li>-->
 
 <!--                <div class="topbar-divider d-none d-sm-block"></div>-->
 

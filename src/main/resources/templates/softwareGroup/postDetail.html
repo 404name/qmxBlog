@@ -579,32 +579,12 @@
                                     '<strong class="text-gray-dark text-muted" style="opacity: 50%;">'+dateformat(full.commentdate)+'</strong>' +
                                     '</div>' +
 
-                                    '<div class="d-flex float-right mr-1 align-content-center align-self-center mx-auto justify-content-center animated--grow-in">'+
-                                    '<span class="ml-1 mb-1 btn btn-sm btn-outline-secondary" onclick="openOptBtn(this);"><i class="fas fa-toggle-off"></i></span>'+
-                                    '</div>'+
 
-                                    '<div class="d-none float-right align-content-center align-self-center mx-auto justify-content-center animated--grow-in">' +
-                                    '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto mr-1" style="position: relative;right: 6px;" ' +
-                                    ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>';
-                                    var followset = full.followset;
-                                    var flag = 0;
-                                    for(var i = 0; i < followset.length; i++){
-                                        if(userid == followset[i]){
-                                            flag = 1;
-                                            break;
-                                        }
-                                    }
-                                    if(flag == 1){
-                                        html+= '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">取消关注</button>';
-                                    }else{
-                                        html += '<button class="ml-1 btn btn-sm btn-success float-right align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>';
-                                    }
-                                    // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
-                                html+='<button id="adminBtn1'+index+'" class="d-none ml-1 btn btn-sm btn-info change float-right w-auto" onclick="changeCommentBtn(this);">修改</button>' +
-                                    '<button  id="adminBtn2'+index+'" class="ml-1 btn btn-sm btn-danger delete float-right" onclick="deleteInfoFun(this);"  data-toggle="modal" data-target="#deleteInfo">删除</button>' +
-                                    '<a class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
-                                    '<a class="d-none ml-1 btn-sm btn-danger delete float-right" href="/deleteComment?commentid='+full.commentid+'"><i class="fa fa-close"></i></a>' +
-                                    '</div>' +
+
+
+
+
+
                                     '<span class="d-block text-dark comment w-75" id="comment" style="margin-top: 35px;">'+full.commentcontent+'</span>' +
 
                                     '<span class="d-none mb-2">'+
@@ -638,7 +618,36 @@
                                     '</button>' +
                                     '<button class="btn btn-sm btn-outline-info" onclick="openComment(this)"><i class="fas fa-comment"></i> | ' +
                                     '<small>'+full.commenttocommentnum+'</small></button>' +
-                                    '</div>' +
+
+
+                                        '<span class="mr-1 animated--grow-in">'+
+                                        '<span class="ml-1 mr-1 btn btn-sm btn-outline-secondary" onclick="openOptBtn(this);"><i class="fas fa-toggle-off"></i></span>'+
+                                        '</span>'+
+
+                                    '<span class="d-none animated--grow-in">' +
+                                    '<button class="ml-1 btn btn-sm btn-success mr-1" style="position: relative;right: 6px;" ' +
+                                    ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>';
+                                var followset = full.followset;
+                                var flag = 0;
+                                for(var i = 0; i < followset.length; i++){
+                                    if(userid == followset[i]){
+                                        flag = 1;
+                                        break;
+                                    }
+                                }
+                                if(flag == 1){
+                                    html+= '<button class="ml-1 btn btn-sm btn-success align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">取消关注</button>';
+                                }else{
+                                    html += '<button class="ml-1 btn btn-sm btn-success align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>';
+                                }
+                                // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
+                                html+='<button id="adminBtn1'+index+'" class="d-none ml-1 btn btn-sm btn-info change w-auto" onclick="changeCommentBtn(this);">修改</button>' +
+                                    '<button  id="adminBtn2'+index+'" class="ml-1 btn btn-sm btn-danger delete" onclick="deleteInfoFun(this);"  data-toggle="modal" data-target="#deleteInfo">删除</button>' +
+                                    '<a class="d-none ml-1 btn-sm btn-danger delete" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
+                                    '<a class="d-none ml-1 btn-sm btn-danger delete" href="/deleteComment?commentid='+full.commentid+'"><i class="fa fa-close"></i></a>' +
+                                    //'</div>' +
+
+                                    '</span>' +
                                     '<!--        楼中楼评论-->' +
                                     '<div class="mt-3 animated--grow-in" style="height: auto;overflow: hidden;transition: 0.3s all!important;">' +
 
@@ -754,15 +763,30 @@
         </script>
 
         <script>
+            function add0(m) {
+                return m < 10 ? '0' + m : m
+            }
+
+            function dateformat(timestamp) {
+                //timestamp是整数，否则要parseInt转换,不会出现少个0的情况
+                var time = new Date(timestamp);
+                var year = time.getFullYear();
+                var month = time.getMonth() + 1;
+                var date = time.getDate();
+                var hours = time.getHours();
+                var minutes = time.getMinutes();
+                var seconds = time.getSeconds();
+                return year + '-' + add0(month) + '-' + add0(date) + ' ' + add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
+            }
             function openOptBtn(obj){
                 if($(obj).hasClass('btn-outline-secondary')){
                     $(obj).removeClass('btn-outline-secondary').addClass('btn-outline-success');
                     $(obj).children().first().removeClass('fa-toggle-off').addClass('fa-toggle-on');
-                    $(obj).parent().next().removeClass('d-none').addClass('d-flex');
+                    $(obj).parent().next().removeClass('d-none');
                 }else{
                     $(obj).addClass('btn-outline-secondary').removeClass('btn-outline-success');
                     $(obj).children().first().addClass('fa-toggle-off').removeClass('fa-toggle-on');
-                    $(obj).parent().next().addClass('d-none').removeClass('d-flex');
+                    $(obj).parent().next().addClass('d-none');
                 }
             }
             (function ($) {
@@ -835,6 +859,32 @@
                     }
                 });
                 $('#sidebarToggleTop').hide();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/message/selectAll",
+                    success: function (data) {
+                        var s1 = data.messageList;
+                        $('#messageNum').html(s1.length);
+                        var html = "";
+                        for (let i = 0; i < s1.length; i++) {
+                            html +=
+                                '<a class="dropdown-item d-flex align-items-center" href="' + s1[i].herf + '">' +
+                                '<div class="mr-3">' +
+                                '<div class="icon-circle bg-primary">' +
+                                '<i class="fas fa-file-alt text-white"></i>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div>' +
+                                '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
+                                ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
+                                '</div>' +
+                                '</a>';
+                        }
+                        $('#messageContent').html(html);
+                    }
+                });
+
             })(jQuery);
 
 
