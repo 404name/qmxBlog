@@ -656,7 +656,7 @@
                                 var commentnum = full.commenttocommentnum;
                                 for(var i = 0; i < commentnum; i++){
                                     html+='<!--      另一个评论区块-->' +
-                                        '<div class="media text-muted pt-3">' +
+                                        '<div class="media text-muted pt-3" id="commentAreal'+full.commenttocommentset[i].commentid+'">' +
                                         '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;margin-top:-16px;"/>' +
                                         '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
                                         '<div style="font-size:12px;">' +
@@ -782,13 +782,57 @@
                 if(urlInfoLocation==null)
                     return null;
                 //第一个Area是主楼的区块，定位到一整栋楼
-                $('body,html').animate({scrollTop: $('#commentArea986').offset().top}, 500);
+                $('body,html').animate({scrollTop: $('#commentArea'+urlInfoLocation).offset().top}, 500);
                 //而这个commentToCommentId定位的是楼中楼的id，虽然两处的id不一样，一个从九百多开始，另一个
                 //楼中楼从十几的数字开始，但是我怕帖子多了后id会冲突，目前列个两个，如果逻辑不好处理的话，
                 //也可以采用不管主楼跳转还是楼中楼定位跳转，都定位到主楼，也简单些
                 //$('body,html').animate({scrollTop: $('#commentToCommentId48').offset().top}, 500);
             }
-
+            function updateMessage(){
+                $.ajax({
+                    type: "GET",
+                    url: "/message/selectAll",
+                    success: function (data) {
+                        var s1 = data.messageList;
+                        $('#messageNum').html(s1.length);
+                        var html = "";
+                        for (let i = 0; i < s1.length; i++) {
+                            html +=
+                                '<a  class="dropdown-item d-flex align-items-center"  onclick="return deletemessage('+s1[i].id+')" href="' + s1[i].herf + '" >' +
+                                '<div class="mr-3" >' +
+                                '<div class="icon-circle bg-primary">' +
+                                '<i class="fas fa-file-alt text-white"></i>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div>' +
+                                '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
+                                ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
+                                '</div>' +
+                                '</a>';
+                        }
+                        $('#messageContent').html(html);
+                    }
+                });
+            }
+            function deletemessage(messageid){
+                $.ajax({
+                    type: "GET",
+                    url: "/message/deleteById?id="+messageid,
+                    success: function (data) {
+                        updateMessage();
+                        return true;
+                    }
+                });
+            }
+            function deleteAll(){
+                $.ajax({
+                    type: "GET",
+                    url: "/message/deleteByUserId",
+                    success: function (data) {
+                        updateMessage();
+                    }
+                });
+            }
             function add0(m) {
                 return m < 10 ? '0' + m : m
             }
@@ -885,32 +929,7 @@
                     }
                 });
                 $('#sidebarToggleTop').hide();
-
-                $.ajax({
-                    type: "GET",
-                    url: "/message/selectAll",
-                    success: function (data) {
-                        var s1 = data.messageList;
-                        $('#messageNum').html(s1.length);
-                        var html = "";
-                        for (let i = 0; i < s1.length; i++) {
-                            html +=
-                                '<a class="dropdown-item d-flex align-items-center" href="' + s1[i].herf + '">' +
-                                '<div class="mr-3">' +
-                                '<div class="icon-circle bg-primary">' +
-                                '<i class="fas fa-file-alt text-white"></i>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div>' +
-                                '<div class="small text-gray-500">' + dateformat(s1[i].date) + '</div>' +
-                                ' <span class="font-weight-bold">' + s1[i].title + '</span>' +
-                                '</div>' +
-                                '</a>';
-                        }
-                        $('#messageContent').html(html);
-                    }
-                });
-
+                updateMessage();
             })(jQuery);
 
 
