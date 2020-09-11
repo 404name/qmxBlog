@@ -1,7 +1,6 @@
 package com.qmx.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.qmx.demo.config.ServerConfig;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Commenttocomment;
 import com.qmx.demo.entity.Message;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /*------------------------
@@ -35,10 +35,8 @@ public class CommentController {
     private CommenttocommentService commenttocommentService;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private ServerConfig serverConfig;
     @RequestMapping("/addComment")
-    public String addComment(Comment comment,
+    public String addComment( HttpServletRequest request,Comment comment,
                              @RequestParam(value = "type",required = false,defaultValue = "1")int type){
         //保存
         commentService.save(comment);
@@ -50,8 +48,12 @@ public class CommentController {
         posting.setUpdatadate(new Date());
         postingService.update(posting,wrapper);
         //通知发帖人
-        String path0 = serverConfig.getUrl();
-        Message message = new Message(posting.getId(),"文章有新的回复",path0+"/showPosting?postingid=" + comment.getTopostingid() + "&commentid=" + comment.getCommentid(),0);
+
+        StringBuffer url1 = request.getRequestURL();
+        String tempContextUrl1 = url1.delete(url1.length() - request.getRequestURI().length(), url1.length()).append("/").toString();
+
+        String path0 = tempContextUrl1;
+        Message message = new Message(posting.getId(),"文章有新的回复",path0+"showPosting?postingid=" + comment.getTopostingid() + "&commentid=" + comment.getCommentid(),0);
         messageService.save(message);
         String path = path = "redirect:/showPosting?postingid=" + comment.getTopostingid();
         return path;

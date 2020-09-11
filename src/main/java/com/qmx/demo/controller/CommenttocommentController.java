@@ -2,8 +2,6 @@ package com.qmx.demo.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
-import com.qmx.demo.config.ServerConfig;
 import com.qmx.demo.entity.Comment;
 import com.qmx.demo.entity.Commenttocomment;
 import com.qmx.demo.entity.Message;
@@ -14,13 +12,12 @@ import com.qmx.demo.service.MessageService;
 import com.qmx.demo.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -41,11 +38,10 @@ public class CommenttocommentController {
     private CommentService commentService;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private ServerConfig serverConfig;
 
     @PostMapping("/addCommenttocomment")
-    public String addPosting(Commenttocomment commenttocomment,
+    public String addPosting(HttpServletRequest request,
+                            Commenttocomment commenttocomment,
                              @RequestParam(value = "postingid",required = true)Integer postingid,
                              @RequestParam(value = "type",required = false,defaultValue = "1")int type){
             commenttocommentService.save(commenttocomment);
@@ -63,11 +59,16 @@ public class CommenttocommentController {
         comment.setCommenttocommentnum(comment.getCommenttocommentnum()+1);
         commentService.update(comment,wrapper0);
         //通知回复人
-        String path0 = serverConfig.getUrl();
-        Message message= new Message(commenttocomment.getTouserid(),commenttocomment.getUsername()+"回复了你",path0+"/showPosting?postingid=" + postingid + "&commentid=l" + commenttocomment.getCommentid(),1);
+
+
+        StringBuffer url1 = request.getRequestURL();
+        String tempContextUrl1 = url1.delete(url1.length() - request.getRequestURI().length(), url1.length()).append("/").toString();
+
+        String path0 = tempContextUrl1;
+        Message message= new Message(commenttocomment.getTouserid(),commenttocomment.getUsername()+"回复了你",path0+"showPosting?postingid=" + postingid + "&commentid=l" + commenttocomment.getCommentid(),1);
         messageService.save(message);
         //通知发帖人
-        message= new Message(comment.getId(),"文章有新的回复",path0+"/showPosting?postingid=" + postingid + "&commentid=l" + commenttocomment.getCommentid(),0);
+        message= new Message(comment.getId(),"文章有新的回复",path0+"showPosting?postingid=" + postingid + "&commentid=l" + commenttocomment.getCommentid(),0);
         messageService.save(message);
         String path = "redirect:/showPosting?postingid=" + postingid;
             return path;
