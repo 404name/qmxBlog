@@ -571,7 +571,7 @@
                             "render": function (data, type, full) {
 
                                 var html =
-                                    '<div class="media text-muted pt-3">' +
+                                    '<div class="media text-muted pt-3" id="commentArea'+full.commentid+'">' +
                                     '<img width="54" height="54" class="avatar mr-2" style="margin-bottom: 10px;margin-top:-16px;"/>' +
                                     '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray" style="transition: 0.3s all!important;">' +
                                     '<div>' +
@@ -691,7 +691,7 @@
                                         '</span>' +
 
 
-                                        '<span class="d-block text-dark comment w-75" style="font-size: 14px; margin-top: 10px;">'+full.commenttocommentset[i].commentcontent+'</span>' +
+                                        '<span class="d-block text-dark comment w-75" style="font-size: 14px; margin-top: 10px;" id="commentToCommentId'+full.commentid+'">'+full.commenttocommentset[i].commentcontent+'</span>' +
                                         '<span class="d-none">'+
                                         // 表单在这里
                                         '<form action="/updataCommenttocomment" method="post">'+
@@ -749,6 +749,11 @@
                             }
                         }
                     ],
+                    "initComplete": function (settings,json){
+                        //alert("加载完成开始跳转");
+                        jumpToMyInfoLocation();
+                        //alert("跳转成功");
+                    }
                 });
             });
 
@@ -765,6 +770,25 @@
         </script>
 
         <script>
+            function getUrlParam(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg); //匹配目标参数
+                if (r != null) return unescape(r[2]); return null; //返回参数值
+            }
+            function jumpToMyInfoLocation(){
+                //alert("开始跳转");
+                let urlInfoLocation = getUrlParam("commentid","utf-8");
+                //alert(urlInfoLocation);
+                if(urlInfoLocation==null)
+                    return null;
+                //第一个Area是主楼的区块，定位到一整栋楼
+                $('body,html').animate({scrollTop: $('#commentArea986').offset().top}, 500);
+                //而这个commentToCommentId定位的是楼中楼的id，虽然两处的id不一样，一个从九百多开始，另一个
+                //楼中楼从十几的数字开始，但是我怕帖子多了后id会冲突，目前列个两个，如果逻辑不好处理的话，
+                //也可以采用不管主楼跳转还是楼中楼定位跳转，都定位到主楼，也简单些
+                //$('body,html').animate({scrollTop: $('#commentToCommentId48').offset().top}, 500);
+            }
+
             function add0(m) {
                 return m < 10 ? '0' + m : m
             }
