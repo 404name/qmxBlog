@@ -35,6 +35,7 @@
             var set = [];
             var length = -1;
             var name = "";
+            var flag = 0;
             $("#table").each(function () {
                 $(this).find('td').each(function () {
                     var str = $(this).text();
@@ -68,7 +69,13 @@
                         type: "GET",
                         url: "/luck/add?name="+name,
                         success: function(data){
-                            set.push(name);
+                            var arr = name.split(' ');
+                            if(arr[0] == "智能组" || arr[0] == "开发组"){
+                                var Studentname = arr[1];
+                                set.push(Studentname);
+                                flag = 1;
+                                length = set.length;
+                            }
                             var msg = data.msg;
                             $("#inputname").val(msg);
                         }
@@ -79,7 +86,12 @@
                 //x上限，y下限
                 var x = length - 1;
                 var y = 0;
-                var rand = parseInt(Math.random() * (x - y + 1) + y);
+                if(flag == 1){
+                    rand = length - 1;
+                    flag = 0;
+                }else{
+                    var rand = parseInt(Math.random() * (x - y + 1) + y);
+                }
                 var html = '<div class="paopao iconfont" style="left: ' + pp.pl + 'px;color: #' + pp.color[pp.c] + '">&#xe60d;' + set[rand] + '</div>';
                 $(".pao").append(html);
                 //获取颜色
@@ -87,7 +99,7 @@
                 if (pp.c >= pp.color.length) {
                     pp.c = 0;
                 }
-                pp.pl = Math.round(Math.random()*100/3);  //随机位置
+                pp.pl = Math.round(Math.random()*100/2);  //随机位置
                 //执行动画
                 $(".paopao").each(function () {
                     if ($(this).index() % 2 == 0) {
@@ -99,7 +111,7 @@
                     }
                     if (!$(this).is(":animated")) {
                         $(this).animate({            //运动
-                                top: "-800px",
+                                top: "-1200px",
                                 fontSize: "60px",
                                 opacity: "0",
                             }, (2000 - pp.step) * 10,
