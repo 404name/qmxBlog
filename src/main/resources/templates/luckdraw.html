@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>报名成功</title>
+        <link th:href="@{/static/css/base.css}" rel="stylesheet">
+    </head>
+    <body style="overflow-y: hidden;overflow-x: hidden">
+
+        <div class="container">
+            <a><input type="input"  id="inputname" placeholder="签到" value="" style="color: #c0a16b;width: 400px;position: relative"></a>
+            <input onclick="add()" type="button" value="提交" style="width: 70px;position: relative">
+            <div class="card-body" style="display: none">
+                <div class="table-responsive">
+                    <table id="table">
+                        <thead>
+                        <tr>
+                            <th>姓名</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c:${studentList}">
+                            <td th:text="${c.name}" style="color: white"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="pao">
+            </div>
+        </div>
+
+        <script type="text/javascript" th:src="@{/static/js/jquery-1.7.2.min.js}"></script>
+        <script type="text/javascript">
+            var set = [];
+            var length = -1;
+            var name = "";
+            $("#table").each(function () {
+                $(this).find('td').each(function () {
+                    var str = $(this).text();
+                    var arr = str.split(' ');
+                    var Studentname = arr[1];
+                    set[length] = Studentname;
+                    length++;
+                });
+            });
+            console.log(set);
+            $(function () {
+                paopao();
+            });
+            //需要的参数
+            var pp = {
+                pl: 0,   //生成的paopao随机的居左的位置
+                color: ["ce4f6d", "ca4fce", "4f82ce", "4fce91", "ceca4f"],   //随机添加的颜色
+                c: 0,  //初始化颜色
+                step: 1000,
+            };
+            var delaytime = 40;
+            var paopaonum = delaytime;
+            function click1() {
+                $("#name").val("抽奖 ing");
+                paopaonum--;
+                paopao1();
+            }
+            function add(){
+                var name = $("#inputname").val();
+                $.ajax({
+                        type: "GET",
+                        url: "/luck/add?name="+name,
+                        success: function(data){
+                            set.push(name);
+                            var msg = data.msg;
+                            $("#inputname").val(msg);
+                        }
+                });
+            }
+            function paopao() {
+                //添加元素
+                //x上限，y下限
+                var x = length - 1;
+                var y = 0;
+                var rand = parseInt(Math.random() * (x - y + 1) + y);
+                var html = '<div class="paopao iconfont" style="left: ' + pp.pl + 'px;color: #' + pp.color[pp.c] + '">&#xe60d;' + set[rand] + '</div>';
+                $(".pao").append(html);
+                //获取颜色
+                pp.c++;
+                if (pp.c >= pp.color.length) {
+                    pp.c = 0;
+                }
+                pp.pl = Math.round(Math.random()*100/3);  //随机位置
+                //执行动画
+                $(".paopao").each(function () {
+                    if ($(this).index() % 2 == 0) {
+                        pp.step = 800;
+                    } else if ($(this).index() % 3 == 0) {
+                        pp.step = 1000;
+                    } else {
+                        pp.step = 1200;
+                    }
+                    if (!$(this).is(":animated")) {
+                        $(this).animate({            //运动
+                                top: "-800px",
+                                fontSize: "60px",
+                                opacity: "0",
+                            }, (2000 - pp.step) * 10,
+                            function () {
+                                $(this).remove();        //清除元素
+                            })
+                    }
+                });
+                //定时器
+                setTimeout(paopao,1500);
+            }
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+html,body{
+    margin:0;
+    padding: 0;
+    background-color: #000000;
+}
+@font-face {
+    font-family: 'iconfont';  /* project id 198719 */
+    src: url('../fonts/font_u8lcaa5uh625u3di.eot');
+    src: url('../fonts/font_u8lcaa5uh625u3di.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/font_u8lcaa5uh625u3di.woff') format('woff'),
+    url('../fonts/font_u8lcaa5uh625u3di.ttf') format('truetype'),
+    url('../fonts/font_u8lcaa5uh625u3di.svg#iconfont') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:32px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+input{
+    width: 250px;
+    height: 40px;
+    position: absolute;
+    left: calc(50% - 125px);
+    top: 20%;
+    line-height: 40px;
+    color: white;
+    border: 1px solid white;
+    font-size: 30px;
+    font-family: arial;
+    background-color: rgba(255,255,255,0.2);
+}
+.pao{
+    width: 61px;
+    height: 68px;
+    position: absolute;
+    background: url("../img/icon-pao.png") center no-repeat;
+    background-size: cover;
+    bottom:0;
+    left: 50%;
+    margin-left: -30.5px;
+}
+.paopao{
+    width: 40px;
+    font-size:32px;
+    position: absolute;
+    top:-32px;
+}

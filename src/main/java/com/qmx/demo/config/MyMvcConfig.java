@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.*;
 public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
@@ -53,10 +54,10 @@ public class MyMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandkerInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/index.html","/","/index","/login.html","/register","/register.html",
+                .excludePathPatterns("/index.html","/","/index","/login.html","/register","/register.html","/luckdraw.html",
                         "/load","/logout","/registerCheck","/forgotPassword","/sendEmail","/message/selectAll",
                         "/1","/2",
-                        "/email/sendEmailCode","/email/checkCode","/homepage/selectAll",
+                        "/email/sendEmailCode","/email/checkCode","/homepage/selectAll","/luck","/luck/add",
                         "/static/**");
     }
 }
