@@ -621,11 +621,11 @@
 
 
                                         '<span class="mr-1 animated--grow-in">'+
-                                        '<span class="ml-1 mr-1 btn btn-sm btn-outline-secondary" onclick="openOptBtn(this);"><i class="fas fa-toggle-off"></i></span>'+
+                                        '<span class="ml-1 mb-1 mr-1 btn btn-sm btn-outline-secondary" onclick="openOptBtn(this);"><i class="fas fa-toggle-off"></i></span>'+
                                         '</span>'+
 
-                                    '<span class="d-none animated--grow-in">' +
-                                    '<button class="ml-1 btn btn-sm btn-success mr-1" style="position: relative;right: 6px;" ' +
+                                    '<span class="d-none mb-1 animated--grow-in">' +
+                                    '<button class="ml-1 mb-1 btn btn-sm btn-success mr-1" style="position: relative;right: 6px;" ' +
                                     ' onclick="f('+index+','+full.id+',\''+full.username+'\')">回复TA</button>';
                                 var followset = full.followset;
                                 var flag = 0;
@@ -636,15 +636,15 @@
                                     }
                                 }
                                 if(flag == 1){
-                                    html+= '<button class="ml-1 btn btn-sm btn-success align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">取消关注</button>';
+                                    html+= '<button class="ml-1 mb-1 btn btn-sm btn-success align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">取消关注</button>';
                                 }else{
-                                    html += '<button class="ml-1 btn btn-sm btn-success align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>';
+                                    html += '<button class="ml-1 mb-1 btn btn-sm btn-success align-self-center mx-auto '+full.username+'" href="#" onclick="follow(this,'+userid+',\''+username+'\','+full.id+',\''+full.username+'\')">关注</button>';
                                 }
                                 // '<a class="ml-1 btn-sm btn-info change float-right w-auto" href="/updataComment?commentid='+full.commentid+'">修改</a>' +
-                                html+='<button id="adminBtn1'+index+'" class="d-none ml-1 btn btn-sm btn-info change w-auto" onclick="changeCommentBtn(this);">修改</button>' +
-                                    '<button  id="adminBtn2'+index+'" class="ml-1 btn btn-sm btn-danger delete" onclick="deleteInfoFun(this);"  data-toggle="modal" data-target="#deleteInfo">删除</button>' +
-                                    '<a class="d-none ml-1 btn-sm btn-danger delete" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
-                                    '<a class="d-none ml-1 btn-sm btn-danger delete" href="/deleteComment?commentid='+full.commentid+'"><i class="fa fa-close"></i></a>' +
+                                html+='<button id="adminBtn1'+index+'" class="d-none ml-1 mb-1 btn btn-sm btn-info change w-auto" onclick="changeCommentBtn(this);">修改</button>' +
+                                    '<button  id="adminBtn2'+index+'" class="ml-1 mb-1 btn btn-sm btn-danger delete" onclick="deleteInfoFun(this);"  data-toggle="modal" data-target="#deleteInfo">删除</button>' +
+                                    '<a class="d-none ml-1 mb-1 btn-sm btn-danger delete" href="/deleteComment?commentid='+full.commentid+'">删除</a>' +
+                                    '<a class="d-none ml-1 mb-1 btn-sm btn-danger delete" href="/deleteComment?commentid='+full.commentid+'"><i class="fa fa-close"></i></a>' +
                                     //'</div>' +
 
                                     '</span>' +
@@ -745,6 +745,7 @@
                                         }
                                     }
                                 }
+                                $('#dataTable_length').hide();
                                 return html;
                             }
                         }
