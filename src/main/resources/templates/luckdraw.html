@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>报名成功</title>
+        <title>签到抽奖</title>
         <link th:href="@{/static/css/base.css}" rel="stylesheet">
     </head>
     <body style="overflow-y: hidden;overflow-x: hidden">
 
         <div class="container">
-            <a><input type="input"  id="inputname" placeholder="签到" value="" style="color: #c0a16b;width: 400px;position: relative"></a>
-            <input onclick="add()" type="button" value="提交" style="width: 70px;position: relative">
+            <input type="input" id="inputname" placeholder="格式【组别 姓名 学号】" value="" style="color: #c0a16b;width: 400px;height: 70px;margin-left:-70px;top: 420px">
+            <input onclick="add()" type="button" value="签到" style="width: 70px;top: 421px;margin-left:330px;height:73px">
             <div class="card-body" style="display: none">
                 <div class="table-responsive">
                     <table id="table">
@@ -63,6 +63,7 @@
                 paopaonum--;
                 paopao1();
             }
+            var formatflag = 1;
             function add(){
                 var name = $("#inputname").val();
                 $.ajax({
@@ -70,14 +71,20 @@
                         url: "/luck/add?name="+name,
                         success: function(data){
                             var arr = name.split(' ');
+                            $("#inputname").val("");
+                            $("#inputname").attr('placeholder',msg);
                             if(arr[0] == "智能组" || arr[0] == "开发组"){
                                 var Studentname = arr[1];
                                 set.push(Studentname);
                                 flag = 1;
                                 length = set.length;
+                                var msg = data.msg;
                             }
-                            var msg = data.msg;
-                            $("#inputname").val(msg);
+                            else{
+                                $("#inputname").attr('placeholder',"请输入正确的格式(刷新)");
+                            }
+
+
                         }
                 });
             }

@@ -319,6 +319,11 @@
                         </a>
                     </div>
                 </li>
+                <li class="nav-item mx-1 text-nowrap">
+                    <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/admin'">全抽奖</button>
+                    <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/admin?type=znz'">智能组抽奖</button>
+                    <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/admin?type=kfz'">开发组抽奖</button>
+                </li>
                 <li class="nav-item mx-1 text-nowrap" id="login-button" th:if="${session.loadUser eq null}">
                     <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/login'">登陆</button>
                     <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/register'">注册</button>
