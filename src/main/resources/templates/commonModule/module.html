@@ -84,6 +84,33 @@
                 更多
             </div>
             <!--   后台管理  -->
+            <li style="position: relative;z-index: 10000!important;" class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#luckpage"
+                   aria-expanded="true" aria-controls="luckpage">
+                    <i class="fas fa-fw fa-external-link-alt"></i>
+                    <span>抽奖系统</span>
+                </a>
+                <div id="luckpage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">用户入口</h6>
+                        <a class="collapse-item" href="/luck">手机扫描/直链 录入信息</a>
+                        <!--            分隔-->
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">抽奖视图</h6>
+                        <a class="collapse-item" href="/admin">全员视图</a>
+                        <a class="collapse-item" href="/admin?type=znz">智能组视图</a>
+                        <a class="collapse-item" href="/admin?type=kfz">开发组视图</a>
+                        <!--            分隔-->
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">管理员开奖入口</h6>
+                        <a class="collapse-item" href="/admin">全员开奖</a>
+                        <a class="collapse-item" href="/admin?type=znz">智能组开奖</a>
+                        <a class="collapse-item" href="/admin?type=kfz">开发组开奖</a>
+                        <h6 class="collapse-header">开发改造需要改后台</h6>
+                    </div>
+                </div>
+            </li>
+            <!--   后台管理  -->
             <li style="position: relative;z-index: 10000!important;" class="nav-item" th:if="${session.loadUser!=null && session.loadUser.userclass eq 5}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#adminPages"
                    aria-expanded="true" aria-controls="adminPages">
@@ -313,17 +340,13 @@
                         </a>
                         <!--                分割线-->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item" href="/logout" Rdata-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             退出登录
                         </a>
                     </div>
                 </li>
-                <li class="nav-item mx-1 text-nowrap">
-                    <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/admin'">全抽奖</button>
-                    <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/admin?type=znz'">智能组抽奖</button>
-                    <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/admin?type=kfz'">开发组抽奖</button>
-                </li>
+
                 <li class="nav-item mx-1 text-nowrap" id="login-button" th:if="${session.loadUser eq null}">
                     <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/login'">登陆</button>
                     <button class="btn btn-outline-success text-nowrap" onclick="window.location.href='/register'">注册</button>
